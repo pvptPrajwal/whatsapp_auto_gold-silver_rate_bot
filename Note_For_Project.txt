@@ -1,0 +1,7 @@
+Main Automation File in side the project folder  >>> app.py
+
+
+this bot was made for WhatsApp automation 
+     The Automated Jewellery Rate Notification System is a Python-based project developed to automatically send daily jewellery rates to customers on WhatsApp. In many jewellery shops, the owner checks the gold rate manually from a website and then sends the updated rate to customers or WhatsApp groups. This process takes time and can cause mistakes.  
+     In this project, we created a system that automatically fetches the live rate from a website, adds a shop margin using the plus (+) method, and sends the final rate to a selected WhatsApp group. We also developed a simple front-end interface where the user can enter the group ID, set a schedule time, add margin value, and then start the automation process.  
+This system reduces manual effort and makes communication faster and more accurate.  
