@@ -37,12 +37,33 @@
   
 The process runs automatically without manual work.  
   
-4. Technology Details       
-  
+4. Technology Details
   Frontend: Html, CSS  
   Middleware : Python (Flask)  
   Backend: Python (Webdriver manager, Selenium webdriver, PyWhatKit )  
-  We are designing an Website for automation of whatsapp(rate update)  
+  We are designing an Website for automation of whatsapp(rate update)
 
-5.How to Use
+5. How to Use
+   1. Set Schedule
+
+        <img width="774" height="320" alt="image" src="https://github.com/user-attachments/assets/bf2a9ab6-0cc2-42ed-8485-9f8fbda37319" />
+      
+   3. Set Gold Silver Margins and add Group id
+
+        <img width="752" height="328" alt="image" src="https://github.com/user-attachments/assets/398c6f9d-9a65-47c6-bbc6-860ba04da45f" />
+      
+   5. In live console its show the process
+
+      <img width="750" height="368" alt="image" src="https://github.com/user-attachments/assets/431351ed-4e8a-440a-a475-9911a7435484" />
+
+   
+6. App UI
+
+
+   <img width="706" height="957" alt="image" src="https://github.com/user-attachments/assets/a8ae1cb2-8004-47a9-a775-21c5e38f2087" />
+
+  
+   
+
+       
   
