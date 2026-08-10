@@ -1,0 +1,15 @@
+{
+  "name": "gold-silver-whatsapp-service",
+  "version": "3.0.0",
+  "private": true,
+  "description": "Local background WhatsApp bridge for GoldSilverBot",
+  "main": "bridge.js",
+  "scripts": {
+    "start": "node bridge.js"
+  },
+  "dependencies": {
+    "express": "4.21.2",
+    "qrcode": "1.5.4",
+    "whatsapp-web.js": "1.34.7"
+  }
+}

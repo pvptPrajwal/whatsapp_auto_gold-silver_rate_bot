@@ -1,3 +1,0 @@
-URL: https://web.whatsapp.com/
-Title: (12) WhatsApp Business
-Stage: message_box_not_found

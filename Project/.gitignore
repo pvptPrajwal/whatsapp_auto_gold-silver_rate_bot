@@ -1,0 +1,6 @@
+.venv/
+__pycache__/
+*.pyc
+whatsapp_service/node_modules/
+data/wwebjs_auth/
+data/settings.json

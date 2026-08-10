@@ -1,8 +1,0 @@
-2026/08/10-12:14:37.875 6f7c Reusing MANIFEST D:\Desktop\prajwal\whatsapp_auto_gold-silver_rate_bot\whatsapp_auto_gold-silver_rate_bot\Project\data\whatsapp_profile\Default\IndexedDB\https_web.whatsapp.com_0.indexeddb.leveldb/MANIFEST-000001
-2026/08/10-12:14:37.875 6f7c Recovering log #46
-2026/08/10-12:14:37.911 6f7c Reusing old log D:\Desktop\prajwal\whatsapp_auto_gold-silver_rate_bot\whatsapp_auto_gold-silver_rate_bot\Project\data\whatsapp_profile\Default\IndexedDB\https_web.whatsapp.com_0.indexeddb.leveldb/000046.log 
-2026/08/10-12:14:41.571 76fc Level-0 table #57: started
-2026/08/10-12:14:41.732 76fc Level-0 table #57: 1052854 bytes OK
-2026/08/10-12:14:42.386 76fc Delete type=0 #46
-2026/08/10-12:14:42.556 273c Compacting 1@1 + 4@2 files
-2026/08/10-12:14:42.669 273c compacted to: files[ 0 1 4 0 0 0 0 ]

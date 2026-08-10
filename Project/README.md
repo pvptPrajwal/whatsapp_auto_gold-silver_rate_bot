@@ -1,28 +1,46 @@
-# Gold & Silver Rate Bot V2
+# GoldSilverBot V3
 
-This build preserves the supplied `fetch_rates()` Selenium scraping logic and replaces PyWhatKit/MouseBlocker with a separate Selenium-based WhatsApp Web sender.
+V3 keeps the supplied `fetch_rates()` Selenium logic unchanged and replaces the WhatsApp DOM automation layer with a local `whatsapp-web.js` background service.
 
-## Main changes
+## Architecture
 
-- First-time WhatsApp login in visible Chrome.
-- Dedicated persistent Chrome profile stored under `data/whatsapp_profile`.
-- Later WhatsApp session checks and scheduled sends run with `--headless=new`.
-- Reconnect is requested only when the saved WhatsApp Web session is no longer valid.
-- No PyWhatKit and no mouse blocking.
-- Schedule continues daily until manually stopped; it no longer clears itself after three messages.
-- Failed sends do not count as completed updates.
-- Manual **Send Now** test is included.
-- Settings are stored in `data/settings.json`.
+```text
+Flask UI / Scheduler
+        |
+        +--> Existing fetch_rates() (unchanged)
+        |       +--> Shree Navratna Bullions
+        |       +--> Safari Bullions
+        |
+        +--> WhatsAppBridge (Python, localhost)
+                    |
+                    +--> Node.js / whatsapp-web.js
+                           +--> LocalAuth persistent session
+                           +--> Group list + real group IDs
+                           +--> Chat.sendMessage()
+```
 
-## Windows setup
+## Setup
 
-1. Install Python 3 and Google Chrome.
+1. Install Python 3.10+ and Node.js 18+.
 2. Run `install.bat` once.
 3. Run `run.bat`.
-4. Use **Connect WhatsApp** for the initial login.
-5. Enter the exact WhatsApp group name.
-6. Send a test message before starting the schedule.
+4. Scan the QR code shown inside the app on first login.
+5. Select the destination WhatsApp group.
+6. Use **Send Test / Send Now** before enabling the daily scheduler.
 
-## Note
+## Persistent WhatsApp session
 
-The WhatsApp sender depends on WhatsApp Web's DOM. WhatsApp can change that interface without notice, in which case the selector list in `whatsapp_manager.py` may need to be updated.
+Authentication data is stored under `data/wwebjs_auth/`. Do not delete that directory if you want the login to persist.
+
+## Notes
+
+- No PyWhatKit.
+- No mouse/keyboard blocking.
+- No Selenium WhatsApp search-box/message-box selectors.
+- The service is bound to `127.0.0.1` only.
+- The WhatsApp service uses port `3001`; Flask uses port `5000`.
+- The browser used internally by the WhatsApp service remains headless.
+
+## Disclaimer
+
+`whatsapp-web.js` is an unofficial WhatsApp Web client automation library. Account/platform behavior may change and should be tested with the intended WhatsApp account before production use.
