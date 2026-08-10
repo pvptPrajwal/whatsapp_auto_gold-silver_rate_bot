@@ -1,0 +1,17 @@
+GoldSilverBot v2.2
+====================
+
+Fixes the WhatsApp Web error: chat opens but message box cannot be found.
+
+Changes are limited to whatsapp_manager.py:
+- broader composer selectors
+- JavaScript layout-based composer detection
+- lower-right focus fallback
+- safer group-result clicking
+- active chat verification
+- read-only/admin-only group detection
+- still uses headless Chrome for sending
+
+The existing fetch_rates() logic is unchanged.
+
+If upgrading from v2/v2.1 and you want to keep the saved WhatsApp login, replace only whatsapp_manager.py and keep your existing data/ folder.
