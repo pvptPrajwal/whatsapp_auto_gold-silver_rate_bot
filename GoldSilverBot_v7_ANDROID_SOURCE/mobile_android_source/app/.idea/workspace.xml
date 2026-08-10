@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="NONE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="f8ea59e8-4f6e-4925-8496-9ab063f363a2" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/../../../GoldSilverBot_v7.zip" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Project/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/../../../Project/app.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Project/data/bot_history.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/../../../Project/data/bot_history.sqlite3" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Project/data/settings.json" beforeDir="false" afterPath="$PROJECT_DIR$/../../../Project/data/settings.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Project/data/whatsapp_profile_v5/Default/BrowsingTopicsState" beforeDir="false" afterPath="$PROJECT_DIR$/../../../Project/data/whatsapp_profile_v5/Default/BrowsingTopicsState" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Project/data/whatsapp_profile_v5/Default/Cache/Cache_Data/data_0" beforeDir="false" afterPath="$PROJECT_DIR$/../../../Project/data/whatsapp_profile_v5/Default/Cache/Cache_Data/data_0" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Project/data/whatsapp_profile_v5/Default/Cache/Cache_Data/data_1" beforeDir="false" afterPath="$PROJECT_DIR$/../../../Project/data/whatsapp_profile_v5/Default/Cache/Cache_Data/data_1" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Project/data/whatsapp_profile_v5/Default/Cache/Cache_Data/data_2" beforeDir="false" afterPath="$PROJECT_DIR$/../../../Project/data/whatsapp_profile_v5/Default/Cache/Cache_Data/data_2" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Project/data/whatsapp_profile_v5/Default/Cache/Cache_Data/data_3" beforeDir="false" afterPath="$PROJECT_DIR$/../../../Project/data/whatsapp_profile_v5/Default/Cache/Cache_Data/data_3" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Project/data/whatsapp_profile_v5/Default/Cache/Cache_Data/f_0000d6" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Project/data/whatsapp_profile_v5/Default/Code Cache/js/9033f2ce9c2b71e0_0" beforeDir="false" afterPath="$PROJECT_DIR$/../../../Project/data/whatsapp_profile_v5/Default/Code Cache/js/9033f2ce9c2b71e0_0" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Project/data/whatsapp_profile_v5/Default/Code Cache/js/ab544d9e922cf06b_0" beforeDir="false" afterPath="$PROJECT_DIR$/../../../Project/data/whatsapp_profile_v5/Default/Code Cache/js/ab544d9e922cf06b_0" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Project/data/whatsapp_profile_v5/Default/Code Cache/js/index-dir/the-real-index" beforeDir="false" afterPath="$PROJECT_DIR$/../../../Project/data/whatsapp_profile_v5/Default/Code Cache/js/index-dir/the-real-index" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Project/data/whatsapp_profile_v5/Default/Code Cache/wasm/index-dir/the-real-index" beforeDir="false" afterPath="$PROJECT_DIR$/../../../Project/data/whatsapp_profile_v5/Default/Code Cache/wasm/index-dir/the-real-index" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Project/data/whatsapp_profile_v5/Default/DIPS" beforeDir="false" afterPath="$PROJECT_DIR$/../../../Project/data/whatsapp_profile_v5/Default/DIPS" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Project/data/whatsapp_profile_v5/Default/DawnGraphiteCache/data_1" beforeDir="false" afterPath="$PROJECT_DIR$/../../../Project/data/whatsapp_profile_v5/Default/DawnGraphiteCache/data_1" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Project/data/whatsapp_profile_v5/Default/DawnWebGPUCache/data_1" beforeDir="false" afterPath="$PROJECT_DIR$/../../../Project/data/whatsapp_profile_v5/Default/DawnWebGPUCache/data_1" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Project/data/whatsapp_profile_v5/Default/Extension State/LOG" beforeDir="false" afterPath="$PROJECT_DIR$/../../../Project/data/whatsapp_profile_v5/Default/Extension State/LOG" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Project/data/whatsapp_profile_v5/Default/Extension State/LOG.old" beforeDir="false" afterPath="$PROJECT_DIR$/../../../Project/data/whatsapp_profile_v5/Default/Extension State/LOG.old" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Project/data/whatsapp_profile_v5/Default/GCM Store/LOG" beforeDir="false" afterPath="$PROJECT_DIR$/../../../Project/data/whatsapp_profile_v5/Default/GCM Store/LOG" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Project/data/whatsapp_profile_v5/Default/GCM Store/LOG.old" beforeDir="false" afterPath="$PROJECT_DIR$/../../../Project/data/whatsapp_profile_v5/Default/GCM Store/LOG.old" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Project/data/whatsapp_profile_v5/Default/GPUCache/data_1" beforeDir="false" afterPath="$PROJECT_DIR$/../../../Project/data/whatsapp_profile_v5/Default/GPUCache/data_1" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Project/data/whatsapp_profile_v5/Default/History" beforeDir="false" afterPath="$PROJECT_DIR$/../../../Project/data/whatsapp_profile_v5/Default/History" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Project/data/whatsapp_profile_v5/Default/IndexedDB/https_web.whatsapp.com_0.indexeddb.leveldb/000057.ldb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Project/data/whatsapp_profile_v5/Default/IndexedDB/https_web.whatsapp.com_0.indexeddb.leveldb/000058.ldb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Project/data/whatsapp_profile_v5/Default/IndexedDB/https_web.whatsapp.com_0.indexeddb.leveldb/000059.ldb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Project/data/whatsapp_profile_v5/Default/IndexedDB/https_web.whatsapp.com_0.indexeddb.leveldb/000060.ldb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Project/data/whatsapp_profile_v5/Default/IndexedDB/https_web.whatsapp.com_0.indexeddb.leveldb/000062.log" beforeDir="false" afterPath="$PROJECT_DIR$/../../../Project/data/whatsapp_profile_v5/Default/IndexedDB/https_web.whatsapp.com_0.indexeddb.leveldb/000062.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Project/data/whatsapp_profile_v5/Default/IndexedDB/https_web.whatsapp.com_0.indexeddb.leveldb/000063.ldb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Project/data/whatsapp_profile_v5/Default/IndexedDB/https_web.whatsapp.com_0.indexeddb.leveldb/LOG" beforeDir="false" afterPath="$PROJECT_DIR$/../../../Project/data/whatsapp_profile_v5/Default/IndexedDB/https_web.whatsapp.com_0.indexeddb.leveldb/LOG" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Project/data/whatsapp_profile_v5/Default/IndexedDB/https_web.whatsapp.com_0.indexeddb.leveldb/LOG.old" beforeDir="false" afterPath="$PROJECT_DIR$/../../../Project/data/whatsapp_profile_v5/Default/IndexedDB/https_web.whatsapp.com_0.indexeddb.leveldb/LOG.old" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Project/data/whatsapp_profile_v5/Default/Local Storage/leveldb/000004.log" beforeDir="false" afterPath="$PROJECT_DIR$/../../../Project/data/whatsapp_profile_v5/Default/Local Storage/leveldb/000004.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Project/data/whatsapp_profile_v5/Default/Local Storage/leveldb/LOG" beforeDir="false" afterPath="$PROJECT_DIR$/../../../Project/data/whatsapp_profile_v5/Default/Local Storage/leveldb/LOG" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Project/data/whatsapp_profile_v5/Default/Local Storage/leveldb/LOG.old" beforeDir="false" afterPath="$PROJECT_DIR$/../../../Project/data/whatsapp_profile_v5/Default/Local Storage/leveldb/LOG.old" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Project/data/whatsapp_profile_v5/Default/Network/Cookies" beforeDir="false" afterPath="$PROJECT_DIR$/../../../Project/data/whatsapp_profile_v5/Default/Network/Cookies" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Project/data/whatsapp_profile_v5/Default/Network/Network Persistent State" beforeDir="false" afterPath="$PROJECT_DIR$/../../../Project/data/whatsapp_profile_v5/Default/Network/Network Persistent State" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Project/data/whatsapp_profile_v5/Default/Network/Reporting and NEL" beforeDir="false" afterPath="$PROJECT_DIR$/../../../Project/data/whatsapp_profile_v5/Default/Network/Reporting and NEL" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Project/data/whatsapp_profile_v5/Default/Network/TransportSecurity" beforeDir="false" afterPath="$PROJECT_DIR$/../../../Project/data/whatsapp_profile_v5/Default/Network/TransportSecurity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Project/data/whatsapp_profile_v5/Default/Preferences" beforeDir="false" afterPath="$PROJECT_DIR$/../../../Project/data/whatsapp_profile_v5/Default/Preferences" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Project/data/whatsapp_profile_v5/Default/Secure Preferences" beforeDir="false" afterPath="$PROJECT_DIR$/../../../Project/data/whatsapp_profile_v5/Default/Secure Preferences" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Project/data/whatsapp_profile_v5/Default/Service Worker/CacheStorage/0bf6ab7f94a21cdc9c1649f884333ec20f40a544/054f642e-4504-41f8-b919-26c418e412cd/0ccd68f5943af63d_0" beforeDir="false" afterPath="$PROJECT_DIR$/../../../Project/data/whatsapp_profile_v5/Default/Service Worker/CacheStorage/0bf6ab7f94a21cdc9c1649f884333ec20f40a544/054f642e-4504-41f8-b919-26c418e412cd/0ccd68f5943af63d_0" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Project/data/whatsapp_profile_v5/Default/Service Worker/CacheStorage/0bf6ab7f94a21cdc9c1649f884333ec20f40a544/054f642e-4504-41f8-b919-26c418e412cd/db280741427d3177_0" beforeDir="false" afterPath="$PROJECT_DIR$/../../../Project/data/whatsapp_profile_v5/Default/Service Worker/CacheStorage/0bf6ab7f94a21cdc9c1649f884333ec20f40a544/054f642e-4504-41f8-b919-26c418e412cd/db280741427d3177_0" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Project/data/whatsapp_profile_v5/Default/Service Worker/CacheStorage/0bf6ab7f94a21cdc9c1649f884333ec20f40a544/054f642e-4504-41f8-b919-26c418e412cd/index-dir/temp-index" beforeDir="false" afterPath="$PROJECT_DIR$/../../../Project/data/whatsapp_profile_v5/Default/Service Worker/CacheStorage/0bf6ab7f94a21cdc9c1649f884333ec20f40a544/054f642e-4504-41f8-b919-26c418e412cd/index-dir/temp-index" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Project/data/whatsapp_profile_v5/Default/Service Worker/CacheStorage/0bf6ab7f94a21cdc9c1649f884333ec20f40a544/ae0d551c-90fd-48c5-90ad-473c6e651709/index-dir/temp-index" beforeDir="false" afterPath="$PROJECT_DIR$/../../../Project/data/whatsapp_profile_v5/Default/Service Worker/CacheStorage/0bf6ab7f94a21cdc9c1649f884333ec20f40a544/ae0d551c-90fd-48c5-90ad-473c6e651709/index-dir/temp-index" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Project/data/whatsapp_profile_v5/Default/Service Worker/Database/000003.log" beforeDir="false" afterPath="$PROJECT_DIR$/../../../Project/data/whatsapp_profile_v5/Default/Service Worker/Database/000003.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Project/data/whatsapp_profile_v5/Default/Service Worker/Database/LOG" beforeDir="false" afterPath="$PROJECT_DIR$/../../../Project/data/whatsapp_profile_v5/Default/Service Worker/Database/LOG" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Project/data/whatsapp_profile_v5/Default/Service Worker/Database/LOG.old" beforeDir="false" afterPath="$PROJECT_DIR$/../../../Project/data/whatsapp_profile_v5/Default/Service Worker/Database/LOG.old" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Project/data/whatsapp_profile_v5/Default/Service Worker/ScriptCache/013888a1cda32b90_0" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Project/data/whatsapp_profile_v5/Default/Service Worker/ScriptCache/013888a1cda32b90_1" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Project/data/whatsapp_profile_v5/Default/Service Worker/ScriptCache/b6c28cea6ed9dfc1_0" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Project/data/whatsapp_profile_v5/Default/Service Worker/ScriptCache/b6c28cea6ed9dfc1_1" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Project/data/whatsapp_profile_v5/Default/Service Worker/ScriptCache/index-dir/the-real-index" beforeDir="false" afterPath="$PROJECT_DIR$/../../../Project/data/whatsapp_profile_v5/Default/Service Worker/ScriptCache/index-dir/the-real-index" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Project/data/whatsapp_profile_v5/Default/Session Storage/000003.log" beforeDir="false" afterPath="$PROJECT_DIR$/../../../Project/data/whatsapp_profile_v5/Default/Session Storage/000003.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Project/data/whatsapp_profile_v5/Default/Session Storage/LOG" beforeDir="false" afterPath="$PROJECT_DIR$/../../../Project/data/whatsapp_profile_v5/Default/Session Storage/LOG" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Project/data/whatsapp_profile_v5/Default/Session Storage/LOG.old" beforeDir="false" afterPath="$PROJECT_DIR$/../../../Project/data/whatsapp_profile_v5/Default/Session Storage/LOG.old" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Project/data/whatsapp_profile_v5/Default/Sessions/Session_13430828376173115" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Project/data/whatsapp_profile_v5/Default/Sessions/Session_13430828639489112" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Project/data/whatsapp_profile_v5/Default/Sessions/Tabs_13430828376232177" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Project/data/whatsapp_profile_v5/Default/Sessions/Tabs_13430828639536562" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Project/data/whatsapp_profile_v5/Default/Site Characteristics Database/000003.log" beforeDir="false" afterPath="$PROJECT_DIR$/../../../Project/data/whatsapp_profile_v5/Default/Site Characteristics Database/000003.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Project/data/whatsapp_profile_v5/Default/Site Characteristics Database/LOG" beforeDir="false" afterPath="$PROJECT_DIR$/../../../Project/data/whatsapp_profile_v5/Default/Site Characteristics Database/LOG" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Project/data/whatsapp_profile_v5/Default/Site Characteristics Database/LOG.old" beforeDir="false" afterPath="$PROJECT_DIR$/../../../Project/data/whatsapp_profile_v5/Default/Site Characteristics Database/LOG.old" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Project/data/whatsapp_profile_v5/Default/Sync Data/LevelDB/LOG" beforeDir="false" afterPath="$PROJECT_DIR$/../../../Project/data/whatsapp_profile_v5/Default/Sync Data/LevelDB/LOG" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Project/data/whatsapp_profile_v5/Default/Sync Data/LevelDB/LOG.old" beforeDir="false" afterPath="$PROJECT_DIR$/../../../Project/data/whatsapp_profile_v5/Default/Sync Data/LevelDB/LOG.old" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Project/data/whatsapp_profile_v5/Default/Web Data" beforeDir="false" afterPath="$PROJECT_DIR$/../../../Project/data/whatsapp_profile_v5/Default/Web Data" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Project/data/whatsapp_profile_v5/Default/WebStorage/QuotaManager" beforeDir="false" afterPath="$PROJECT_DIR$/../../../Project/data/whatsapp_profile_v5/Default/WebStorage/QuotaManager" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Project/data/whatsapp_profile_v5/Default/shared_proto_db/000003.log" beforeDir="false" afterPath="$PROJECT_DIR$/../../../Project/data/whatsapp_profile_v5/Default/shared_proto_db/000003.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Project/data/whatsapp_profile_v5/Default/shared_proto_db/LOG" beforeDir="false" afterPath="$PROJECT_DIR$/../../../Project/data/whatsapp_profile_v5/Default/shared_proto_db/LOG" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Project/data/whatsapp_profile_v5/Default/shared_proto_db/LOG.old" beforeDir="false" afterPath="$PROJECT_DIR$/../../../Project/data/whatsapp_profile_v5/Default/shared_proto_db/LOG.old" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Project/data/whatsapp_profile_v5/Default/shared_proto_db/metadata/000003.log" beforeDir="false" afterPath="$PROJECT_DIR$/../../../Project/data/whatsapp_profile_v5/Default/shared_proto_db/metadata/000003.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Project/data/whatsapp_profile_v5/Default/shared_proto_db/metadata/LOG" beforeDir="false" afterPath="$PROJECT_DIR$/../../../Project/data/whatsapp_profile_v5/Default/shared_proto_db/metadata/LOG" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Project/data/whatsapp_profile_v5/Default/shared_proto_db/metadata/LOG.old" beforeDir="false" afterPath="$PROJECT_DIR$/../../../Project/data/whatsapp_profile_v5/Default/shared_proto_db/metadata/LOG.old" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Project/data/whatsapp_profile_v5/DevToolsActivePort" beforeDir="false" afterPath="$PROJECT_DIR$/../../../Project/data/whatsapp_profile_v5/DevToolsActivePort" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Project/data/whatsapp_profile_v5/GrShaderCache/data_1" beforeDir="false" afterPath="$PROJECT_DIR$/../../../Project/data/whatsapp_profile_v5/GrShaderCache/data_1" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Project/data/whatsapp_profile_v5/Local State" beforeDir="false" afterPath="$PROJECT_DIR$/../../../Project/data/whatsapp_profile_v5/Local State" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Project/data/whatsapp_profile_v5/ShaderCache/data_1" beforeDir="false" afterPath="$PROJECT_DIR$/../../../Project/data/whatsapp_profile_v5/ShaderCache/data_1" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Project/data/whatsapp_profile_v5/first_party_sets.db" beforeDir="false" afterPath="$PROJECT_DIR$/../../../Project/data/whatsapp_profile_v5/first_party_sets.db" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Project/data/whatsapp_profile_v5/segmentation_platform/ukm_db" beforeDir="false" afterPath="$PROJECT_DIR$/../../../Project/data/whatsapp_profile_v5/segmentation_platform/ukm_db" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ClangdSettings">
+    <option name="formatViaClangd" value="false" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../../.." />
+  </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 8,
+  "fromUser": false
+}]]></component>
+  <component name="ProjectId" id="3HigdHrrUsmdfDK7ahPi78VGWmg" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.cidr.known.project.marker": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "RunOnceActivity.readMode.enableVisualFormatting": "true",
+    "android.gradle.sync.needed": "true",
+    "cf.first.check.clang-format": "false",
+    "cidr.known.project.marker": "true",
+    "git-widget-placeholder": "main",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "D:/Desktop/prajwal/whatsapp_auto_gold-silver_rate_bot/whatsapp_auto_gold-silver_rate_bot/GoldSilverBot_v7_ANDROID_SOURCE/mobile_android_source/app"
+  }
+}]]></component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="f8ea59e8-4f6e-4925-8496-9ab063f363a2" name="Changes" comment="" />
+      <created>1786356388720</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1786356388720</updated>
+    </task>
+    <servers />
+  </component>
+</project>

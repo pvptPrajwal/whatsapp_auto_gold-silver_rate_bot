@@ -330,7 +330,9 @@ with state_lock:
 
 # ---------------------------------------------------------------------------
 # EXISTING RATE FETCHING LOGIC
-# Kept EXACTLY as in the working V5/V6 build.
+# V7.2 rate selection:
+# - Silver: Shree Navratna "SILVER 999 (PETI CUT) + GST" right-side SELL rate.
+# - Gold: Safari "GOLD INDIAN-BIS 995 1KG T+0" right-side SELL rate.
 # ---------------------------------------------------------------------------
 def fetch_rates(silver_margin, gold_margin):
     log_msg("🚀 Starting Chrome in background...")
@@ -358,11 +360,22 @@ def fetch_rates(silver_margin, gold_margin):
             try:
                 for row in driver.find_element(By.ID, "gvData_Trending_Silverr").find_elements(By.TAG_NAME, "tr"):
                     cols = row.find_elements(By.TAG_NAME, "td")
-                    if len(cols) >= 3 and "SILVER" in cols[0].text.upper():
-                        nums = re.findall(r'\b\d{5,7}\b', cols[2].text.replace(',', ''))
-                        if nums:
-                            silver_rate = int(nums[0]) + silver_margin
-                            break
+                    row_text = row.text.upper()
+
+                    # Silver target requested by the user:
+                    # SILVER 999 (PETI CUT) + GST -> use the RIGHT-SIDE SELL rate.
+                    if len(cols) >= 3 and "SILVER 999 (PETI CUT) + GST" in row_text:
+                        sell_text = cols[2].text.replace(',', '').strip()
+                        if sell_text:
+                            # The SELL cell can also contain High/Low values.
+                            # The first displayed number is the live highlighted SELL rate.
+                            first_line = sell_text.splitlines()[0].strip()
+                            nums = re.findall(r'\b\d{5,7}\b', first_line)
+                            if nums:
+                                selected_silver_rate = int(nums[0])
+                                silver_rate = selected_silver_rate + silver_margin
+                                log_msg(f"✅ Navratna Silver SELL rate selected: ₹ {selected_silver_rate}")
+                                break
                 if silver_rate != "Not Found": break
             except StaleElementReferenceException:
                 time.sleep(2)
@@ -375,18 +388,38 @@ def fetch_rates(silver_margin, gold_margin):
             try:
                 for row in driver.find_element(By.ID, "gvData_Trending").find_elements(By.TAG_NAME, "tr"):
                     row_text = row.text.upper()
-                    if "GOLD" in row_text and "995" in row_text:
+
+                    # Gold target requested by the user:
+                    # GOLD INDIAN-BIS 995 1KG T+0 -> use the RIGHT-SIDE SELL rate.
+                    if "GOLD INDIAN-BIS 995 1KG T+0" in row_text:
                         cols = row.find_elements(By.TAG_NAME, "td")
-                        if len(cols) >= 3:
-                            nums = re.findall(r'\b\d{5,7}\b', cols[2].text.replace(',', ''))
+                        rate_candidates = []
+
+                        # Each displayed price cell may also contain High/Low values.
+                        # The first number in a price cell is the live main rate.
+                        for col in cols[1:]:
+                            col_text = col.text.replace(',', '').strip()
+                            if not col_text:
+                                continue
+                            first_line = col_text.splitlines()[0].strip()
+                            nums = re.findall(r'\b\d{5,7}\b', first_line)
                             if nums:
-                                gold_rate = int(nums[0]) + gold_margin
-                                break
-                        else:
-                            nums = re.findall(r'\b\d{5,7}\b', row_text.replace(',', ''))
-                            if len(nums) >= 2:
-                                gold_rate = int(nums[1]) + gold_margin
-                                break
+                                rate_candidates.append(int(nums[0]))
+
+                        if len(rate_candidates) >= 2:
+                            # Website displays BUY on the left and SELL on the right.
+                            # We specifically need the right-side / highlighted SELL value.
+                            selected_gold_rate = rate_candidates[1]
+                            gold_rate = selected_gold_rate + gold_margin
+                            log_msg(f"✅ Safari Gold SELL rate selected: ₹ {selected_gold_rate}")
+                            break
+                        elif len(rate_candidates) == 1:
+                            # Defensive fallback if the website temporarily renders one price cell.
+                            selected_gold_rate = rate_candidates[0]
+                            gold_rate = selected_gold_rate + gold_margin
+                            log_msg(f"⚠️ Only one Gold rate cell found; using ₹ {selected_gold_rate}")
+                            break
+
                 if gold_rate != "Not Found": break
             except StaleElementReferenceException:
                 time.sleep(2)
