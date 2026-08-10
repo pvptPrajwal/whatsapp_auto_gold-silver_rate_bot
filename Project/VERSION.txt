@@ -1,3 +1,4 @@
-GoldSilverBot V5
-WhatsApp engine: hidden, non-headless Selenium Chromium
-Rate-fetching logic: unchanged
+GoldSilverBot V6
+Desktop + same-Wi-Fi mobile dashboard
+Working V5 hidden-Selenium WhatsApp engine retained
+Existing fetch_rates() block preserved exactly

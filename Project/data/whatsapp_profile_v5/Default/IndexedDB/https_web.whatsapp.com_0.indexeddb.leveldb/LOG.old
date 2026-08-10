@@ -1,3 +1,18 @@
-2026/08/10-14:38:25.965 3d6c Reusing MANIFEST D:\Desktop\prajwal\whatsapp_auto_gold-silver_rate_bot\whatsapp_auto_gold-silver_rate_bot\Project\data\whatsapp_profile_v5\Default\IndexedDB\https_web.whatsapp.com_0.indexeddb.leveldb/MANIFEST-000001
-2026/08/10-14:38:25.966 3d6c Recovering log #44
-2026/08/10-14:38:26.022 3d6c Reusing old log D:\Desktop\prajwal\whatsapp_auto_gold-silver_rate_bot\whatsapp_auto_gold-silver_rate_bot\Project\data\whatsapp_profile_v5\Default\IndexedDB\https_web.whatsapp.com_0.indexeddb.leveldb/000044.log 
+2026/08/10-14:38:59.338 4b30 Reusing MANIFEST D:\Desktop\prajwal\whatsapp_auto_gold-silver_rate_bot\whatsapp_auto_gold-silver_rate_bot\Project\data\whatsapp_profile_v5\Default\IndexedDB\https_web.whatsapp.com_0.indexeddb.leveldb/MANIFEST-000001
+2026/08/10-14:38:59.338 4b30 Recovering log #44
+2026/08/10-14:38:59.372 4b30 Reusing old log D:\Desktop\prajwal\whatsapp_auto_gold-silver_rate_bot\whatsapp_auto_gold-silver_rate_bot\Project\data\whatsapp_profile_v5\Default\IndexedDB\https_web.whatsapp.com_0.indexeddb.leveldb/000044.log 
+2026/08/10-14:39:01.767 5f00 Level-0 table #56: started
+2026/08/10-14:39:01.889 5f00 Level-0 table #56: 1065632 bytes OK
+2026/08/10-14:39:01.945 5f00 Delete type=0 #44
+2026/08/10-14:39:02.056 5f00 Compacting 1@1 + 4@2 files
+2026/08/10-14:39:02.328 5f00 Generated table #57@1: 15985 keys, 2139928 bytes
+2026/08/10-14:39:02.480 5f00 Generated table #58@1: 108540 keys, 2263304 bytes
+2026/08/10-14:39:02.631 5f00 Generated table #59@1: 84528 keys, 2239114 bytes
+2026/08/10-14:39:02.721 5f00 Generated table #60@1: 7827 keys, 702904 bytes
+2026/08/10-14:39:02.721 5f00 Compacted 1@1 + 4@2 files => 7345250 bytes
+2026/08/10-14:39:02.767 5f00 compacted to: files[ 0 0 4 0 0 0 0 ]
+2026/08/10-14:39:02.767 5f00 Delete type=2 #49
+2026/08/10-14:39:02.767 5f00 Delete type=2 #50
+2026/08/10-14:39:02.767 5f00 Delete type=2 #52
+2026/08/10-14:39:02.767 5f00 Delete type=2 #53
+2026/08/10-14:39:02.767 5f00 Delete type=2 #56

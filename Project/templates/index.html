@@ -2,7 +2,8 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#14243d">
   <title>Gold & Silver Rate Bot</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
@@ -10,12 +11,61 @@
   <main class="shell">
     <header class="topbar">
       <div>
-        <p class="eyebrow">LOCAL AUTOMATION</p>
-        <h1>Gold & Silver Rate Bot</h1>
-        <p class="sub">Existing rate-fetch logic + hidden-background Selenium WhatsApp sending.</p>
+        <p class="eyebrow">GOLD & SILVER AUTOMATION</p>
+        <h1>Rate Bot</h1>
+        <p class="sub">One dashboard for PC and mobile. Rate-fetching logic remains unchanged.</p>
       </div>
-      <div id="botBadge" class="badge stopped">Scheduler stopped</div>
+      <div class="header-status">
+        <div id="botBadge" class="badge stopped">Scheduler stopped</div>
+        <div id="waBadge" class="badge neutral">WhatsApp checking</div>
+      </div>
     </header>
+
+    {% if mobile_info %}
+    <section class="card mobile-access-card">
+      <div class="card-title-row">
+        <div>
+          <p class="eyebrow">MOBILE ACCESS</p>
+          <h2>Use from your phone</h2>
+        </div>
+        <span class="pill">Same Wi-Fi</span>
+      </div>
+      <div class="mobile-access-grid">
+        <div>
+          <span class="meta-label">Open on phone</span>
+          <code id="mobileUrl">{{ mobile_info.url }}</code>
+        </div>
+        <div>
+          <span class="meta-label">Access PIN</span>
+          <code>{{ mobile_info.pin }}</code>
+        </div>
+      </div>
+      <p class="hint">Keep this PC running. On a phone connected to the same Wi-Fi, open the address above and enter the PIN. WhatsApp automation continues on this PC.</p>
+    </section>
+    {% endif %}
+
+    <section class="summary-grid">
+      <article class="summary-card">
+        <span class="meta-label">Silver</span>
+        <strong id="silverRate">—</strong>
+        <small id="ratesTime">No rate fetched yet</small>
+      </article>
+      <article class="summary-card">
+        <span class="meta-label">Gold 24K</span>
+        <strong id="goldRate">—</strong>
+        <small>Per 10 gm</small>
+      </article>
+      <article class="summary-card">
+        <span class="meta-label">Sent today</span>
+        <strong id="todayCountBig">0</strong>
+        <small>Successful WhatsApp updates</small>
+      </article>
+      <article class="summary-card">
+        <span class="meta-label">Next scheduled</span>
+        <strong id="nextRun">—</strong>
+        <small id="nextRunLabel">Scheduler stopped</small>
+      </article>
+    </section>
 
     <section class="grid">
       <div class="card wa-card">
@@ -33,15 +83,15 @@
           <button class="secondary" onclick="validateWhatsApp()">Check Session</button>
           <button class="danger-ghost" onclick="forgetWhatsApp()">Forget Session</button>
         </div>
-        <p class="hint">First login opens WhatsApp Web visibly for QR linking. After that, sends use a normal Chromium browser hidden off-screen by Windows. No Puppeteer or headless WhatsApp is used.</p>
+        <p class="hint">The first login opens WhatsApp Web visibly on the host PC. Normal sends use the working hidden Selenium browser and do not take over the foreground.</p>
       </div>
 
       <div class="card">
         <p class="eyebrow">DESTINATION</p>
         <h2>WhatsApp Group</h2>
         <label for="group_name">Exact group name</label>
-        <input id="group_name" value="{{ settings.group_name }}" placeholder="e.g. Daily Bullion Rates">
-        <p class="hint">Use the group name exactly as it appears in WhatsApp Web.</p>
+        <input id="group_name" value="{{ settings.group_name }}" placeholder="e.g. Autowale">
+        <p class="hint">Enter the group name exactly as it appears in WhatsApp Web.</p>
       </div>
     </section>
 
@@ -77,10 +127,56 @@
         </div>
       </div>
 
+      <label class="check-row" for="auto_start">
+        <input id="auto_start" type="checkbox" {% if settings.auto_start %}checked{% endif %}>
+        <span>
+          <strong>Automatically start the saved daily schedule when the app starts</strong>
+          <small>Recommended if you enable Windows startup.</small>
+        </span>
+      </label>
+
       <div class="button-row actions">
         <button class="primary" onclick="startBot()">Start Daily Scheduler</button>
         <button class="secondary" onclick="sendNow()">Send Test / Send Now</button>
+        <button class="secondary" onclick="saveSettings()">Save Settings</button>
         <button class="danger" onclick="stopBot()">Stop Scheduler</button>
+      </div>
+    </section>
+
+    <section class="card next-card">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">UPCOMING</p>
+          <h2>Next Runs</h2>
+        </div>
+      </div>
+      <div id="nextRuns" class="next-runs"><span class="muted">Scheduler stopped.</span></div>
+    </section>
+
+    <section class="card history-card">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">HISTORY</p>
+          <h2>Recent Messages</h2>
+        </div>
+        <button class="tiny secondary" onclick="refreshHistory()">Refresh</button>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Date & time</th>
+              <th>Update</th>
+              <th>Status</th>
+              <th>Silver</th>
+              <th>Gold</th>
+              <th>Group</th>
+            </tr>
+          </thead>
+          <tbody id="historyBody">
+            <tr><td colspan="6" class="muted">No history yet.</td></tr>
+          </tbody>
+        </table>
       </div>
     </section>
 
@@ -103,41 +199,82 @@ function payload() {
     g_margin: document.getElementById('g_margin').value || 0,
     time1: document.getElementById('time1').value,
     time2: document.getElementById('time2').value,
-    time3: document.getElementById('time3').value
+    time3: document.getElementById('time3').value,
+    auto_start: document.getElementById('auto_start').checked
   };
 }
 
 async function postJson(url, body={}) {
-  const r = await fetch(url, {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(body)});
-  const data = await r.json();
+  const r = await fetch(url, {
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify(body)
+  });
+  let data = {};
+  try { data = await r.json(); } catch(e) {}
   if (!r.ok) throw new Error(data.message || data.status || 'Request failed');
   return data;
 }
 
 async function connectWhatsApp() {
-  try { await postJson('/whatsapp/connect'); await refreshWhatsApp(); }
-  catch(e) { alert(e.message); }
+  try {
+    const d = await postJson('/whatsapp/connect');
+    toast(d.message || 'WhatsApp login started.');
+    await refreshWhatsApp();
+  } catch(e) { alert(e.message); }
 }
 async function validateWhatsApp() {
-  try { await postJson('/whatsapp/validate'); await refreshWhatsApp(); }
-  catch(e) { alert(e.message); }
+  try {
+    const d = await postJson('/whatsapp/validate');
+    toast(d.message || 'Checking WhatsApp session.');
+    await refreshWhatsApp();
+  } catch(e) { alert(e.message); }
 }
 async function forgetWhatsApp() {
   if (!confirm('Remove the saved WhatsApp login from this bot?')) return;
-  try { await postJson('/whatsapp/forget'); await refreshWhatsApp(); }
-  catch(e) { alert(e.message); }
+  try {
+    const d = await postJson('/whatsapp/forget');
+    toast(d.message);
+    await refreshWhatsApp();
+  } catch(e) { alert(e.message); }
 }
 async function startBot() {
-  try { await postJson('/start', payload()); }
-  catch(e) { alert(e.message); }
+  try {
+    const d = await postJson('/start', payload());
+    toast(d.message || 'Scheduler started.');
+    await refreshLogs();
+  } catch(e) { alert(e.message); }
 }
 async function stopBot() {
-  try { await postJson('/stop'); }
-  catch(e) { alert(e.message); }
+  try {
+    const d = await postJson('/stop');
+    toast(d.message || 'Scheduler stopped.');
+    await refreshLogs();
+  } catch(e) { alert(e.message); }
+}
+async function saveSettings() {
+  try {
+    const d = await postJson('/settings/save', payload());
+    toast(d.message || 'Settings saved.');
+  } catch(e) { alert(e.message); }
 }
 async function sendNow() {
-  try { const d = await postJson('/send-now', payload()); alert(d.message); }
-  catch(e) { alert(e.message); }
+  try {
+    const d = await postJson('/send-now', payload());
+    toast(d.message);
+  } catch(e) { alert(e.message); }
+}
+
+function toast(message) {
+  const old = document.getElementById('toast');
+  if (old) old.remove();
+  const el = document.createElement('div');
+  el.id = 'toast';
+  el.className = 'toast';
+  el.textContent = message;
+  document.body.appendChild(el);
+  setTimeout(() => el.classList.add('show'), 10);
+  setTimeout(() => { el.classList.remove('show'); setTimeout(() => el.remove(), 250); }, 2800);
 }
 
 async function refreshWhatsApp() {
@@ -147,11 +284,15 @@ async function refreshWhatsApp() {
     const status = document.getElementById('waStatus');
     const detail = document.getElementById('waDetail');
     const button = document.getElementById('connectBtn');
-    dot.className = 'status-dot ' + (s.status === 'connected' ? 'good' : (['connecting','checking','sending'].includes(s.status) ? 'busy' : 'bad'));
-    status.textContent = s.status.replaceAll('_',' ').toUpperCase();
-    detail.textContent = s.message + (s.last_checked ? '  Last checked: ' + s.last_checked : '');
+    const badge = document.getElementById('waBadge');
+    const busy = ['connecting','checking','sending'].includes(s.status);
+    dot.className = 'status-dot ' + (s.status === 'connected' ? 'good' : (busy ? 'busy' : 'bad'));
+    status.textContent = (s.status || 'unknown').replaceAll('_',' ').toUpperCase();
+    detail.textContent = (s.message || '') + (s.last_checked ? '  Last checked: ' + s.last_checked : '');
     button.textContent = s.status === 'connected' ? 'Reconnect WhatsApp' : 'Connect WhatsApp';
-    button.disabled = ['connecting','checking','sending'].includes(s.status);
+    button.disabled = busy;
+    badge.textContent = s.status === 'connected' ? 'WhatsApp connected' : (busy ? 'WhatsApp busy' : 'WhatsApp disconnected');
+    badge.className = 'badge ' + (s.status === 'connected' ? 'running' : (busy ? 'warning' : 'stopped'));
   } catch(e) {}
 }
 
@@ -160,15 +301,71 @@ async function refreshLogs() {
     const d = await (await fetch('/logs')).json();
     document.getElementById('logs').textContent = d.logs.join('\n');
     document.getElementById('todayCount').textContent = `${d.jobs_completed} sent today`;
+    document.getElementById('todayCountBig').textContent = d.jobs_completed;
+
     const badge = document.getElementById('botBadge');
     badge.textContent = d.is_running ? 'Scheduler running' : 'Scheduler stopped';
     badge.className = 'badge ' + (d.is_running ? 'running' : 'stopped');
+
+    if (d.latest_rates) {
+      document.getElementById('silverRate').textContent = d.latest_rates.silver === 'Not Found' ? 'Not Found' : `₹ ${d.latest_rates.silver}`;
+      document.getElementById('goldRate').textContent = d.latest_rates.gold === 'Not Found' ? 'Not Found' : `₹ ${d.latest_rates.gold}`;
+      document.getElementById('ratesTime').textContent = `Fetched ${d.latest_rates.checked_at}`;
+    }
+
+    const next = d.next_runs || [];
+    const nextRunEl = document.getElementById('nextRun');
+    const nextRunLabelEl = document.getElementById('nextRunLabel');
+    const list = document.getElementById('nextRuns');
+    if (next.length) {
+      nextRunEl.textContent = next[0].at.split(' ')[1];
+      nextRunLabelEl.textContent = `${next[0].label} · ${next[0].at.split(' ')[0]}`;
+      list.innerHTML = next.map(n => `<div class="next-run-row"><span>${escapeHtml(n.label)}</span><strong>${escapeHtml(n.at)}</strong></div>`).join('');
+    } else {
+      nextRunEl.textContent = '—';
+      nextRunLabelEl.textContent = 'Scheduler stopped';
+      list.innerHTML = '<span class="muted">Scheduler stopped.</span>';
+    }
   } catch(e) {}
 }
 
-refreshWhatsApp(); refreshLogs();
-setInterval(refreshWhatsApp, 2000);
+function escapeHtml(value) {
+  return String(value ?? '')
+    .replaceAll('&','&amp;')
+    .replaceAll('<','&lt;')
+    .replaceAll('>','&gt;')
+    .replaceAll('"','&quot;')
+    .replaceAll("'",'&#039;');
+}
+
+async function refreshHistory() {
+  try {
+    const d = await (await fetch('/history?limit=30')).json();
+    const body = document.getElementById('historyBody');
+    if (!d.items || !d.items.length) {
+      body.innerHTML = '<tr><td colspan="6" class="muted">No history yet.</td></tr>';
+      return;
+    }
+    body.innerHTML = d.items.map(item => {
+      const cls = item.status === 'success' ? 'success' : 'failed';
+      return `<tr>
+        <td>${escapeHtml(item.created_at)}</td>
+        <td>${escapeHtml(item.shift_name)}</td>
+        <td><span class="history-status ${cls}">${escapeHtml(item.status)}</span></td>
+        <td>${escapeHtml(item.silver_rate || '—')}</td>
+        <td>${escapeHtml(item.gold_rate || '—')}</td>
+        <td>${escapeHtml(item.group_name)}</td>
+      </tr>`;
+    }).join('');
+  } catch(e) {}
+}
+
+refreshWhatsApp();
+refreshLogs();
+refreshHistory();
+setInterval(refreshWhatsApp, 2500);
 setInterval(refreshLogs, 1500);
+setInterval(refreshHistory, 10000);
 </script>
 </body>
 </html>

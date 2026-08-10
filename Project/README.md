@@ -1,24 +1,35 @@
-# GoldSilverBot V5 - Hidden Selenium WhatsApp
+# GoldSilverBot V6
 
-This build removes Puppeteer, whatsapp-web.js and WPPConnect completely.
+V6 builds on the working V5 architecture. It intentionally retains the V5 hidden, non-headless Selenium WhatsApp sender and preserves the existing `fetch_rates()` block exactly.
 
-## Important design
-- `fetch_rates()` is unchanged from the user's supplied Selenium rate-fetching logic.
-- First WhatsApp login is visible so the QR/device link can be completed.
-- The WhatsApp session is stored in `data/whatsapp_profile_v5`.
-- Later session checks and message sends use **normal non-headless Chromium**, but the browser is started off-screen and hidden using the Windows API.
-- No PyWhatKit, PyAutoGUI, Puppeteer or Node.js is required.
+## New in V6
 
-## Install
-1. Extract into a new folder.
+- Responsive dashboard for PC and phone browsers.
+- Same-Wi-Fi mobile access protected by a generated 6-digit PIN.
+- Persistent settings, including an optional auto-start schedule flag.
+- SQLite send history with success/failure records and the rates used.
+- Live current/last rates, sent-today count and next scheduled runs.
+- Windows Startup helper for silent launch.
+- Optional Windows Firewall helper for mobile access on private networks.
+
+## Installation
+
+1. Extract to a new folder.
 2. Run `install.bat` once.
 3. Run `run.bat`.
-4. Click **Connect WhatsApp** and complete the first login.
-5. Enter the WhatsApp group name exactly.
-6. Click **Send Test / Send Now**.
+4. Complete WhatsApp linking if required.
+5. Configure and save the group, margins and three daily times.
 
-## If WhatsApp logs out
-Click **Connect WhatsApp** again. Do not delete the `data` folder unless you intentionally want to forget the session.
+## Mobile use
 
-## Diagnostics
-If a send fails, screenshots and HTML are saved under `data/whatsapp_debug`.
+Keep the host PC running. The dashboard displays a LAN URL such as `http://192.168.1.10:5000` and a six-digit PIN. Open the URL from a phone connected to the same Wi-Fi and enter that PIN.
+
+If Windows Firewall blocks access, right-click `allow_mobile_firewall.bat` and select **Run as administrator**. The helper opens TCP port 5000 only on the Windows **Private** network profile.
+
+## Windows auto-start
+
+Enable **Automatically start the saved daily schedule when the app starts**, save settings, and then run `enable_windows_startup.bat` once. `disable_windows_startup.bat` removes the Startup shortcut.
+
+## Important architecture note
+
+The phone is currently a controller for the bot running on the Windows PC. WhatsApp Web automation and website scraping still execute on the PC. A later server/mobile-native version can remove the requirement for the PC to remain on.
