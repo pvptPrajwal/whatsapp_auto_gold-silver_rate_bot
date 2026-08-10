@@ -1,0 +1,3 @@
+GoldSilverBot V5
+WhatsApp engine: hidden, non-headless Selenium Chromium
+Rate-fetching logic: unchanged

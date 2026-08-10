@@ -1,46 +1,24 @@
-# GoldSilverBot V3
+# GoldSilverBot V5 - Hidden Selenium WhatsApp
 
-V3 keeps the supplied `fetch_rates()` Selenium logic unchanged and replaces the WhatsApp DOM automation layer with a local `whatsapp-web.js` background service.
+This build removes Puppeteer, whatsapp-web.js and WPPConnect completely.
 
-## Architecture
+## Important design
+- `fetch_rates()` is unchanged from the user's supplied Selenium rate-fetching logic.
+- First WhatsApp login is visible so the QR/device link can be completed.
+- The WhatsApp session is stored in `data/whatsapp_profile_v5`.
+- Later session checks and message sends use **normal non-headless Chromium**, but the browser is started off-screen and hidden using the Windows API.
+- No PyWhatKit, PyAutoGUI, Puppeteer or Node.js is required.
 
-```text
-Flask UI / Scheduler
-        |
-        +--> Existing fetch_rates() (unchanged)
-        |       +--> Shree Navratna Bullions
-        |       +--> Safari Bullions
-        |
-        +--> WhatsAppBridge (Python, localhost)
-                    |
-                    +--> Node.js / whatsapp-web.js
-                           +--> LocalAuth persistent session
-                           +--> Group list + real group IDs
-                           +--> Chat.sendMessage()
-```
-
-## Setup
-
-1. Install Python 3.10+ and Node.js 18+.
+## Install
+1. Extract into a new folder.
 2. Run `install.bat` once.
 3. Run `run.bat`.
-4. Scan the QR code shown inside the app on first login.
-5. Select the destination WhatsApp group.
-6. Use **Send Test / Send Now** before enabling the daily scheduler.
+4. Click **Connect WhatsApp** and complete the first login.
+5. Enter the WhatsApp group name exactly.
+6. Click **Send Test / Send Now**.
 
-## Persistent WhatsApp session
+## If WhatsApp logs out
+Click **Connect WhatsApp** again. Do not delete the `data` folder unless you intentionally want to forget the session.
 
-Authentication data is stored under `data/wwebjs_auth/`. Do not delete that directory if you want the login to persist.
-
-## Notes
-
-- No PyWhatKit.
-- No mouse/keyboard blocking.
-- No Selenium WhatsApp search-box/message-box selectors.
-- The service is bound to `127.0.0.1` only.
-- The WhatsApp service uses port `3001`; Flask uses port `5000`.
-- The browser used internally by the WhatsApp service remains headless.
-
-## Disclaimer
-
-`whatsapp-web.js` is an unofficial WhatsApp Web client automation library. Account/platform behavior may change and should be tested with the intended WhatsApp account before production use.
+## Diagnostics
+If a send fails, screenshots and HTML are saved under `data/whatsapp_debug`.

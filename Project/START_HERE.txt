@@ -1,49 +1,12 @@
-GOLD & SILVER RATE BOT V3
-=========================
+GoldSilverBot V5
+================
 
-WHAT CHANGED IN V3
-------------------
-1. The existing fetch_rates() Selenium logic is kept unchanged.
-2. PyWhatKit and MouseBlocker are removed.
-3. Selenium is no longer used to click WhatsApp Web controls.
-4. WhatsApp runs as a separate headless/background Node.js service.
-5. First login QR is displayed INSIDE the GoldSilverBot web page.
-6. The WhatsApp session is saved locally and reused automatically.
-7. The app loads your WhatsApp groups and stores the selected group's real ID (...@g.us).
-8. Messages are sent directly to the saved group ID.
-9. Daily scheduling continues every day until you press Stop Scheduler.
+1. Run install.bat ONCE.
+2. Run run.bat.
+3. Dashboard: http://127.0.0.1:5000
+4. First time: click Connect WhatsApp and scan/login in the visible browser.
+5. After connection, enter the exact group name and click Send Test / Send Now.
 
-FIRST INSTALLATION
-------------------
-A. Install Google Chrome if it is not already installed.
-B. Install Python 3.10+.
-C. Install Node.js 18+.
-D. Extract the ZIP to a normal folder, for example:
-      D:\GoldSilverBot_v3
-E. Double-click: install.bat
-F. When installation finishes, double-click: run.bat
-
-FIRST WHATSAPP LOGIN
---------------------
-1. The app opens at http://127.0.0.1:5000
-2. Wait for the QR code to appear in the WhatsApp Connection card.
-3. On your phone open:
-      WhatsApp > Linked devices > Link a device
-4. Scan the QR displayed INSIDE the app.
-5. Wait until status becomes CONNECTED.
-6. Select the required WhatsApp group from the dropdown.
-7. Click Send Test / Send Now.
-
-NEXT STARTUP
-------------
-Normally there is NO QR and NO WhatsApp window.
-The saved LocalAuth session is restored in the background.
-A new QR is shown only when WhatsApp requires authentication again or after Forget Session.
-
-IMPORTANT
----------
-- Do NOT copy the old data folder from V2.x into V3. V3 uses a different session system.
-- The first V3 login therefore requires one QR scan.
-- After V3 has successfully logged in, keep its data folder.
-- Do not run two copies of V3 at the same time.
-- This project uses an unofficial WhatsApp Web automation library. It is not Meta's official WhatsApp Business API.
+V5 does NOT use Puppeteer/WPPConnect/whatsapp-web.js.
+Normal WhatsApp sends use a fully rendered Selenium browser that is hidden/off-screen on Windows.
+The existing rate-fetching function has not been changed.
