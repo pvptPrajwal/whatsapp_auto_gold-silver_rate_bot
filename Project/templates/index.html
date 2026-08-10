@@ -1,193 +1,174 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bullion Web Bot</title>
-    <style>
-        :root {
-            --bg-dark: #121212;
-            --panel-bg: #1e1e1e;
-            --accent: #00ffcc;
-            --text-main: #e0e0e0;
-            --danger: #ff4c4c;
-            --success: #00e676;
-        }
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--bg-dark);
-            color: var(--text-main);
-            margin: 0;
-            padding: 20px;
-            display: flex;
-            justify-content: center;
-        }
-        .container {
-            width: 100%;
-            max-width: 600px;
-        }
-        h1 {
-            text-align: center;
-            color: var(--accent);
-            text-transform: uppercase;
-            letter-spacing: 2px;
-        }
-        .card {
-            background-color: var(--panel-bg);
-            border-radius: 12px;
-            padding: 20px;
-            margin-bottom: 20px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
-        }
-        .card h3 { margin-top: 0; border-bottom: 1px solid #333; padding-bottom: 10px; }
-        .input-group {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 15px;
-            align-items: center;
-        }
-        input {
-            background-color: #2a2a2a;
-            border: 1px solid #444;
-            color: white;
-            padding: 10px;
-            border-radius: 6px;
-            width: 60%;
-            outline: none;
-        }
-        input:focus { border-color: var(--accent); }
-        .btn-group {
-            display: flex;
-            gap: 15px;
-            margin-bottom: 20px;
-        }
-        button {
-            flex: 1;
-            padding: 15px;
-            border: none;
-            border-radius: 8px;
-            font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-        .btn-start { background-color: var(--success); color: black; }
-        .btn-start:hover { background-color: #00c853; }
-        .btn-stop { background-color: var(--danger); color: white; }
-        .btn-stop:hover { background-color: #d50000; }
-        button:disabled { opacity: 0.5; cursor: not-allowed; }
-        
-        /* Terminal Styling */
-        #terminal {
-            background-color: #000;
-            color: #00ff00;
-            font-family: 'Consolas', monospace;
-            padding: 15px;
-            border-radius: 8px;
-            height: 200px;
-            overflow-y: auto;
-            border: 1px solid #333;
-            font-size: 13px;
-        }
-    </style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Gold & Silver Rate Bot</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
+  <main class="shell">
+    <header class="topbar">
+      <div>
+        <p class="eyebrow">LOCAL AUTOMATION</p>
+        <h1>Gold & Silver Rate Bot</h1>
+        <p class="sub">Existing rate-fetch logic + background WhatsApp sending.</p>
+      </div>
+      <div id="botBadge" class="badge stopped">Scheduler stopped</div>
+    </header>
 
-<div class="container">
-    <h1>💎 Bullion Auto-Pilot</h1>
+    <section class="grid">
+      <div class="card wa-card">
+        <div class="card-title-row">
+          <div>
+            <p class="eyebrow">WHATSAPP</p>
+            <h2>Connection</h2>
+          </div>
+          <span id="waDot" class="status-dot neutral"></span>
+        </div>
+        <p id="waStatus" class="status-text">Checking session...</p>
+        <p id="waDetail" class="muted">Please wait.</p>
+        <div class="button-row">
+          <button id="connectBtn" class="primary" onclick="connectWhatsApp()">Connect WhatsApp</button>
+          <button class="secondary" onclick="validateWhatsApp()">Check Session</button>
+          <button class="danger-ghost" onclick="forgetWhatsApp()">Forget Session</button>
+        </div>
+        <p class="hint">First login opens Chrome visibly. After successful linking, scheduled messages use headless Chrome with the saved profile.</p>
+      </div>
 
-    <div class="card">
-        <h3>⚙️ System Settings</h3>
-        <div class="input-group">
-            <label>WhatsApp Group ID:</label>
-            <input type="text" id="group_id" value="ABCDEFG1234567">
-        </div>
-        <div class="input-group">
-            <label>Silver Margin (₹):</label>
-            <input type="number" id="s_margin" value="500">
-        </div>
-        <div class="input-group">
-            <label>Gold Margin (₹):</label>
-            <input type="number" id="g_margin" value="1500">
-        </div>
-    </div>
+      <div class="card">
+        <p class="eyebrow">DESTINATION</p>
+        <h2>WhatsApp Group</h2>
+        <label for="group_name">Exact group name</label>
+        <input id="group_name" value="{{ settings.group_name }}" placeholder="e.g. Daily Bullion Rates">
+        <p class="hint">Use the group name exactly as it appears in WhatsApp Web.</p>
+      </div>
+    </section>
 
-    <div class="card">
-        <h3>⏰ Daily Schedule</h3>
-        <div class="input-group">
-            <label>Morning Update:</label>
-            <input type="time" id="time1" value="12:00">
+    <section class="card settings-card">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">BOT SETTINGS</p>
+          <h2>Margins & Schedule</h2>
         </div>
-        <div class="input-group">
-            <label>Afternoon Update:</label>
-            <input type="time" id="time2" value="15:00">
-        </div>
-        <div class="input-group">
-            <label>Evening Update:</label>
-            <input type="time" id="time3" value="19:00">
-        </div>
-    </div>
+        <span id="todayCount" class="counter">0 sent today</span>
+      </div>
 
-    <div class="btn-group">
-        <button class="btn-start" id="startBtn" onclick="startBot()">▶ START BOT</button>
-        <button class="btn-stop" id="stopBtn" onclick="stopBot()" disabled>⏹ STOP BOT</button>
-    </div>
+      <div class="form-grid">
+        <div>
+          <label for="s_margin">Silver margin (₹)</label>
+          <input id="s_margin" type="number" value="{{ settings.s_margin }}">
+        </div>
+        <div>
+          <label for="g_margin">Gold margin (₹)</label>
+          <input id="g_margin" type="number" value="{{ settings.g_margin }}">
+        </div>
+        <div>
+          <label for="time1">Morning</label>
+          <input id="time1" type="time" value="{{ settings.time1 }}">
+        </div>
+        <div>
+          <label for="time2">Afternoon</label>
+          <input id="time2" type="time" value="{{ settings.time2 }}">
+        </div>
+        <div>
+          <label for="time3">Evening</label>
+          <input id="time3" type="time" value="{{ settings.time3 }}">
+        </div>
+      </div>
 
-    <div class="card">
-        <h3>🖥️ Live Console Logs</h3>
-        <div id="terminal">System Initialized... Waiting for command.</div>
-    </div>
-</div>
+      <div class="button-row actions">
+        <button class="primary" onclick="startBot()">Start Daily Scheduler</button>
+        <button class="secondary" onclick="sendNow()">Send Test / Send Now</button>
+        <button class="danger" onclick="stopBot()">Stop Scheduler</button>
+      </div>
+    </section>
+
+    <section class="card logs-card">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">ACTIVITY</p>
+          <h2>Live Logs</h2>
+        </div>
+      </div>
+      <pre id="logs">Loading...</pre>
+    </section>
+  </main>
 
 <script>
-    let logInterval;
+function payload() {
+  return {
+    group_name: document.getElementById('group_name').value.trim(),
+    s_margin: document.getElementById('s_margin').value || 0,
+    g_margin: document.getElementById('g_margin').value || 0,
+    time1: document.getElementById('time1').value,
+    time2: document.getElementById('time2').value,
+    time3: document.getElementById('time3').value
+  };
+}
 
-    async function startBot() {
-        const payload = {
-            group_id: document.getElementById('group_id').value,
-            s_margin: document.getElementById('s_margin').value,
-            g_margin: document.getElementById('g_margin').value,
-            time1: document.getElementById('time1').value,
-            time2: document.getElementById('time2').value,
-            time3: document.getElementById('time3').value
-        };
+async function postJson(url, body={}) {
+  const r = await fetch(url, {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(body)});
+  const data = await r.json();
+  if (!r.ok) throw new Error(data.message || data.status || 'Request failed');
+  return data;
+}
 
-        const response = await fetch('/start', {
-            method: 'POST',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify(payload)
-        });
+async function connectWhatsApp() {
+  try { await postJson('/whatsapp/connect'); await refreshWhatsApp(); }
+  catch(e) { alert(e.message); }
+}
+async function validateWhatsApp() {
+  try { await postJson('/whatsapp/validate'); await refreshWhatsApp(); }
+  catch(e) { alert(e.message); }
+}
+async function forgetWhatsApp() {
+  if (!confirm('Remove the saved WhatsApp login from this bot?')) return;
+  try { await postJson('/whatsapp/forget'); await refreshWhatsApp(); }
+  catch(e) { alert(e.message); }
+}
+async function startBot() {
+  try { await postJson('/start', payload()); }
+  catch(e) { alert(e.message); }
+}
+async function stopBot() {
+  try { await postJson('/stop'); }
+  catch(e) { alert(e.message); }
+}
+async function sendNow() {
+  try { const d = await postJson('/send-now', payload()); alert(d.message); }
+  catch(e) { alert(e.message); }
+}
 
-        if(response.ok) {
-            document.getElementById('startBtn').disabled = true;
-            document.getElementById('stopBtn').disabled = false;
-            logInterval = setInterval(fetchLogs, 1000); // Fetch logs every second
-        }
-    }
+async function refreshWhatsApp() {
+  try {
+    const s = await (await fetch('/whatsapp/status')).json();
+    const dot = document.getElementById('waDot');
+    const status = document.getElementById('waStatus');
+    const detail = document.getElementById('waDetail');
+    const button = document.getElementById('connectBtn');
+    dot.className = 'status-dot ' + (s.status === 'connected' ? 'good' : (['connecting','checking','sending'].includes(s.status) ? 'busy' : 'bad'));
+    status.textContent = s.status.replaceAll('_',' ').toUpperCase();
+    detail.textContent = s.message + (s.last_checked ? '  Last checked: ' + s.last_checked : '');
+    button.textContent = s.status === 'connected' ? 'Reconnect WhatsApp' : 'Connect WhatsApp';
+    button.disabled = ['connecting','checking','sending'].includes(s.status);
+  } catch(e) {}
+}
 
-    async function stopBot() {
-        await fetch('/stop', { method: 'POST' });
-        document.getElementById('startBtn').disabled = false;
-        document.getElementById('stopBtn').disabled = true;
-        clearInterval(logInterval);
-        document.getElementById('terminal').innerHTML += "<br>[SYSTEM] Bot Stopped Manually.";
-    }
+async function refreshLogs() {
+  try {
+    const d = await (await fetch('/logs')).json();
+    document.getElementById('logs').textContent = d.logs.join('\n');
+    document.getElementById('todayCount').textContent = `${d.jobs_completed} sent today`;
+    const badge = document.getElementById('botBadge');
+    badge.textContent = d.is_running ? 'Scheduler running' : 'Scheduler stopped';
+    badge.className = 'badge ' + (d.is_running ? 'running' : 'stopped');
+  } catch(e) {}
+}
 
-    async function fetchLogs() {
-        const response = await fetch('/logs');
-        const data = await response.json();
-        const term = document.getElementById('terminal');
-        term.innerHTML = data.logs.join('<br>');
-        term.scrollTop = term.scrollHeight; // Auto-scroll to bottom
-        
-        // If bot finished automatically, reset buttons
-        if(!data.is_running) {
-            document.getElementById('startBtn').disabled = false;
-            document.getElementById('stopBtn').disabled = true;
-            clearInterval(logInterval);
-        }
-    }
+refreshWhatsApp(); refreshLogs();
+setInterval(refreshWhatsApp, 2000);
+setInterval(refreshLogs, 1500);
 </script>
-
 </body>
 </html>

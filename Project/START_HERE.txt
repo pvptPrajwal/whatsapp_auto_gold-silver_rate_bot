@@ -1,0 +1,28 @@
+GOLD & SILVER RATE BOT V2
+=========================
+
+FIRST INSTALLATION
+1. Install Google Chrome and Python 3 on the Windows PC.
+2. Double-click install.bat once.
+3. Double-click run.bat.
+4. The local dashboard opens automatically in your browser.
+5. Click "Connect WhatsApp".
+6. A visible Chrome window opens ONLY for login/linking.
+7. Link WhatsApp and wait until the chat list appears. The window closes automatically.
+8. Enter the exact WhatsApp GROUP NAME in the dashboard.
+9. Enter margins and three scheduled times.
+10. Click "Send Test / Send Now" once to verify the selected group.
+11. Click "Start Daily Scheduler".
+
+NORMAL USE AFTER FIRST LOGIN
+- run.bat starts the application.
+- The saved WhatsApp profile is checked in headless/background Chrome.
+- No WhatsApp window is shown when scheduled messages are sent.
+- If the WhatsApp linked session expires or is logged out, the dashboard shows Disconnected.
+- Click "Connect WhatsApp" again only in that case.
+
+IMPORTANT
+- Do not delete the data\whatsapp_profile folder if you want to keep the saved login.
+- The exact existing fetch_rates() logic has been retained in app.py.
+- The WhatsApp Web page structure can change. If WhatsApp changes its DOM, sender selectors may need an update.
+- This is browser automation of WhatsApp Web, not the official WhatsApp Business Cloud API.

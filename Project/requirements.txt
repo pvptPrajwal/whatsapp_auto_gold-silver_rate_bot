@@ -1,0 +1,4 @@
+Flask>=3.0,<4
+selenium>=4.20
+webdriver-manager>=4.0.2
+schedule>=1.2.2
