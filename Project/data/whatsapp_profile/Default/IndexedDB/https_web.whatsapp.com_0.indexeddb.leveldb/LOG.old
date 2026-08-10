@@ -1,0 +1,17 @@
+2026/08/10-11:51:36.529 2898 Creating DB D:\Desktop\prajwal\whatsapp_auto_gold-silver_rate_bot\whatsapp_auto_gold-silver_rate_bot\Project\data\whatsapp_profile\Default\IndexedDB\https_web.whatsapp.com_0.indexeddb.leveldb since it was missing.
+2026/08/10-11:51:36.753 2898 Reusing MANIFEST D:\Desktop\prajwal\whatsapp_auto_gold-silver_rate_bot\whatsapp_auto_gold-silver_rate_bot\Project\data\whatsapp_profile\Default\IndexedDB\https_web.whatsapp.com_0.indexeddb.leveldb/MANIFEST-000001
+2026/08/10-11:52:13.622 6004 Level-0 table #5: started
+2026/08/10-11:52:13.698 6004 Level-0 table #5: 1158333 bytes OK
+2026/08/10-11:52:13.764 6004 Delete type=0 #3
+2026/08/10-11:52:15.023 6610 Level-0 table #7: started
+2026/08/10-11:52:15.325 6610 Level-0 table #7: 1098369 bytes OK
+2026/08/10-11:52:15.392 6610 Delete type=0 #4
+2026/08/10-11:52:15.414 6610 Compacting 1@1 + 1@2 files
+2026/08/10-11:52:15.524 6610 Generated table #8@1: 22718 keys, 1191809 bytes
+2026/08/10-11:52:15.524 6610 Compacted 1@1 + 1@2 files => 1191809 bytes
+2026/08/10-11:52:15.706 6610 compacted to: files[ 0 0 1 0 0 0 0 ]
+2026/08/10-11:52:15.706 6610 Delete type=2 #5
+2026/08/10-11:52:15.706 6610 Delete type=2 #7
+2026/08/10-11:52:16.227 2898 Level-0 table #10: started
+2026/08/10-11:52:16.388 2898 Level-0 table #10: 1000157 bytes OK
+2026/08/10-11:52:16.529 2898 Delete type=0 #6
