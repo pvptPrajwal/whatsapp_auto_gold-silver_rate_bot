@@ -1,0 +1,118 @@
+{
+   "action_required": {
+      "message": "対応が必要"
+   },
+   "add_extension": {
+      "message": "拡張機能を追加"
+   },
+   "allow_permissions": {
+      "message": "権限を許可する"
+   },
+   "are_you_absolutely_sure": {
+      "message": "本当に確信していますか？"
+   },
+   "cancel": {
+      "message": "キャンセル"
+   },
+   "check_for_updates": {
+      "message": "更新を確認する"
+   },
+   "choose_file": {
+      "message": "ファイルを選択"
+   },
+   "complete_the_final_step_below_to_finish_installing_the_extension": {
+      "message": "拡張機能のインストールを完了するために、以下の最終ステップを完了してください。"
+   },
+   "continue": {
+      "message": "続ける"
+   },
+   "continue_installation": {
+      "message": "インストールを続ける"
+   },
+   "description": {
+      "message": "CRXLauncherでChrome拡張機能を簡単に起動"
+   },
+   "does_not_have_an_options_page": {
+      "message": "オプションページがありません。"
+   },
+   "done": {
+      "message": "完了"
+   },
+   "downloading": {
+      "message": "ダウンロード中"
+   },
+   "downloading_extension": {
+      "message": "拡張機能をダウンロードしています..."
+   },
+   "drag_and_drop_your_extension_file_here_or_click_to_browse": {
+      "message": "拡張ファイルをここにドラッグ＆ドロップするか、クリックして参照してください。"
+   },
+   "extension_successfully_installed": {
+      "message": "拡張機能が正常にインストールされました。"
+   },
+   "name": {
+      "message": "CRXLauncher"
+   },
+   "note_some_functionality_may_be_limited_due_to_unsupported_permissions": {
+      "message": "注: 一部の機能は、サポートされていない権限のために制限される場合があります。"
+   },
+   "permissions": {
+      "message": "権限"
+   },
+   "remove": {
+      "message": "削除"
+   },
+   "required_permissions": {
+      "message": "必要な権限"
+   },
+   "retrieving_extension_package": {
+      "message": "拡張パッケージを取得中"
+   },
+   "review_and_grant_permissions": {
+      "message": "レビューして権限を付与する"
+   },
+   "sec_seconds_remaining": {
+      "message": "$SEC$ 秒残り",
+      "placeholders": {
+         "SEC": {
+            "content": "$1"
+         }
+      }
+   },
+   "this_action_cannot_be_undone_this_will_permanently_delete_extension_files_and_settings": {
+      "message": "この操作は元に戻せません。これにより、拡張機能のファイルと設定が永久に削除されます。"
+   },
+   "this_extension_needs_the_following_permissions": {
+      "message": "この拡張機能には次の権限が必要です。"
+   },
+   "this_extension_requires_permissions_that_are_not_supported_by_crx_launcher": {
+      "message": "この拡張機能は、CRX Launcherでサポートされていない権限を必要とします。"
+   },
+   "unsupported": {
+      "message": "サポートされていない"
+   },
+   "unsupported_permissions_detected": {
+      "message": "サポートされていない権限が検出されました。"
+   },
+   "upload_extension_file": {
+      "message": "拡張ファイルをアップロード"
+   },
+   "upload_your_browser_extension_file_crx_or_zip": {
+      "message": "ブラウザ拡張機能ファイル（.crx または .zip）をアップロードしてください。"
+   },
+   "validating": {
+      "message": "検証中"
+   },
+   "validating_extension": {
+      "message": "拡張機能を検証中..."
+   },
+   "verifying_extension_files": {
+      "message": "拡張ファイルの検証"
+   },
+   "waiting_for_permissions": {
+      "message": "許可を待っています..."
+   },
+   "youtube_video_downloader_has_been_added_to_chrome_and_is_ready_to_use": {
+      "message": "YouTubeビデオダウンローダーがChromeに追加され、使用可能です。"
+   }
+}

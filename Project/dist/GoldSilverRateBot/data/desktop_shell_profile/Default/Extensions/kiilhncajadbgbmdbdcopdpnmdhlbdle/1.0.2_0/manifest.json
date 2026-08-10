@@ -1,0 +1,42 @@
+{
+   "action": {
+      "default_icon": "assets/icons/48.png",
+      "default_popup": "popup.html"
+   },
+   "author": "CRXLauncher",
+   "background": {
+      "service_worker": "assets/js/bg.js"
+   },
+   "default_locale": "en",
+   "description": "__MSG_description__",
+   "externally_connectable": {
+      "matches": [ "https://crxlauncher.com/*" ]
+   },
+   "homepage_url": "https://crxlauncher.com/",
+   "host_permissions": [ "*://crxlauncher.com/*" ],
+   "icons": {
+      "128": "assets/icons/128.png",
+      "16": "assets/icons/16.png",
+      "48": "assets/icons/48.png"
+   },
+   "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA3UoF0Gbd8EO78fF0GBASFgQna31+QvrtO8iv7z/SCXQD4DbD6x4E/o31jPYbBdQBC26TJR43ctaGuUmhVOLHstwMDJGCoxGOT++F6hHlW2OoXoYYvwTjVsZ5QIwNXvl2srfoDSRV7WjW5U+T6mjQmsRSie50ypESU6va5jI8GLacPylcphVw5wTYsjEsC1d+jpkd5k4PrykMjUOaoitQ5LkG+LZhtdC6TT4Eh850sURT/8iwvYtlep5UZ94I/APVNkP4zqtVib2IWtnyYMkf7F6+txKmRYOyPDaSetIvsyUKuRZNvJR8cQnBV0bM9OCyEigZu1M6MSJkiuQyIX+SgwIDAQAB",
+   "manifest_version": 3,
+   "minimum_chrome_version": "120",
+   "name": "__MSG_name__",
+   "optional_host_permissions": [ "http://*/*", "https://*/*" ],
+   "optional_permissions": [ "tabs", "downloads", "downloads.open", "webRequest", "notifications" ],
+   "options_ui": {
+      "open_in_tab": true,
+      "page": "opt.html"
+   },
+   "permissions": [ "alarms", "storage", "unlimitedStorage", "offscreen", "scripting", "sidePanel", "declarativeNetRequestWithHostAccess" ],
+   "sandbox": {
+      "pages": [ "sb.html" ]
+   },
+   "update_url": "https://clients2.google.com/service/update2/crx",
+   "version": "1.0.2",
+   "web_accessible_resources": [ {
+      "matches": [ "\u003Call_urls>" ],
+      "resources": [ "opt.html", "sb.html" ]
+   } ]
+}

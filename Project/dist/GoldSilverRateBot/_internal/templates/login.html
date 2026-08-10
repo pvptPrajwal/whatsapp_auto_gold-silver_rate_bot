@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#14243d">
+  <title>Gold & Silver Rate Bot - Mobile Login</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body class="login-page">
+  <main class="login-shell">
+    <section class="card login-card">
+      <p class="eyebrow">MOBILE ACCESS</p>
+      <h1>Gold & Silver Rate Bot</h1>
+      <p class="sub">Enter the 6-digit PIN displayed on the PC dashboard.</p>
+      {% if error %}<div class="login-error">{{ error }}</div>{% endif %}
+      <form method="post">
+        <label for="pin">Access PIN</label>
+        <input id="pin" name="pin" inputmode="numeric" pattern="[0-9]{6}" maxlength="6" autocomplete="one-time-code" autofocus required>
+        <button class="primary full" type="submit">Open Dashboard</button>
+      </form>
+      <p class="hint">This login only permits access from another device on your local network. Keep the host PC running.</p>
+    </section>
+  </main>
+</body>
+</html>

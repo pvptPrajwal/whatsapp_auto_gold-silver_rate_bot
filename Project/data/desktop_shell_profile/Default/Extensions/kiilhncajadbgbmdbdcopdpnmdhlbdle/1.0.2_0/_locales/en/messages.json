@@ -1,0 +1,118 @@
+{
+   "action_required": {
+      "message": "Action required"
+   },
+   "add_extension": {
+      "message": "Add extension"
+   },
+   "allow_permissions": {
+      "message": "Allow Permissions"
+   },
+   "are_you_absolutely_sure": {
+      "message": "Are you absolutely sure?"
+   },
+   "cancel": {
+      "message": "Cancel"
+   },
+   "check_for_updates": {
+      "message": "Check for updates"
+   },
+   "choose_file": {
+      "message": "Choose file"
+   },
+   "complete_the_final_step_below_to_finish_installing_the_extension": {
+      "message": "Complete the final step below to finish installing the extension."
+   },
+   "continue": {
+      "message": "Continue"
+   },
+   "continue_installation": {
+      "message": "Continue installation"
+   },
+   "description": {
+      "message": "Effortlessly Launch Chrome Extensions with CRXLauncher"
+   },
+   "does_not_have_an_options_page": {
+      "message": "does not have an options page."
+   },
+   "done": {
+      "message": "Done"
+   },
+   "downloading": {
+      "message": "Downloading"
+   },
+   "downloading_extension": {
+      "message": "Downloading extension..."
+   },
+   "drag_and_drop_your_extension_file_here_or_click_to_browse": {
+      "message": "Drag and drop your extension file here or click to browse"
+   },
+   "extension_successfully_installed": {
+      "message": "Extension successfully installed"
+   },
+   "name": {
+      "message": "CRXLauncher"
+   },
+   "note_some_functionality_may_be_limited_due_to_unsupported_permissions": {
+      "message": "Note: Some functionality may be limited due to unsupported permissions."
+   },
+   "permissions": {
+      "message": "Permissions"
+   },
+   "remove": {
+      "message": "Remove"
+   },
+   "required_permissions": {
+      "message": "Required Permissions"
+   },
+   "retrieving_extension_package": {
+      "message": "Retrieving extension package"
+   },
+   "review_and_grant_permissions": {
+      "message": "Review and grant permissions"
+   },
+   "sec_seconds_remaining": {
+      "message": "$SEC$ seconds remaining",
+      "placeholders": {
+         "SEC": {
+            "content": "$1"
+         }
+      }
+   },
+   "this_action_cannot_be_undone_this_will_permanently_delete_extension_files_and_settings": {
+      "message": "This action cannot be undone. This will permanently delete extension files and settings."
+   },
+   "this_extension_needs_the_following_permissions": {
+      "message": "This extension needs the following permissions:"
+   },
+   "this_extension_requires_permissions_that_are_not_supported_by_crx_launcher": {
+      "message": "This extension requires permissions that are not supported by CRX Launcher."
+   },
+   "unsupported": {
+      "message": "Unsupported"
+   },
+   "unsupported_permissions_detected": {
+      "message": "Unsupported permissions detected"
+   },
+   "upload_extension_file": {
+      "message": "Upload extension file"
+   },
+   "upload_your_browser_extension_file_crx_or_zip": {
+      "message": "Upload your browser extension file (.crx or .zip)"
+   },
+   "validating": {
+      "message": "Validating"
+   },
+   "validating_extension": {
+      "message": "Validating extension..."
+   },
+   "verifying_extension_files": {
+      "message": "Verifying extension files"
+   },
+   "waiting_for_permissions": {
+      "message": "Waiting for permissions..."
+   },
+   "youtube_video_downloader_has_been_added_to_chrome_and_is_ready_to_use": {
+      "message": "YouTube Video Downloader has been added to Chrome and is ready to use."
+   }
+}

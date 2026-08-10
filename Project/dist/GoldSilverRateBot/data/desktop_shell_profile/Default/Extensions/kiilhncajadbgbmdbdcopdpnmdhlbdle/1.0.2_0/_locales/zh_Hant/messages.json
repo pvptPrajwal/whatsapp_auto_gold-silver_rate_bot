@@ -1,0 +1,118 @@
+{
+   "action_required": {
+      "message": "需要採取行動"
+   },
+   "add_extension": {
+      "message": "新增擴充功能"
+   },
+   "allow_permissions": {
+      "message": "允許權限"
+   },
+   "are_you_absolutely_sure": {
+      "message": "你完全確定嗎？"
+   },
+   "cancel": {
+      "message": "取消"
+   },
+   "check_for_updates": {
+      "message": "檢查更新"
+   },
+   "choose_file": {
+      "message": "選擇檔案"
+   },
+   "complete_the_final_step_below_to_finish_installing_the_extension": {
+      "message": "完成以下最後一步以完成擴充功能的安裝。"
+   },
+   "continue": {
+      "message": "繼續"
+   },
+   "continue_installation": {
+      "message": "繼續安裝"
+   },
+   "description": {
+      "message": "輕鬆啟動 Chrome 擴充功能，使用 CRXLauncher"
+   },
+   "does_not_have_an_options_page": {
+      "message": "沒有選項頁面。"
+   },
+   "done": {
+      "message": "完成"
+   },
+   "downloading": {
+      "message": "下載中"
+   },
+   "downloading_extension": {
+      "message": "正在下載擴充功能..."
+   },
+   "drag_and_drop_your_extension_file_here_or_click_to_browse": {
+      "message": "將您的擴展檔案拖放到此處或點擊瀏覽"
+   },
+   "extension_successfully_installed": {
+      "message": "擴充功能已成功安裝"
+   },
+   "name": {
+      "message": "CRXLauncher"
+   },
+   "note_some_functionality_may_be_limited_due_to_unsupported_permissions": {
+      "message": "注意：由於不支援的權限，某些功能可能會受到限制。"
+   },
+   "permissions": {
+      "message": "權限"
+   },
+   "remove": {
+      "message": "移除"
+   },
+   "required_permissions": {
+      "message": "所需權限"
+   },
+   "retrieving_extension_package": {
+      "message": "正在檢索擴展套件"
+   },
+   "review_and_grant_permissions": {
+      "message": "審查並授予權限"
+   },
+   "sec_seconds_remaining": {
+      "message": "$SEC$ 秒剩餘",
+      "placeholders": {
+         "SEC": {
+            "content": "$1"
+         }
+      }
+   },
+   "this_action_cannot_be_undone_this_will_permanently_delete_extension_files_and_settings": {
+      "message": "此操作無法撤銷。這將永久刪除擴展檔案和設定。"
+   },
+   "this_extension_needs_the_following_permissions": {
+      "message": "此擴充功能需要以下權限："
+   },
+   "this_extension_requires_permissions_that_are_not_supported_by_crx_launcher": {
+      "message": "此擴展需要 CRX Launcher 不支持的權限。"
+   },
+   "unsupported": {
+      "message": "不支援"
+   },
+   "unsupported_permissions_detected": {
+      "message": "檢測到不受支持的權限"
+   },
+   "upload_extension_file": {
+      "message": "上傳擴展檔案"
+   },
+   "upload_your_browser_extension_file_crx_or_zip": {
+      "message": "上傳您的瀏覽器擴充功能檔案（.crx 或 .zip）"
+   },
+   "validating": {
+      "message": "驗證中"
+   },
+   "validating_extension": {
+      "message": "正在驗證擴展..."
+   },
+   "verifying_extension_files": {
+      "message": "正在驗證擴展檔案"
+   },
+   "waiting_for_permissions": {
+      "message": "等待許可中..."
+   },
+   "youtube_video_downloader_has_been_added_to_chrome_and_is_ready_to_use": {
+      "message": "YouTube 影片下載器已新增至 Chrome，並已準備好使用。"
+   }
+}

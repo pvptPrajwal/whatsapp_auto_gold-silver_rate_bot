@@ -64,6 +64,23 @@ DEFAULT_TEMPLATE = (
 )
 ALLOWED_TEMPLATE_FIELDS = {"shift", "silver_rate", "gold_24k", "gold_22k", "date", "time"}
 
+SITE_DEFINITIONS = {
+    "safari": {"name": "Safari Bullions", "url": "https://www.safaribullions.com/"},
+    "navratna": {"name": "Shree Navratna Bullions", "url": "https://shreenavratnabullions.com/liverates.html"},
+}
+DEFAULT_GOLD_SOURCE = {
+    "site": "safari",
+    "tab": "",
+    "commodity": "GOLD INDIAN-BIS 995 1KG T+0",
+    "side": "SELL",
+}
+DEFAULT_SILVER_SOURCE = {
+    "site": "navratna",
+    "tab": "SILVER",
+    "commodity": "SILVER 999 (PETI CUT) + GST",
+    "side": "SELL",
+}
+
 # --- Global State for Web Server ---
 bot_state = {
     "is_running": False,
@@ -75,6 +92,7 @@ bot_state = {
     "events": [],
     "event_seq": 0,
     "active_jobs": 0,
+    "rate_catalog": {"items": [], "checked_at": None, "status": "not_scanned", "message": "Scan the websites to load available rate choices."},
 }
 state_lock = threading.RLock()
 scheduler_thread = None
@@ -178,6 +196,8 @@ def default_settings():
         "group_name": "",
         "s_margin": 0,
         "g_margin": 0,
+        "gold_source": dict(DEFAULT_GOLD_SOURCE),
+        "silver_source": dict(DEFAULT_SILVER_SOURCE),
         "time1": "10:00",
         "time2": "14:00",
         "time3": "18:00",
@@ -215,6 +235,30 @@ def _normalise_groups(raw_groups, legacy_group=""):
     return output
 
 
+def _normalise_source(value, default):
+    base = dict(default)
+    if isinstance(value, dict):
+        site = str(value.get("site", base["site"])).strip().lower()
+        if site in SITE_DEFINITIONS:
+            base["site"] = site
+        commodity = str(value.get("commodity", base["commodity"])).strip()
+        if commodity:
+            base["commodity"] = commodity
+        side = str(value.get("side", base["side"])).strip().upper()
+        if side in ("BUY", "SELL"):
+            base["side"] = side
+        base["tab"] = str(value.get("tab", base.get("tab", ""))).strip()
+    return base
+
+
+def _source_label(source):
+    source = source or {}
+    site = SITE_DEFINITIONS.get(source.get("site"), {}).get("name", source.get("site", "Unknown"))
+    tab = str(source.get("tab", "")).strip()
+    middle = f" · {tab}" if tab else ""
+    return f"{site}{middle} · {source.get('commodity', 'Unknown')} · {source.get('side', 'SELL')}"
+
+
 def load_settings():
     defaults = default_settings()
     if not SETTINGS_FILE.exists():
@@ -226,6 +270,8 @@ def load_settings():
                 defaults[key] = loaded[key]
         defaults["groups"] = _normalise_groups(loaded.get("groups", []), loaded.get("group_name", ""))
         defaults["group_name"] = defaults["groups"][0]["name"] if defaults["groups"] else ""
+        defaults["gold_source"] = _normalise_source(loaded.get("gold_source"), DEFAULT_GOLD_SOURCE)
+        defaults["silver_source"] = _normalise_source(loaded.get("silver_source"), DEFAULT_SILVER_SOURCE)
         if isinstance(loaded.get("templates"), dict):
             for key in defaults["templates"]:
                 value = loaded["templates"].get(key)
@@ -271,6 +317,8 @@ def save_settings(data):
         "group_name": groups[0]["name"] if groups else "",
         "s_margin": int(data.get("s_margin", existing.get("s_margin", 0))),
         "g_margin": int(data.get("g_margin", existing.get("g_margin", 0))),
+        "gold_source": _normalise_source(data.get("gold_source", existing.get("gold_source")), DEFAULT_GOLD_SOURCE),
+        "silver_source": _normalise_source(data.get("silver_source", existing.get("silver_source")), DEFAULT_SILVER_SOURCE),
         "time1": str(data.get("time1", existing.get("time1", "10:00"))),
         "time2": str(data.get("time2", existing.get("time2", "14:00"))),
         "time3": str(data.get("time3", existing.get("time3", "18:00"))),
@@ -329,105 +377,233 @@ with state_lock:
 
 
 # ---------------------------------------------------------------------------
-# EXISTING RATE FETCHING LOGIC
-# V7.2 rate selection:
-# - Silver: Shree Navratna "SILVER 999 (PETI CUT) + GST" right-side SELL rate.
-# - Gold: Safari "GOLD INDIAN-BIS 995 1KG T+0" right-side SELL rate.
+# CONFIGURABLE RATE DISCOVERY + FETCHING (V8)
+# The user can scan both websites, see the live rows, and save the exact
+# commodity + BUY/SELL side to use for the Gold and Silver outputs.
 # ---------------------------------------------------------------------------
-def fetch_rates(silver_margin, gold_margin):
-    log_msg("🚀 Starting Chrome in background...")
+def _new_rate_driver():
     service = Service(ChromeDriverManager().install())
     options = webdriver.ChromeOptions()
     options.add_argument('--headless')
     options.add_argument('--log-level=3')
-    driver = webdriver.Chrome(service=service, options=options)
+    options.add_argument('--window-size=1600,1200')
+    return webdriver.Chrome(service=service, options=options)
 
-    silver_rate, gold_rate = "Not Found", "Not Found"
 
+def _main_rate_number(text):
+    text = str(text or '').replace(',', '').strip()
+    if not text:
+        return None
+    first_line = text.splitlines()[0].strip()
+    nums = re.findall(r'\b\d{4,8}\b', first_line)
+    return int(nums[0]) if nums else None
+
+
+def _table_column_indexes(table):
+    indexes = {}
     try:
-        log_msg("⏳ Fetching Silver rates...")
-        driver.get("https://shreenavratnabullions.com/liverates.html")
-        time.sleep(6)
+        rows = table.find_elements(By.TAG_NAME, 'tr')[:4]
+        for row in rows:
+            cells = row.find_elements(By.TAG_NAME, 'th')
+            if not cells:
+                cells = row.find_elements(By.TAG_NAME, 'td')
+            for i, cell in enumerate(cells):
+                label = ' '.join(cell.text.upper().split())
+                if label == 'BUY' or label.startswith('BUY '):
+                    indexes['BUY'] = i
+                if label == 'SELL' or label.startswith('SELL '):
+                    indexes['SELL'] = i
+            if 'BUY' in indexes or 'SELL' in indexes:
+                break
+    except Exception:
+        pass
+    # Both target websites currently present commodity / buy / sell in this
+    # order. These fallbacks are used only when a header is not exposed.
+    indexes.setdefault('BUY', 1)
+    indexes.setdefault('SELL', 2)
+    return indexes
+
+
+def _catalog_from_visible_tables(driver, site, category=''):
+    found = []
+    seen = set()
+    try:
+        tables = driver.find_elements(By.TAG_NAME, 'table')
+    except Exception:
+        return found
+    for table in tables:
         try:
-            for tab in driver.find_elements(By.XPATH, "//*[text()='SILVER']"):
-                if tab.is_displayed():
-                    tab.click()
-                    time.sleep(2)
-                    break
-        except: pass
+            if not table.is_displayed():
+                continue
+            indexes = _table_column_indexes(table)
+            for row in table.find_elements(By.TAG_NAME, 'tr'):
+                cols = row.find_elements(By.TAG_NAME, 'td')
+                if len(cols) < 2:
+                    continue
+                commodity = cols[0].text.strip().splitlines()[0].strip()
+                if not commodity or commodity.upper() in ('COMMODITY', 'PRODUCT', 'DESCRIPTION'):
+                    continue
+                if not re.search(r'[A-Z]', commodity.upper()):
+                    continue
+                for side in ('BUY', 'SELL'):
+                    idx = indexes.get(side)
+                    if idx is None or idx >= len(cols):
+                        continue
+                    rate = _main_rate_number(cols[idx].text)
+                    if rate is None:
+                        continue
+                    key = (site, category.strip().upper(), ' '.join(commodity.upper().split()), side)
+                    if key in seen:
+                        continue
+                    seen.add(key)
+                    found.append({
+                        'site': site,
+                        'site_name': SITE_DEFINITIONS[site]['name'],
+                        'tab': category.strip(),
+                        'commodity': commodity,
+                        'side': side,
+                        'rate': rate,
+                    })
+        except StaleElementReferenceException:
+            continue
+        except Exception:
+            continue
+    return found
 
-        for _ in range(3):
-            try:
-                for row in driver.find_element(By.ID, "gvData_Trending_Silverr").find_elements(By.TAG_NAME, "tr"):
-                    cols = row.find_elements(By.TAG_NAME, "td")
-                    row_text = row.text.upper()
 
-                    # Silver target requested by the user:
-                    # SILVER 999 (PETI CUT) + GST -> use the RIGHT-SIDE SELL rate.
-                    if len(cols) >= 3 and "SILVER 999 (PETI CUT) + GST" in row_text:
-                        sell_text = cols[2].text.replace(',', '').strip()
-                        if sell_text:
-                            # The SELL cell can also contain High/Low values.
-                            # The first displayed number is the live highlighted SELL rate.
-                            first_line = sell_text.splitlines()[0].strip()
-                            nums = re.findall(r'\b\d{5,7}\b', first_line)
-                            if nums:
-                                selected_silver_rate = int(nums[0])
-                                silver_rate = selected_silver_rate + silver_margin
-                                log_msg(f"✅ Navratna Silver SELL rate selected: ₹ {selected_silver_rate}")
-                                break
-                if silver_rate != "Not Found": break
-            except StaleElementReferenceException:
-                time.sleep(2)
+def _click_tab_if_present(driver, label):
+    label = str(label or '').strip()
+    if not label:
+        return False
+    try:
+        xpath = "//*[normalize-space(text())=" + json.dumps(label) + "]"
+        for item in driver.find_elements(By.XPATH, xpath):
+            if item.is_displayed():
+                driver.execute_script("arguments[0].click();", item)
+                time.sleep(1.5)
+                return True
+    except Exception:
+        pass
+    return False
 
-        log_msg("⏳ Fetching Gold rates...")
-        driver.get("https://www.safaribullions.com/")
+
+def scan_rate_catalog():
+    log_msg('🔎 Scanning bullion websites for available rate choices...')
+    driver = _new_rate_driver()
+    items = []
+    try:
+        # Safari: collect every visible commodity row from the live-rate page.
+        driver.get(SITE_DEFINITIONS['safari']['url'])
         time.sleep(6)
+        safari_items = _catalog_from_visible_tables(driver, 'safari', 'LIVE RATES')
+        items.extend(safari_items)
+        log_msg(f"✅ Safari scan found {len(safari_items)} selectable BUY/SELL rates.")
 
-        for _ in range(3):
-            try:
-                for row in driver.find_element(By.ID, "gvData_Trending").find_elements(By.TAG_NAME, "tr"):
-                    row_text = row.text.upper()
+        # Navratna: walk the visible Live Rates / Silver / Coins tabs and collect
+        # all rows exposed on each tab. Duplicate rows are removed below.
+        driver.get(SITE_DEFINITIONS['navratna']['url'])
+        time.sleep(6)
+        nav_items = []
+        for tab in ('LIVE RATES', 'SILVER', 'COINS'):
+            _click_tab_if_present(driver, tab)
+            nav_items.extend(_catalog_from_visible_tables(driver, 'navratna', tab))
 
-                    # Gold target requested by the user:
-                    # GOLD INDIAN-BIS 995 1KG T+0 -> use the RIGHT-SIDE SELL rate.
-                    if "GOLD INDIAN-BIS 995 1KG T+0" in row_text:
-                        cols = row.find_elements(By.TAG_NAME, "td")
-                        rate_candidates = []
-
-                        # Each displayed price cell may also contain High/Low values.
-                        # The first number in a price cell is the live main rate.
-                        for col in cols[1:]:
-                            col_text = col.text.replace(',', '').strip()
-                            if not col_text:
-                                continue
-                            first_line = col_text.splitlines()[0].strip()
-                            nums = re.findall(r'\b\d{5,7}\b', first_line)
-                            if nums:
-                                rate_candidates.append(int(nums[0]))
-
-                        if len(rate_candidates) >= 2:
-                            # Website displays BUY on the left and SELL on the right.
-                            # We specifically need the right-side / highlighted SELL value.
-                            selected_gold_rate = rate_candidates[1]
-                            gold_rate = selected_gold_rate + gold_margin
-                            log_msg(f"✅ Safari Gold SELL rate selected: ₹ {selected_gold_rate}")
-                            break
-                        elif len(rate_candidates) == 1:
-                            # Defensive fallback if the website temporarily renders one price cell.
-                            selected_gold_rate = rate_candidates[0]
-                            gold_rate = selected_gold_rate + gold_margin
-                            log_msg(f"⚠️ Only one Gold rate cell found; using ₹ {selected_gold_rate}")
-                            break
-
-                if gold_rate != "Not Found": break
-            except StaleElementReferenceException:
-                time.sleep(2)
-    except Exception as e:
-        log_msg(f"⚠️ Scraping Error: {e}")
+        deduped_nav = []
+        nav_seen = set()
+        for item in nav_items:
+            key = (item['site'], item['tab'].upper(), ' '.join(item['commodity'].upper().split()), item['side'])
+            if key not in nav_seen:
+                nav_seen.add(key)
+                deduped_nav.append(item)
+        items.extend(deduped_nav)
+        log_msg(f"✅ Navratna scan found {len(deduped_nav)} selectable BUY/SELL rates.")
     finally:
         driver.quit()
-        log_msg("🛑 Chrome browser closed.")
+        log_msg('🛑 Rate scan browser closed.')
+
+    items.sort(key=lambda x: (x['site_name'], x.get('tab', ''), x['commodity'], x['side']))
+    with state_lock:
+        bot_state['rate_catalog'] = {
+            'items': items,
+            'checked_at': datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
+            'status': 'ready' if items else 'empty',
+            'message': f'{len(items)} selectable rates found.' if items else 'No selectable rates were detected.',
+        }
+    return items
+
+
+def _find_selected_rate_on_loaded_page(driver, source):
+    source = _normalise_source(source, DEFAULT_GOLD_SOURCE)
+    tab = source.get('tab', '')
+    if tab:
+        _click_tab_if_present(driver, tab)
+
+    target = ' '.join(source['commodity'].upper().split())
+    side = source['side']
+    for attempt in range(3):
+        try:
+            rows = driver.find_elements(By.XPATH, '//tr[td]')
+            for row in rows:
+                if not row.is_displayed():
+                    continue
+                cols = row.find_elements(By.TAG_NAME, 'td')
+                if len(cols) < 2:
+                    continue
+                commodity = ' '.join(cols[0].text.upper().split())
+                if commodity != target:
+                    continue
+                try:
+                    table = row.find_element(By.XPATH, './ancestor::table[1]')
+                    indexes = _table_column_indexes(table)
+                except Exception:
+                    indexes = {'BUY': 1, 'SELL': 2}
+                idx = indexes.get(side, 2 if side == 'SELL' else 1)
+                if idx >= len(cols):
+                    continue
+                rate = _main_rate_number(cols[idx].text)
+                if rate is not None:
+                    return rate
+        except StaleElementReferenceException:
+            pass
+        time.sleep(1.5)
+    return None
+
+
+def fetch_rates(silver_margin, gold_margin, silver_source=None, gold_source=None):
+    silver_source = _normalise_source(silver_source, DEFAULT_SILVER_SOURCE)
+    gold_source = _normalise_source(gold_source, DEFAULT_GOLD_SOURCE)
+    log_msg('🚀 Starting Chrome in background for selected rates...')
+    driver = _new_rate_driver()
+    silver_rate, gold_rate = 'Not Found', 'Not Found'
+
+    requests_by_site = {}
+    requests_by_site.setdefault(silver_source['site'], []).append(('silver', silver_source, int(silver_margin)))
+    requests_by_site.setdefault(gold_source['site'], []).append(('gold', gold_source, int(gold_margin)))
+
+    try:
+        for site, requests_for_site in requests_by_site.items():
+            definition = SITE_DEFINITIONS.get(site)
+            if not definition:
+                continue
+            log_msg(f"⏳ Opening {definition['name']}...")
+            driver.get(definition['url'])
+            time.sleep(6)
+            for output_name, source, margin in requests_for_site:
+                raw_rate = _find_selected_rate_on_loaded_page(driver, source)
+                if raw_rate is None:
+                    log_msg(f"❌ Selected {output_name.title()} rate not found: {_source_label(source)}")
+                    continue
+                final_rate = raw_rate + margin
+                log_msg(f"✅ {output_name.title()} selected: ₹ {raw_rate} + margin ₹ {margin} = ₹ {final_rate}")
+                if output_name == 'silver':
+                    silver_rate = final_rate
+                else:
+                    gold_rate = final_rate
+    except Exception as exc:
+        log_msg(f"⚠️ Scraping Error: {exc}")
+    finally:
+        driver.quit()
+        log_msg('🛑 Chrome browser closed.')
 
     return silver_rate, gold_rate
 
@@ -507,12 +683,14 @@ def execute_job(settings, shift_name):
         bot_state["active_jobs"] += 1
     try:
         log_msg(f"⏰ SCHEDULE ALERT! Starting {shift_name} process for {len(groups)} group(s)...")
-        s_rate, g_rate = fetch_rates(settings["s_margin"], settings["g_margin"])
+        s_rate, g_rate = fetch_rates(settings["s_margin"], settings["g_margin"], settings.get("silver_source"), settings.get("gold_source"))
         with state_lock:
             bot_state["latest_rates"] = {
                 "silver": s_rate,
                 "gold": g_rate,
                 "checked_at": datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+                "silver_source": _source_label(settings.get("silver_source", DEFAULT_SILVER_SOURCE)),
+                "gold_source": _source_label(settings.get("gold_source", DEFAULT_GOLD_SOURCE)),
             }
 
         if s_rate == "Not Found" or g_rate == "Not Found":
@@ -755,6 +933,57 @@ def api_events():
     return jsonify({"items": items, "latest": latest}), 200
 
 
+@app.route("/api/rates/catalog", methods=["GET"])
+def rate_catalog():
+    with state_lock:
+        catalog = dict(bot_state.get("rate_catalog") or {})
+        catalog["items"] = list(catalog.get("items") or [])
+    catalog["settings"] = {
+        "gold_source": load_settings().get("gold_source", DEFAULT_GOLD_SOURCE),
+        "silver_source": load_settings().get("silver_source", DEFAULT_SILVER_SOURCE),
+    }
+    return jsonify(catalog), 200
+
+
+@app.route("/api/rates/scan", methods=["POST"])
+def rate_scan():
+    try:
+        items = scan_rate_catalog()
+        return jsonify({
+            "status": "ok",
+            "message": f"Website scan complete. {len(items)} selectable rates found.",
+            "items": items,
+            "checked_at": bot_state["rate_catalog"].get("checked_at"),
+        }), 200
+    except Exception as exc:
+        log_msg(f"❌ Rate website scan failed: {exc}")
+        with state_lock:
+            bot_state["rate_catalog"] = {"items": [], "checked_at": datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"), "status": "error", "message": str(exc)}
+        return jsonify({"status": "error", "message": f"Website scan failed: {exc}"}), 500
+
+
+@app.route("/api/rates/test", methods=["POST"])
+def rate_test():
+    try:
+        data = save_settings(request.get_json(force=True))
+        s_rate, g_rate = fetch_rates(
+            data["s_margin"], data["g_margin"], data.get("silver_source"), data.get("gold_source")
+        )
+        with state_lock:
+            bot_state["latest_rates"] = {
+                "silver": s_rate,
+                "gold": g_rate,
+                "checked_at": datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+                "silver_source": _source_label(data.get("silver_source", DEFAULT_SILVER_SOURCE)),
+                "gold_source": _source_label(data.get("gold_source", DEFAULT_GOLD_SOURCE)),
+            }
+        if s_rate == "Not Found" or g_rate == "Not Found":
+            return jsonify({"status": "partial", "message": "One or more selected rates could not be found.", "silver": s_rate, "gold": g_rate}), 422
+        return jsonify({"status": "ok", "message": "Selected rates fetched successfully.", "silver": s_rate, "gold": g_rate}), 200
+    except Exception as exc:
+        return jsonify({"status": "error", "message": str(exc)}), 400
+
+
 @app.route("/api/template-preview", methods=["POST"])
 def template_preview():
     try:
@@ -784,7 +1013,7 @@ def system_info():
 
 @app.route("/health", methods=["GET"])
 def health():
-    return jsonify({"status": "ok", "version": "7"}), 200
+    return jsonify({"status": "ok", "version": "8"}), 200
 
 
 @app.route("/whatsapp/status", methods=["GET"])
@@ -822,7 +1051,7 @@ def auto_start_saved_schedule():
 if __name__ == "__main__":
     no_browser = "--no-browser" in sys.argv
     ip = local_ip_address()
-    print("\nGoldSilverBot V7")
+    print("\nGoldSilverBot V8")
     print("PC dashboard : http://127.0.0.1:5000")
     print(f"Mobile (same Wi-Fi): http://{ip}:5000")
     print(f"Mobile access PIN  : {MOBILE_PIN}\n")

@@ -1,22 +1,14 @@
-GOLDSILVERBOT V7 - START HERE
+GoldSilver Rate Bot V8
+======================
 
-IF V6 IS ALREADY WORKING:
-Use the V7 UPGRADE ZIP, not the clean ZIP.
-1. Close V6 completely.
-2. Back up the V6 folder.
-3. Copy the V7 upgrade files into the V6 folder and replace files.
-4. DO NOT delete or replace the existing data folder.
-5. Run run.bat.
+1. If upgrading from working V7.2, KEEP your existing data folder.
+2. Run install.bat only for a fresh installation.
+3. Run run.bat to open the desktop software.
+4. Open Rate Sources.
+5. Click Scan Website Rates.
+6. Choose the exact Gold rate and Silver rate you want.
+7. Click Save Rate Selection.
+8. Click Test Selected Rates.
+9. Once confirmed, use normal scheduling and WhatsApp sending.
 
-FIRST TEST AFTER UPGRADE:
-1. Dashboard > confirm WhatsApp status.
-2. Groups > confirm your existing group migrated automatically.
-3. Templates > Preview the Manual template.
-4. Dashboard > Fetch & Send Now.
-5. Automation > set retry count/delay and start schedule.
-
-WINDOWS EXE:
-Run build_windows_exe.bat after V7 is confirmed working.
-
-ANDROID:
-See mobile_android_source\README_BUILD_ANDROID.txt.
+To build a Windows EXE later, run build_desktop_exe.bat.

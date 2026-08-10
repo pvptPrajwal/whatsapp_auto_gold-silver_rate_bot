@@ -1,0 +1,118 @@
+{
+   "action_required": {
+      "message": "需要采取行动"
+   },
+   "add_extension": {
+      "message": "添加扩展件"
+   },
+   "allow_permissions": {
+      "message": "允许权限"
+   },
+   "are_you_absolutely_sure": {
+      "message": "你完全确定吗？"
+   },
+   "cancel": {
+      "message": "取消"
+   },
+   "check_for_updates": {
+      "message": "检查更新"
+   },
+   "choose_file": {
+      "message": "选择文件"
+   },
+   "complete_the_final_step_below_to_finish_installing_the_extension": {
+      "message": "完成以下最后一步以完成扩展的安装。"
+   },
+   "continue": {
+      "message": "继续"
+   },
+   "continue_installation": {
+      "message": "继续安装"
+   },
+   "description": {
+      "message": "使用CRXLauncher轻松启动Chrome扩展程序"
+   },
+   "does_not_have_an_options_page": {
+      "message": "没有选项页面。"
+   },
+   "done": {
+      "message": "完成"
+   },
+   "downloading": {
+      "message": "下载中"
+   },
+   "downloading_extension": {
+      "message": "正在下载扩展..."
+   },
+   "drag_and_drop_your_extension_file_here_or_click_to_browse": {
+      "message": "将您的扩展文件拖放到此处或点击浏览"
+   },
+   "extension_successfully_installed": {
+      "message": "扩展已成功安装"
+   },
+   "name": {
+      "message": "CRXLauncher"
+   },
+   "note_some_functionality_may_be_limited_due_to_unsupported_permissions": {
+      "message": "注意：由于不支持的权限，某些功能可能会受到限制。"
+   },
+   "permissions": {
+      "message": "权限"
+   },
+   "remove": {
+      "message": "移除"
+   },
+   "required_permissions": {
+      "message": "所需权限"
+   },
+   "retrieving_extension_package": {
+      "message": "正在检索扩展包"
+   },
+   "review_and_grant_permissions": {
+      "message": "审查并授予权限"
+   },
+   "sec_seconds_remaining": {
+      "message": "$SEC$秒剩余",
+      "placeholders": {
+         "SEC": {
+            "content": "$1"
+         }
+      }
+   },
+   "this_action_cannot_be_undone_this_will_permanently_delete_extension_files_and_settings": {
+      "message": "此操作无法撤销。这将永久删除扩展文件和设置。"
+   },
+   "this_extension_needs_the_following_permissions": {
+      "message": "此扩展需要以下权限："
+   },
+   "this_extension_requires_permissions_that_are_not_supported_by_crx_launcher": {
+      "message": "此扩展需要CRX Launcher不支持的权限。"
+   },
+   "unsupported": {
+      "message": "不支持"
+   },
+   "unsupported_permissions_detected": {
+      "message": "检测到不支持的权限"
+   },
+   "upload_extension_file": {
+      "message": "上传扩展文件"
+   },
+   "upload_your_browser_extension_file_crx_or_zip": {
+      "message": "上传您的浏览器扩展文件（.crx或.zip）"
+   },
+   "validating": {
+      "message": "验证"
+   },
+   "validating_extension": {
+      "message": "验证扩展中..."
+   },
+   "verifying_extension_files": {
+      "message": "验证扩展文件"
+   },
+   "waiting_for_permissions": {
+      "message": "等待权限中..."
+   },
+   "youtube_video_downloader_has_been_added_to_chrome_and_is_ready_to_use": {
+      "message": "YouTube视频下载器已添加到Chrome并可以使用。"
+   }
+}
