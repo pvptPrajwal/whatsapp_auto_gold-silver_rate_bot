@@ -1,0 +1,11 @@
+GOLDSILVERBOT V7 UPGRADE FROM WORKING V6
+
+1. Close V6 completely.
+2. Back up the V6 folder.
+3. Copy every file/folder from this upgrade package into the existing V6 project folder.
+4. Choose Replace when Windows asks.
+5. DO NOT delete or replace the existing data folder.
+6. whatsapp_manager.py is deliberately not included because the working V6 WhatsApp engine is unchanged.
+7. Run run.bat.
+
+Your old single WhatsApp group is automatically migrated into the new saved Groups list.

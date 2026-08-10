@@ -3,369 +3,288 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="theme-color" content="#14243d">
+  <meta name="theme-color" content="#10182b">
   <title>Gold & Silver Rate Bot</title>
+  <link rel="manifest" href="{{ url_for('static', filename='manifest.webmanifest') }}">
+  <link rel="icon" href="{{ url_for('static', filename='icon-192.png') }}">
   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-  <main class="shell">
-    <header class="topbar">
-      <div>
-        <p class="eyebrow">GOLD & SILVER AUTOMATION</p>
-        <h1>Rate Bot</h1>
-        <p class="sub">One dashboard for PC and mobile. Rate-fetching logic remains unchanged.</p>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-mark">GS</div>
+        <div><strong>Rate Bot</strong><small>Gold & Silver Automation</small></div>
       </div>
-      <div class="header-status">
-        <div id="botBadge" class="badge stopped">Scheduler stopped</div>
-        <div id="waBadge" class="badge neutral">WhatsApp checking</div>
+      <nav class="nav">
+        <button class="nav-item active" data-target="dashboard">Dashboard</button>
+        <button class="nav-item" data-target="destinations">Groups</button>
+        <button class="nav-item" data-target="templates">Templates</button>
+        <button class="nav-item" data-target="automation">Automation</button>
+        <button class="nav-item" data-target="history">History</button>
+      </nav>
+      <div class="sidebar-status">
+        <span id="waMiniDot" class="mini-dot neutral"></span>
+        <div><strong id="waMiniText">WhatsApp checking</strong><small id="botMiniText">Scheduler stopped</small></div>
       </div>
-    </header>
+    </aside>
 
-    {% if mobile_info %}
-    <section class="card mobile-access-card">
-      <div class="card-title-row">
+    <main class="content">
+      <header class="topbar">
         <div>
-          <p class="eyebrow">MOBILE ACCESS</p>
-          <h2>Use from your phone</h2>
+          <p class="eyebrow">GOLD & SILVER AUTOMATION</p>
+          <h1>Rate Bot</h1>
+          <p class="sub">V7 dashboard for PC and mobile control.</p>
         </div>
-        <span class="pill">Same Wi-Fi</span>
-      </div>
-      <div class="mobile-access-grid">
-        <div>
-          <span class="meta-label">Open on phone</span>
-          <code id="mobileUrl">{{ mobile_info.url }}</code>
+        <div class="top-actions">
+          <button id="notifyBtn" class="ghost" onclick="enableNotifications()">Enable notifications</button>
+          <span id="botBadge" class="badge stopped">Scheduler stopped</span>
+          <span id="waBadge" class="badge neutral">WhatsApp checking</span>
         </div>
-        <div>
-          <span class="meta-label">Access PIN</span>
-          <code>{{ mobile_info.pin }}</code>
-        </div>
-      </div>
-      <p class="hint">Keep this PC running. On a phone connected to the same Wi-Fi, open the address above and enter the PIN. WhatsApp automation continues on this PC.</p>
-    </section>
-    {% endif %}
+      </header>
 
-    <section class="summary-grid">
-      <article class="summary-card">
-        <span class="meta-label">Silver</span>
-        <strong id="silverRate">—</strong>
-        <small id="ratesTime">No rate fetched yet</small>
-      </article>
-      <article class="summary-card">
-        <span class="meta-label">Gold 24K</span>
-        <strong id="goldRate">—</strong>
-        <small>Per 10 gm</small>
-      </article>
-      <article class="summary-card">
-        <span class="meta-label">Sent today</span>
-        <strong id="todayCountBig">0</strong>
-        <small>Successful WhatsApp updates</small>
-      </article>
-      <article class="summary-card">
-        <span class="meta-label">Next scheduled</span>
-        <strong id="nextRun">—</strong>
-        <small id="nextRunLabel">Scheduler stopped</small>
-      </article>
-    </section>
+      {% if mobile_info %}
+      <section class="panel mobile-card">
+        <div class="panel-heading">
+          <div><p class="eyebrow">PHONE ACCESS</p><h2>Control from your phone</h2></div>
+          <span class="tag">Same Wi-Fi</span>
+        </div>
+        <div class="mobile-grid">
+          <div><span class="meta">Mobile address</span><code id="mobileUrl">{{ mobile_info.url }}</code></div>
+          <div><span class="meta">Access PIN</span><code>{{ mobile_info.pin }}</code></div>
+        </div>
+        <p class="hint">Keep this PC running. Open the address on your phone, enter the PIN, then add the page to your Home Screen for app-like access.</p>
+      </section>
+      {% endif %}
 
-    <section class="grid">
-      <div class="card wa-card">
-        <div class="card-title-row">
-          <div>
-            <p class="eyebrow">WHATSAPP</p>
-            <h2>Connection</h2>
+      <section id="dashboard" class="view active">
+        <div class="metric-grid">
+          <article class="metric dark"><span>Silver</span><strong id="silverRate">—</strong><small id="ratesTime">No rate fetched yet</small></article>
+          <article class="metric dark"><span>Gold 24K</span><strong id="goldRate">—</strong><small>Per 10 gm</small></article>
+          <article class="metric"><span>Sent today</span><strong id="todayCountBig">0</strong><small>Successful group sends</small></article>
+          <article class="metric"><span>Next scheduled</span><strong id="nextRun">—</strong><small id="nextRunLabel">Scheduler stopped</small></article>
+        </div>
+
+        <div class="two-col">
+          <section class="panel">
+            <div class="panel-heading"><div><p class="eyebrow">WHATSAPP</p><h2>Connection</h2></div><span id="waDot" class="status-dot neutral"></span></div>
+            <p id="waStatus" class="status-title">Checking session...</p>
+            <p id="waDetail" class="muted">Please wait.</p>
+            <div class="button-row">
+              <button id="connectBtn" class="primary" onclick="connectWhatsApp()">Connect WhatsApp</button>
+              <button class="secondary" onclick="validateWhatsApp()">Check Session</button>
+              <button class="danger-ghost" onclick="forgetWhatsApp()">Forget Session</button>
+            </div>
+          </section>
+
+          <section class="panel">
+            <div class="panel-heading"><div><p class="eyebrow">QUICK ACTION</p><h2>Send rates now</h2></div><span id="activeJobs" class="tag">Idle</span></div>
+            <p class="muted">Fetch current rates using the existing rate logic and send the selected manual template to every enabled group.</p>
+            <div class="button-row">
+              <button class="primary wide" onclick="sendNow()">Fetch & Send Now</button>
+              <button class="secondary" onclick="saveAll()">Save All Settings</button>
+            </div>
+          </section>
+        </div>
+
+        <section class="panel">
+          <div class="panel-heading"><div><p class="eyebrow">UPCOMING</p><h2>Next Runs</h2></div><span id="todayCount" class="tag">0 sent today</span></div>
+          <div id="nextRuns" class="next-runs"><span class="muted">Scheduler stopped.</span></div>
+        </section>
+
+        <section class="panel logs-panel">
+          <div class="panel-heading"><div><p class="eyebrow">ACTIVITY</p><h2>Live Logs</h2></div><button class="tiny secondary" onclick="clearLogView()">Clear view</button></div>
+          <pre id="logs">Loading...</pre>
+        </section>
+      </section>
+
+      <section id="destinations" class="view">
+        <section class="panel">
+          <div class="panel-heading"><div><p class="eyebrow">DESTINATIONS</p><h2>Saved WhatsApp Groups</h2></div><span id="groupCount" class="tag">0 groups</span></div>
+          <p class="muted">Add each group exactly as its name appears in WhatsApp Web. Enabled groups receive every scheduled update.</p>
+          <div class="add-group-row">
+            <input id="newGroupName" placeholder="e.g. Autowale">
+            <button class="primary" onclick="addGroup()">Add Group</button>
           </div>
-          <span id="waDot" class="status-dot neutral"></span>
-        </div>
-        <p id="waStatus" class="status-text">Checking session...</p>
-        <p id="waDetail" class="muted">Please wait.</p>
-        <div class="button-row">
-          <button id="connectBtn" class="primary" onclick="connectWhatsApp()">Connect WhatsApp</button>
-          <button class="secondary" onclick="validateWhatsApp()">Check Session</button>
-          <button class="danger-ghost" onclick="forgetWhatsApp()">Forget Session</button>
-        </div>
-        <p class="hint">The first login opens WhatsApp Web visibly on the host PC. Normal sends use the working hidden Selenium browser and do not take over the foreground.</p>
-      </div>
+          <div id="groupList" class="group-list"></div>
+        </section>
+      </section>
 
-      <div class="card">
-        <p class="eyebrow">DESTINATION</p>
-        <h2>WhatsApp Group</h2>
-        <label for="group_name">Exact group name</label>
-        <input id="group_name" value="{{ settings.group_name }}" placeholder="e.g. Autowale">
-        <p class="hint">Enter the group name exactly as it appears in WhatsApp Web.</p>
-      </div>
-    </section>
+      <section id="templates" class="view">
+        <section class="panel">
+          <div class="panel-heading"><div><p class="eyebrow">MESSAGES</p><h2>Editable Templates</h2></div><button class="secondary" onclick="resetTemplates()">Reset defaults</button></div>
+          <p class="hint">Allowed placeholders: <code>{shift}</code> <code>{silver_rate}</code> <code>{gold_24k}</code> <code>{gold_22k}</code> <code>{date}</code> <code>{time}</code></p>
+          <div class="template-tabs">
+            <button class="template-tab active" data-template="morning">Morning</button>
+            <button class="template-tab" data-template="afternoon">Afternoon</button>
+            <button class="template-tab" data-template="evening">Evening</button>
+            <button class="template-tab" data-template="manual">Manual</button>
+          </div>
+          <textarea id="templateEditor" rows="12"></textarea>
+          <div class="button-row">
+            <button class="primary" onclick="saveCurrentTemplate()">Save Template</button>
+            <button class="secondary" onclick="previewTemplate()">Preview</button>
+          </div>
+          <div id="templatePreview" class="message-preview hidden"></div>
+        </section>
+      </section>
 
-    <section class="card settings-card">
-      <div class="section-heading">
-        <div>
-          <p class="eyebrow">BOT SETTINGS</p>
-          <h2>Margins & Schedule</h2>
-        </div>
-        <span id="todayCount" class="counter">0 sent today</span>
-      </div>
+      <section id="automation" class="view">
+        <section class="panel">
+          <div class="panel-heading"><div><p class="eyebrow">AUTOMATION</p><h2>Margins, Schedule & Retry</h2></div><span id="automationState" class="tag">Stopped</span></div>
+          <div class="settings-grid">
+            <label><span>Silver margin (₹)</span><input id="s_margin" type="number" value="{{ settings.s_margin }}"></label>
+            <label><span>Gold margin (₹)</span><input id="g_margin" type="number" value="{{ settings.g_margin }}"></label>
+            <label><span>Morning</span><input id="time1" type="time" value="{{ settings.time1 }}"></label>
+            <label><span>Afternoon</span><input id="time2" type="time" value="{{ settings.time2 }}"></label>
+            <label><span>Evening</span><input id="time3" type="time" value="{{ settings.time3 }}"></label>
+            <label><span>Retries after failure</span><input id="retry_count" type="number" min="0" max="5" value="{{ settings.retry_count }}"></label>
+            <label><span>Retry delay (seconds)</span><input id="retry_delay" type="number" min="5" max="300" value="{{ settings.retry_delay }}"></label>
+          </div>
+          <label class="switch-row">
+            <input id="auto_start" type="checkbox" {% if settings.auto_start %}checked{% endif %}>
+            <span><strong>Auto-start saved schedule with the app</strong><small>Use together with Windows startup for unattended operation.</small></span>
+          </label>
+          <div class="button-row actions">
+            <button class="primary" onclick="startBot()">Start Daily Scheduler</button>
+            <button class="secondary" onclick="saveAll()">Save Settings</button>
+            <button class="danger" onclick="stopBot()">Stop Scheduler</button>
+          </div>
+        </section>
+      </section>
 
-      <div class="form-grid">
-        <div>
-          <label for="s_margin">Silver margin (₹)</label>
-          <input id="s_margin" type="number" value="{{ settings.s_margin }}">
-        </div>
-        <div>
-          <label for="g_margin">Gold margin (₹)</label>
-          <input id="g_margin" type="number" value="{{ settings.g_margin }}">
-        </div>
-        <div>
-          <label for="time1">Morning</label>
-          <input id="time1" type="time" value="{{ settings.time1 }}">
-        </div>
-        <div>
-          <label for="time2">Afternoon</label>
-          <input id="time2" type="time" value="{{ settings.time2 }}">
-        </div>
-        <div>
-          <label for="time3">Evening</label>
-          <input id="time3" type="time" value="{{ settings.time3 }}">
-        </div>
-      </div>
-
-      <label class="check-row" for="auto_start">
-        <input id="auto_start" type="checkbox" {% if settings.auto_start %}checked{% endif %}>
-        <span>
-          <strong>Automatically start the saved daily schedule when the app starts</strong>
-          <small>Recommended if you enable Windows startup.</small>
-        </span>
-      </label>
-
-      <div class="button-row actions">
-        <button class="primary" onclick="startBot()">Start Daily Scheduler</button>
-        <button class="secondary" onclick="sendNow()">Send Test / Send Now</button>
-        <button class="secondary" onclick="saveSettings()">Save Settings</button>
-        <button class="danger" onclick="stopBot()">Stop Scheduler</button>
-      </div>
-    </section>
-
-    <section class="card next-card">
-      <div class="section-heading">
-        <div>
-          <p class="eyebrow">UPCOMING</p>
-          <h2>Next Runs</h2>
-        </div>
-      </div>
-      <div id="nextRuns" class="next-runs"><span class="muted">Scheduler stopped.</span></div>
-    </section>
-
-    <section class="card history-card">
-      <div class="section-heading">
-        <div>
-          <p class="eyebrow">HISTORY</p>
-          <h2>Recent Messages</h2>
-        </div>
-        <button class="tiny secondary" onclick="refreshHistory()">Refresh</button>
-      </div>
-      <div class="table-wrap">
-        <table>
-          <thead>
-            <tr>
-              <th>Date & time</th>
-              <th>Update</th>
-              <th>Status</th>
-              <th>Silver</th>
-              <th>Gold</th>
-              <th>Group</th>
-            </tr>
-          </thead>
-          <tbody id="historyBody">
-            <tr><td colspan="6" class="muted">No history yet.</td></tr>
-          </tbody>
-        </table>
-      </div>
-    </section>
-
-    <section class="card logs-card">
-      <div class="section-heading">
-        <div>
-          <p class="eyebrow">ACTIVITY</p>
-          <h2>Live Logs</h2>
-        </div>
-      </div>
-      <pre id="logs">Loading...</pre>
-    </section>
-  </main>
+      <section id="history" class="view">
+        <section class="panel">
+          <div class="panel-heading"><div><p class="eyebrow">HISTORY</p><h2>Recent Messages</h2></div><button class="tiny secondary" onclick="refreshHistory()">Refresh</button></div>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Date & time</th><th>Update</th><th>Status</th><th>Attempts</th><th>Silver</th><th>Gold</th><th>Group</th><th>Detail</th></tr></thead>
+              <tbody id="historyBody"><tr><td colspan="8" class="muted">No history yet.</td></tr></tbody>
+            </table>
+          </div>
+        </section>
+      </section>
+    </main>
+  </div>
 
 <script>
+const INITIAL_SETTINGS = {{ settings|tojson }};
+const DEFAULT_TEMPLATE = `*{shift}*\n\n*SILVER RATE* : ₹ {silver_rate} /kg\n*GOLD RATE (24kt)* : ₹ {gold_24k} /10 gm\n*GOLD RATE (22kt)* : ₹ {gold_22k} /10 gm\n\n_Generated by Bot_`;
+let groups = Array.isArray(INITIAL_SETTINGS.groups) ? JSON.parse(JSON.stringify(INITIAL_SETTINGS.groups)) : [];
+let templates = Object.assign({morning:DEFAULT_TEMPLATE, afternoon:DEFAULT_TEMPLATE, evening:DEFAULT_TEMPLATE, manual:DEFAULT_TEMPLATE}, INITIAL_SETTINGS.templates || {});
+let currentTemplate = 'morning';
+let lastEventId = 0;
+
+function escapeHtml(value) {
+  return String(value ?? '').replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;').replaceAll('"','&quot;').replaceAll("'",'&#039;');
+}
+function toast(message, level='info') {
+  const el = document.createElement('div'); el.className = `toast ${level}`; el.textContent = message; document.body.appendChild(el);
+  setTimeout(()=>el.classList.add('show'),20); setTimeout(()=>{el.classList.remove('show'); setTimeout(()=>el.remove(),250)},3500);
+}
+async function postJson(url, body={}) {
+  const r = await fetch(url,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});
+  let d={}; try{d=await r.json()}catch(e){} if(!r.ok) throw new Error(d.message||d.status||'Request failed'); return d;
+}
 function payload() {
+  templates[currentTemplate] = document.getElementById('templateEditor').value;
   return {
-    group_name: document.getElementById('group_name').value.trim(),
+    groups,
     s_margin: document.getElementById('s_margin').value || 0,
     g_margin: document.getElementById('g_margin').value || 0,
     time1: document.getElementById('time1').value,
     time2: document.getElementById('time2').value,
     time3: document.getElementById('time3').value,
-    auto_start: document.getElementById('auto_start').checked
+    auto_start: document.getElementById('auto_start').checked,
+    retry_count: document.getElementById('retry_count').value || 0,
+    retry_delay: document.getElementById('retry_delay').value || 20,
+    templates
   };
 }
 
-async function postJson(url, body={}) {
-  const r = await fetch(url, {
-    method:'POST',
-    headers:{'Content-Type':'application/json'},
-    body:JSON.stringify(body)
-  });
-  let data = {};
-  try { data = await r.json(); } catch(e) {}
-  if (!r.ok) throw new Error(data.message || data.status || 'Request failed');
-  return data;
+// Navigation
+for (const btn of document.querySelectorAll('.nav-item')) btn.addEventListener('click',()=>{
+  document.querySelectorAll('.nav-item').forEach(x=>x.classList.remove('active')); btn.classList.add('active');
+  document.querySelectorAll('.view').forEach(x=>x.classList.remove('active')); document.getElementById(btn.dataset.target).classList.add('active');
+  if (window.innerWidth < 760) window.scrollTo({top:0,behavior:'smooth'});
+});
+
+// Groups
+function renderGroups(){
+  const list=document.getElementById('groupList'); document.getElementById('groupCount').textContent=`${groups.length} group${groups.length===1?'':'s'}`;
+  if(!groups.length){list.innerHTML='<div class="empty-state">No groups saved yet. Add the first WhatsApp group above.</div>';return;}
+  list.innerHTML=groups.map((g,i)=>`<div class="group-row"><label class="group-toggle"><input type="checkbox" ${g.enabled!==false?'checked':''} onchange="toggleGroup(${i},this.checked)"><span></span></label><div class="group-name"><strong>${escapeHtml(g.name)}</strong><small>${g.enabled!==false?'Enabled':'Disabled'}</small></div><button class="icon-btn" onclick="removeGroup(${i})" title="Remove">×</button></div>`).join('');
+}
+function addGroup(){
+  const input=document.getElementById('newGroupName'); const name=input.value.trim(); if(!name)return;
+  if(groups.some(g=>g.name.toLowerCase()===name.toLowerCase())){toast('That group is already saved.','warning');return;}
+  groups.push({name,enabled:true}); input.value=''; renderGroups(); toast('Group added. Save settings when ready.');
+}
+function removeGroup(i){groups.splice(i,1);renderGroups();}
+function toggleGroup(i,v){groups[i].enabled=v;renderGroups();}
+document.getElementById('newGroupName').addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();addGroup();}});
+renderGroups();
+
+// Templates
+function loadTemplateEditor(){document.getElementById('templateEditor').value=templates[currentTemplate]||DEFAULT_TEMPLATE; document.getElementById('templatePreview').classList.add('hidden');}
+for(const btn of document.querySelectorAll('.template-tab')) btn.addEventListener('click',()=>{
+  templates[currentTemplate]=document.getElementById('templateEditor').value;
+  document.querySelectorAll('.template-tab').forEach(x=>x.classList.remove('active'));btn.classList.add('active');currentTemplate=btn.dataset.template;loadTemplateEditor();
+});
+loadTemplateEditor();
+function saveCurrentTemplate(){templates[currentTemplate]=document.getElementById('templateEditor').value;saveAll();}
+async function previewTemplate(){
+  templates[currentTemplate]=document.getElementById('templateEditor').value;
+  try{const d=await postJson('/api/template-preview',{template:templates[currentTemplate]}); const p=document.getElementById('templatePreview');p.textContent=d.preview;p.classList.remove('hidden');}
+  catch(e){toast(e.message,'error');}
+}
+function resetTemplates(){if(!confirm('Reset all four message templates to the default format?'))return;templates={morning:DEFAULT_TEMPLATE,afternoon:DEFAULT_TEMPLATE,evening:DEFAULT_TEMPLATE,manual:DEFAULT_TEMPLATE};loadTemplateEditor();toast('Templates reset. Click Save Settings to persist.');}
+
+// WhatsApp
+async function connectWhatsApp(){try{const d=await postJson('/whatsapp/connect');toast(d.message);await refreshWhatsApp();}catch(e){toast(e.message,'error')}}
+async function validateWhatsApp(){try{const d=await postJson('/whatsapp/validate');toast(d.message);await refreshWhatsApp();}catch(e){toast(e.message,'error')}}
+async function forgetWhatsApp(){if(!confirm('Remove the saved WhatsApp login from this bot?'))return;try{const d=await postJson('/whatsapp/forget');toast(d.message);await refreshWhatsApp();}catch(e){toast(e.message,'error')}}
+async function refreshWhatsApp(){
+  try{const s=await(await fetch('/whatsapp/status')).json();const busy=['connecting','checking','sending'].includes(s.status);const good=s.status==='connected';
+    document.getElementById('waDot').className='status-dot '+(good?'good':busy?'busy':'bad');document.getElementById('waMiniDot').className='mini-dot '+(good?'good':busy?'busy':'bad');
+    document.getElementById('waStatus').textContent=(s.status||'unknown').replaceAll('_',' ').toUpperCase();document.getElementById('waDetail').textContent=(s.message||'')+(s.last_checked?' · Last checked '+s.last_checked:'');
+    document.getElementById('connectBtn').textContent=good?'Reconnect WhatsApp':'Connect WhatsApp';document.getElementById('connectBtn').disabled=busy;
+    document.getElementById('waBadge').textContent=good?'WhatsApp connected':busy?'WhatsApp busy':'WhatsApp disconnected';document.getElementById('waBadge').className='badge '+(good?'running':busy?'warning':'stopped');
+    document.getElementById('waMiniText').textContent=good?'WhatsApp connected':busy?'WhatsApp busy':'WhatsApp disconnected';
+  }catch(e){}
 }
 
-async function connectWhatsApp() {
-  try {
-    const d = await postJson('/whatsapp/connect');
-    toast(d.message || 'WhatsApp login started.');
-    await refreshWhatsApp();
-  } catch(e) { alert(e.message); }
+async function saveAll(){try{const d=await postJson('/settings/save',payload());groups=d.settings.groups||groups;templates=d.settings.templates||templates;renderGroups();toast(d.message||'Settings saved.','success');}catch(e){toast(e.message,'error')}}
+async function startBot(){try{const d=await postJson('/start',payload());toast(d.message,'success');await refreshLogs();}catch(e){toast(e.message,'error')}}
+async function stopBot(){try{const d=await postJson('/stop');toast(d.message);await refreshLogs();}catch(e){toast(e.message,'error')}}
+async function sendNow(){try{const d=await postJson('/send-now',payload());toast(d.message,'success');}catch(e){toast(e.message,'error')}}
+
+async function refreshLogs(){
+  try{const d=await(await fetch('/logs')).json();document.getElementById('logs').textContent=d.logs.join('\n');document.getElementById('todayCount').textContent=`${d.jobs_completed} sent today`;document.getElementById('todayCountBig').textContent=d.jobs_completed;
+    document.getElementById('botBadge').textContent=d.is_running?'Scheduler running':'Scheduler stopped';document.getElementById('botBadge').className='badge '+(d.is_running?'running':'stopped');document.getElementById('automationState').textContent=d.is_running?'Running':'Stopped';document.getElementById('botMiniText').textContent=d.is_running?'Scheduler running':'Scheduler stopped';
+    document.getElementById('activeJobs').textContent=d.active_jobs?`${d.active_jobs} job${d.active_jobs===1?'':'s'} active`:'Idle';
+    if(d.latest_rates){document.getElementById('silverRate').textContent=d.latest_rates.silver==='Not Found'?'Not Found':`₹ ${d.latest_rates.silver}`;document.getElementById('goldRate').textContent=d.latest_rates.gold==='Not Found'?'Not Found':`₹ ${d.latest_rates.gold}`;document.getElementById('ratesTime').textContent=`Fetched ${d.latest_rates.checked_at}`;}
+    const next=d.next_runs||[];const list=document.getElementById('nextRuns');if(next.length){document.getElementById('nextRun').textContent=next[0].at.split(' ')[1];document.getElementById('nextRunLabel').textContent=`${next[0].label} · ${next[0].at.split(' ')[0]}`;list.innerHTML=next.map(n=>`<div class="next-run-row"><span>${escapeHtml(n.label)}</span><strong>${escapeHtml(n.at)}</strong></div>`).join('');}else{document.getElementById('nextRun').textContent='—';document.getElementById('nextRunLabel').textContent='Scheduler stopped';list.innerHTML='<span class="muted">Scheduler stopped.</span>';}
+  }catch(e){}
 }
-async function validateWhatsApp() {
-  try {
-    const d = await postJson('/whatsapp/validate');
-    toast(d.message || 'Checking WhatsApp session.');
-    await refreshWhatsApp();
-  } catch(e) { alert(e.message); }
-}
-async function forgetWhatsApp() {
-  if (!confirm('Remove the saved WhatsApp login from this bot?')) return;
-  try {
-    const d = await postJson('/whatsapp/forget');
-    toast(d.message);
-    await refreshWhatsApp();
-  } catch(e) { alert(e.message); }
-}
-async function startBot() {
-  try {
-    const d = await postJson('/start', payload());
-    toast(d.message || 'Scheduler started.');
-    await refreshLogs();
-  } catch(e) { alert(e.message); }
-}
-async function stopBot() {
-  try {
-    const d = await postJson('/stop');
-    toast(d.message || 'Scheduler stopped.');
-    await refreshLogs();
-  } catch(e) { alert(e.message); }
-}
-async function saveSettings() {
-  try {
-    const d = await postJson('/settings/save', payload());
-    toast(d.message || 'Settings saved.');
-  } catch(e) { alert(e.message); }
-}
-async function sendNow() {
-  try {
-    const d = await postJson('/send-now', payload());
-    toast(d.message);
-  } catch(e) { alert(e.message); }
+function clearLogView(){document.getElementById('logs').textContent='Log view cleared. New activity will appear on the next refresh.';}
+async function refreshHistory(){
+  try{const d=await(await fetch('/history?limit=60')).json();const b=document.getElementById('historyBody');if(!d.items||!d.items.length){b.innerHTML='<tr><td colspan="8" class="muted">No history yet.</td></tr>';return;}
+    b.innerHTML=d.items.map(x=>`<tr><td>${escapeHtml(x.created_at)}</td><td>${escapeHtml(x.shift_name)}</td><td><span class="history-status ${x.status==='success'?'success':'failed'}">${escapeHtml(x.status)}</span></td><td>${escapeHtml(x.attempts||1)}</td><td>${escapeHtml(x.silver_rate||'—')}</td><td>${escapeHtml(x.gold_rate||'—')}</td><td>${escapeHtml(x.group_name)}</td><td title="${escapeHtml(x.detail||'')}">${escapeHtml((x.detail||'').slice(0,80))}</td></tr>`).join('');
+  }catch(e){}
 }
 
-function toast(message) {
-  const old = document.getElementById('toast');
-  if (old) old.remove();
-  const el = document.createElement('div');
-  el.id = 'toast';
-  el.className = 'toast';
-  el.textContent = message;
-  document.body.appendChild(el);
-  setTimeout(() => el.classList.add('show'), 10);
-  setTimeout(() => { el.classList.remove('show'); setTimeout(() => el.remove(), 250); }, 2800);
+async function enableNotifications(){
+  if(!('Notification' in window)){toast('This browser does not support notifications.','warning');return;}
+  const p=await Notification.requestPermission(); localStorage.setItem('ratebot_notifications',p==='granted'?'1':'0'); updateNotifyButton(); toast(p==='granted'?'Browser notifications enabled.':'Notifications were not enabled.',p==='granted'?'success':'warning');
+}
+function updateNotifyButton(){const enabled=localStorage.getItem('ratebot_notifications')==='1'&&('Notification'in window)&&Notification.permission==='granted';document.getElementById('notifyBtn').textContent=enabled?'Notifications on':'Enable notifications';}
+async function pollEvents(){
+  try{const d=await(await fetch(`/api/events?after=${lastEventId}`)).json();for(const ev of d.items||[]){lastEventId=Math.max(lastEventId,ev.id);toast(`${ev.title}: ${ev.message}`,ev.level);if(localStorage.getItem('ratebot_notifications')==='1'&&'Notification'in window&&Notification.permission==='granted'){new Notification(ev.title,{body:ev.message,icon:'/static/icon-192.png'});}}lastEventId=Math.max(lastEventId,d.latest||0);}catch(e){}
 }
 
-async function refreshWhatsApp() {
-  try {
-    const s = await (await fetch('/whatsapp/status')).json();
-    const dot = document.getElementById('waDot');
-    const status = document.getElementById('waStatus');
-    const detail = document.getElementById('waDetail');
-    const button = document.getElementById('connectBtn');
-    const badge = document.getElementById('waBadge');
-    const busy = ['connecting','checking','sending'].includes(s.status);
-    dot.className = 'status-dot ' + (s.status === 'connected' ? 'good' : (busy ? 'busy' : 'bad'));
-    status.textContent = (s.status || 'unknown').replaceAll('_',' ').toUpperCase();
-    detail.textContent = (s.message || '') + (s.last_checked ? '  Last checked: ' + s.last_checked : '');
-    button.textContent = s.status === 'connected' ? 'Reconnect WhatsApp' : 'Connect WhatsApp';
-    button.disabled = busy;
-    badge.textContent = s.status === 'connected' ? 'WhatsApp connected' : (busy ? 'WhatsApp busy' : 'WhatsApp disconnected');
-    badge.className = 'badge ' + (s.status === 'connected' ? 'running' : (busy ? 'warning' : 'stopped'));
-  } catch(e) {}
-}
-
-async function refreshLogs() {
-  try {
-    const d = await (await fetch('/logs')).json();
-    document.getElementById('logs').textContent = d.logs.join('\n');
-    document.getElementById('todayCount').textContent = `${d.jobs_completed} sent today`;
-    document.getElementById('todayCountBig').textContent = d.jobs_completed;
-
-    const badge = document.getElementById('botBadge');
-    badge.textContent = d.is_running ? 'Scheduler running' : 'Scheduler stopped';
-    badge.className = 'badge ' + (d.is_running ? 'running' : 'stopped');
-
-    if (d.latest_rates) {
-      document.getElementById('silverRate').textContent = d.latest_rates.silver === 'Not Found' ? 'Not Found' : `₹ ${d.latest_rates.silver}`;
-      document.getElementById('goldRate').textContent = d.latest_rates.gold === 'Not Found' ? 'Not Found' : `₹ ${d.latest_rates.gold}`;
-      document.getElementById('ratesTime').textContent = `Fetched ${d.latest_rates.checked_at}`;
-    }
-
-    const next = d.next_runs || [];
-    const nextRunEl = document.getElementById('nextRun');
-    const nextRunLabelEl = document.getElementById('nextRunLabel');
-    const list = document.getElementById('nextRuns');
-    if (next.length) {
-      nextRunEl.textContent = next[0].at.split(' ')[1];
-      nextRunLabelEl.textContent = `${next[0].label} · ${next[0].at.split(' ')[0]}`;
-      list.innerHTML = next.map(n => `<div class="next-run-row"><span>${escapeHtml(n.label)}</span><strong>${escapeHtml(n.at)}</strong></div>`).join('');
-    } else {
-      nextRunEl.textContent = '—';
-      nextRunLabelEl.textContent = 'Scheduler stopped';
-      list.innerHTML = '<span class="muted">Scheduler stopped.</span>';
-    }
-  } catch(e) {}
-}
-
-function escapeHtml(value) {
-  return String(value ?? '')
-    .replaceAll('&','&amp;')
-    .replaceAll('<','&lt;')
-    .replaceAll('>','&gt;')
-    .replaceAll('"','&quot;')
-    .replaceAll("'",'&#039;');
-}
-
-async function refreshHistory() {
-  try {
-    const d = await (await fetch('/history?limit=30')).json();
-    const body = document.getElementById('historyBody');
-    if (!d.items || !d.items.length) {
-      body.innerHTML = '<tr><td colspan="6" class="muted">No history yet.</td></tr>';
-      return;
-    }
-    body.innerHTML = d.items.map(item => {
-      const cls = item.status === 'success' ? 'success' : 'failed';
-      return `<tr>
-        <td>${escapeHtml(item.created_at)}</td>
-        <td>${escapeHtml(item.shift_name)}</td>
-        <td><span class="history-status ${cls}">${escapeHtml(item.status)}</span></td>
-        <td>${escapeHtml(item.silver_rate || '—')}</td>
-        <td>${escapeHtml(item.gold_rate || '—')}</td>
-        <td>${escapeHtml(item.group_name)}</td>
-      </tr>`;
-    }).join('');
-  } catch(e) {}
-}
-
-refreshWhatsApp();
-refreshLogs();
-refreshHistory();
-setInterval(refreshWhatsApp, 2500);
-setInterval(refreshLogs, 1500);
-setInterval(refreshHistory, 10000);
+updateNotifyButton();refreshWhatsApp();refreshLogs();refreshHistory();pollEvents();
+setInterval(refreshWhatsApp,2500);setInterval(refreshLogs,1500);setInterval(refreshHistory,10000);setInterval(pollEvents,1800);
 </script>
 </body>
 </html>

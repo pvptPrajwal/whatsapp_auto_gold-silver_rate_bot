@@ -1,32 +1,22 @@
-GOLDSILVERBOT V6 - START HERE
-=============================
+GOLDSILVERBOT V7 - START HERE
 
-1. Keep your working V5 folder as a backup.
-2. Extract V6 to a new folder.
-3. Run install.bat once.
-4. Run run.bat.
-5. Connect WhatsApp once if this is a fresh V6 installation.
-6. Enter the exact WhatsApp group name, margins and schedule.
-7. Click Save Settings, then Start Daily Scheduler.
+IF V6 IS ALREADY WORKING:
+Use the V7 UPGRADE ZIP, not the clean ZIP.
+1. Close V6 completely.
+2. Back up the V6 folder.
+3. Copy the V7 upgrade files into the V6 folder and replace files.
+4. DO NOT delete or replace the existing data folder.
+5. Run run.bat.
 
-MOBILE ACCESS
--------------
-While V6 is running, the PC dashboard shows:
-- Mobile URL (example: http://192.168.1.10:5000)
-- 6-digit access PIN
+FIRST TEST AFTER UPGRADE:
+1. Dashboard > confirm WhatsApp status.
+2. Groups > confirm your existing group migrated automatically.
+3. Templates > Preview the Manual template.
+4. Dashboard > Fetch & Send Now.
+5. Automation > set retry count/delay and start schedule.
 
-Open that URL from a phone on the same Wi-Fi and enter the PIN.
-If Windows blocks the phone connection, right-click allow_mobile_firewall.bat and Run as administrator.
+WINDOWS EXE:
+Run build_windows_exe.bat after V7 is confirmed working.
 
-WINDOWS AUTO START
-------------------
-1. Tick "Automatically start the saved daily schedule when the app starts" in the dashboard.
-2. Click Save Settings.
-3. Run enable_windows_startup.bat once.
-
-The bot will then launch silently when you sign in to Windows.
-
-IMPORTANT
----------
-The website rate-fetching logic is unchanged from the working V5 build.
-The mobile dashboard controls the bot running on the PC. The PC must remain powered on and connected to the network.
+ANDROID:
+See mobile_android_source\README_BUILD_ANDROID.txt.

@@ -1,3 +1,5 @@
-2026/08/10-14:38:56.979 a38 Reusing MANIFEST D:\Desktop\prajwal\whatsapp_auto_gold-silver_rate_bot\whatsapp_auto_gold-silver_rate_bot\Project\data\whatsapp_profile_v5\Default\Local Storage\leveldb/MANIFEST-000001
-2026/08/10-14:38:56.982 a38 Recovering log #3
-2026/08/10-14:38:56.983 a38 Reusing old log D:\Desktop\prajwal\whatsapp_auto_gold-silver_rate_bot\whatsapp_auto_gold-silver_rate_bot\Project\data\whatsapp_profile_v5\Default\Local Storage\leveldb/000003.log 
+2026/08/10-15:09:33.755 6020 Reusing MANIFEST D:\Desktop\prajwal\whatsapp_auto_gold-silver_rate_bot\whatsapp_auto_gold-silver_rate_bot\Project\data\whatsapp_profile_v5\Default\Local Storage\leveldb/MANIFEST-000001
+2026/08/10-15:09:33.758 6020 Recovering log #3
+2026/08/10-15:09:33.759 6020 Reusing old log D:\Desktop\prajwal\whatsapp_auto_gold-silver_rate_bot\whatsapp_auto_gold-silver_rate_bot\Project\data\whatsapp_profile_v5\Default\Local Storage\leveldb/000003.log 
+2026/08/10-15:10:20.406 5530 Level-0 table #5: started
+2026/08/10-15:10:20.482 5530 Level-0 table #5: 19763 bytes OK

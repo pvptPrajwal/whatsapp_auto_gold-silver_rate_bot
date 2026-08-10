@@ -4,5 +4,6 @@
   "g_margin": 0,
   "time1": "10:00",
   "time2": "14:00",
-  "time3": "18:00"
+  "time3": "18:00",
+  "auto_start": false
 }

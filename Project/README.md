@@ -1,35 +1,55 @@
-# GoldSilverBot V6
+# GoldSilverBot V7
 
-V6 builds on the working V5 architecture. It intentionally retains the V5 hidden, non-headless Selenium WhatsApp sender and preserves the existing `fetch_rates()` block exactly.
+V7 builds on the stable V5/V6 hidden-Selenium WhatsApp sender. The existing `fetch_rates()` block is unchanged.
 
-## New in V6
+## New in V7
 
-- Responsive dashboard for PC and phone browsers.
-- Same-Wi-Fi mobile access protected by a generated 6-digit PIN.
-- Persistent settings, including an optional auto-start schedule flag.
-- SQLite send history with success/failure records and the rates used.
-- Live current/last rates, sent-today count and next scheduled runs.
-- Windows Startup helper for silent launch.
-- Optional Windows Firewall helper for mobile access on private networks.
+- Multiple saved WhatsApp groups with enable/disable controls.
+- Separate editable Morning, Afternoon, Evening and Manual message templates.
+- Template placeholders: `{shift}`, `{silver_rate}`, `{gold_24k}`, `{gold_22k}`, `{date}`, `{time}`.
+- Automatic WhatsApp retries after a failed send, with configurable retry count and delay.
+- Browser/dashboard notifications for successful, partial and failed sends.
+- Redesigned responsive desktop/mobile dashboard.
+- Message history now records the target group and number of attempts.
+- One-click `build_windows_exe.bat` for creating a Windows EXE on the Windows PC.
+- `mobile_android_source` containing a native Android WebView client for the same backend.
 
-## Installation
+## Upgrade from working V6
 
-1. Extract to a new folder.
-2. Run `install.bat` once.
-3. Run `run.bat`.
-4. Complete WhatsApp linking if required.
-5. Configure and save the group, margins and three daily times.
+The safest method is to use the V7 upgrade ZIP supplied separately. Close V6, copy the V7 upgrade files over the V6 project, and **keep the existing `data` folder**. This preserves the WhatsApp browser profile/session and history.
 
-## Mobile use
+After upgrading, run `run.bat`.
 
-Keep the host PC running. The dashboard displays a LAN URL such as `http://192.168.1.10:5000` and a six-digit PIN. Open the URL from a phone connected to the same Wi-Fi and enter that PIN.
+## Multiple groups
 
-If Windows Firewall blocks access, right-click `allow_mobile_firewall.bat` and select **Run as administrator**. The helper opens TCP port 5000 only on the Windows **Private** network profile.
+Open **Groups**, enter the exact WhatsApp Web group name, and click **Add Group**. Disable a group with its switch without deleting it. Every enabled group receives scheduled and manual updates.
 
-## Windows auto-start
+## Message templates
 
-Enable **Automatically start the saved daily schedule when the app starts**, save settings, and then run `enable_windows_startup.bat` once. `disable_windows_startup.bat` removes the Startup shortcut.
+Open **Templates**. There are four independent templates. Use **Preview** before saving. Unknown placeholders are rejected when settings are saved.
 
-## Important architecture note
+## Retries
 
-The phone is currently a controller for the bot running on the Windows PC. WhatsApp Web automation and website scraping still execute on the PC. A later server/mobile-native version can remove the requirement for the PC to remain on.
+Open **Automation**. `Retries after failure = 2` means a maximum of 3 total attempts for each group. The retry delay is configurable from 5 to 300 seconds.
+
+## Notifications
+
+Click **Enable notifications** in the dashboard. Browser notifications work while the dashboard/browser is running and permission is granted. Send status also remains visible in History and Live Logs.
+
+## Windows EXE
+
+1. Run `install.bat` once.
+2. Run `build_windows_exe.bat`.
+3. The result is `dist\GoldSilverBot\GoldSilverBot.exe`.
+4. Keep the complete `dist\GoldSilverBot` folder together.
+5. To carry over the current WhatsApp login, copy the existing project `data` folder into `dist\GoldSilverBot\data` before first EXE use.
+
+The EXE is built on the user's Windows machine because Windows PyInstaller binaries must be produced in a Windows Python environment.
+
+## Android client
+
+The `mobile_android_source` folder is a small native Android client around the same backend. Build it using Android Studio. The Windows host continues to perform rate fetching, scheduling and WhatsApp sending. The Android phone connects to the Mobile URL shown on the PC dashboard and then uses the existing 6-digit mobile PIN.
+
+## Important architectural point
+
+V7 mobile control still depends on the host Windows PC being on and reachable. Moving the automation backend to an always-on cloud/server machine is a separate deployment phase. The current hidden Selenium WhatsApp mechanism is intentionally preserved because it is the version that has been proven to work on the user's PC.

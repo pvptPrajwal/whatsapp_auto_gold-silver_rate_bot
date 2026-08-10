@@ -1,4 +1,1 @@
-GoldSilverBot V6
-Desktop + same-Wi-Fi mobile dashboard
-Working V5 hidden-Selenium WhatsApp engine retained
-Existing fetch_rates() block preserved exactly
+7.0
