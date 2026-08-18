@@ -8,6 +8,18 @@
   "group_name": "Autowale",
   "s_margin": 0,
   "g_margin": 0,
+  "gold_source": {
+    "site": "safari",
+    "tab": "",
+    "commodity": "GOLD INDIAN-BIS 995 1KG T+0",
+    "side": "SELL"
+  },
+  "silver_source": {
+    "site": "navratna",
+    "tab": "SILVER",
+    "commodity": "SILVER 999 (PETI CUT) + GST",
+    "side": "SELL"
+  },
   "time1": "10:00",
   "time2": "14:00",
   "time3": "18:00",
