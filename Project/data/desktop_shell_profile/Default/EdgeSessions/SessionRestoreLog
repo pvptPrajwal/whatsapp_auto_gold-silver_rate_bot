@@ -1,6 +1,4 @@
-{"logTime": "0810/112212", "session": "START"}
-{"logTime": "0810/112230", "level": "INFO", "location": "components\\sessions\\core\\command_storage_manager.cc:618 operator()", "message": "No valid session file found: SessionRestore"}
-{"logTime": "0810/112230", "level": "INFO", "location": "components\\sessions\\core\\command_storage_manager.cc:618 operator()", "message": "Last session file not found for SessionType : SessionRestore"}
-{"logTime": "0810/112241", "session": "END"}
-{"logTime": "0810/112259", "session": "START"}
-{"logTime": "0810/112508", "session": "END"}
+{"logTime": "0818/183845", "session": "START"}
+{"logTime": "0818/183845", "level": "INFO", "location": "chrome\\browser\\sessions\\session_service_log.cc:326 EdgeLogSessionServiceMessage", "message": "SessionServiceEvent: kStart - {\r\n   \"crashed\": false,\r\n   \"type\": 0\r\n}\r\n"}
+{"logTime": "0818/190146", "level": "INFO", "location": "chrome\\browser\\sessions\\edge_exit_type_tracker.cc:192 SetExitTypeInternal", "message": "Clearing autorestore crash exit count for profile"}
+{"logTime": "0818/190146", "session": "END"}

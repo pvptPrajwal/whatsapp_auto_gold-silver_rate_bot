@@ -1,46 +1,31 @@
-2026-08-10 11:27:07.841: [INFO] CurrentProfilePath: D:\Desktop\prajwal\whatsapp_auto_gold-silver_rate_bot\whatsapp_auto_gold-silver_rate_bot\Project\dist\GoldSilverRateBot\data\desktop_shell_profile\Default
-2026-08-10 11:27:07.841: [INFO] Profiles total count: 1
-2026-08-10 11:27:07.841: [INFO] Profile: name=Profile 1 path=D:\Desktop\prajwal\whatsapp_auto_gold-silver_rate_bot\whatsapp_auto_gold-silver_rate_bot\Project\dist\GoldSilverRateBot\data\desktop_shell_profile\Default lastActive=2026-08-10T11:27:07.832Z
-2026-08-10 11:27:07.841: [INFO] LastUsedProfileDir: D:\Desktop\prajwal\whatsapp_auto_gold-silver_rate_bot\whatsapp_auto_gold-silver_rate_bot\Project\dist\GoldSilverRateBot\data\desktop_shell_profile\Default
-2026-08-10 11:27:07.841: [INFO] MostRecentlyActiveProfile: name=Profile 1 path=D:\Desktop\prajwal\whatsapp_auto_gold-silver_rate_bot\whatsapp_auto_gold-silver_rate_bot\Project\dist\GoldSilverRateBot\data\desktop_shell_profile\Default lastActive=2026-08-10T11:27:07.832Z
-2026-08-10 11:27:07.841: [INFO] OnDoneLoading sync enabled: 0
-2026-08-10 11:27:07.841: [INFO] BookmarkModelLoaded, ids_reassigned: 0
-2026-08-10 11:27:07.841: [INFO] BookmarksLoadDropped droppedNodes=0
-2026-08-10 11:27:07.841: [INFO] BookmarksSnapshot Startup total=0 bar=0 other=0 mobile=0 showBar=0 showBarNTP=1
-2026-08-10 11:27:09.063: [INFO] RecordSyncInitDuration has_sync_been_enabled: 0 state: 0
-2026-08-10 11:27:09.064: [INFO] RecordSyncInitDuration has_sync_been_enabled: 0 state: 3
-2026-08-10 11:27:09.065: [INFO] Primary account changed.
-2026-08-10 11:27:09.065: [INFO] OnPrimaryAccountChanged PrimaryAccountChangeEvent::Type::kSet
-2026-08-10 11:27:09.066: [INFO] RecordSyncInitDuration has_sync_been_enabled: 0 state: 3
-2026-08-10 11:27:09.089: [INFO] RecordSyncInitDuration has_sync_been_enabled: 0 state: 3
-2026-08-10 11:27:18.540: [INFO] BookmarkNodeAdded, ABU: 0
-2026-08-10 11:27:18.540: [INFO] BookmarkNodeAdded, ABU: 0
-2026-08-10 11:27:18.540: [INFO] BookmarkNodeAdded, ABU: 0
-2026-08-10 11:27:18.540: [INFO] BookmarkNodeAdded, ABU: 0
-2026-08-10 11:27:18.540: [INFO] BookmarkNodeAdded, ABU: 0
-2026-08-10 11:27:18.542: [INFO] BookmarkBarPrefChanged showBar=0 showBarNTP=0
-2026-08-10 11:27:24.622: [INFO] VisibilityChanged: 0
-2026-08-10 11:27:24.898: [INFO] Sync initialization duration: 15784ms
-2026-08-10 11:27:28.223: [INFO] BookmarksSnapshot Shutdown total=4 bar=5 other=0 mobile=0 showBar=1 showBarNTP=0
-2026-08-10 11:27:33.063: [INFO] CurrentProfilePath: D:\Desktop\prajwal\whatsapp_auto_gold-silver_rate_bot\whatsapp_auto_gold-silver_rate_bot\Project\dist\GoldSilverRateBot\data\desktop_shell_profile\Default
-2026-08-10 11:27:33.063: [INFO] Profiles total count: 1
-2026-08-10 11:27:33.063: [INFO] Profile: name=Personal path=D:\Desktop\prajwal\whatsapp_auto_gold-silver_rate_bot\whatsapp_auto_gold-silver_rate_bot\Project\dist\GoldSilverRateBot\data\desktop_shell_profile\Default lastActive=2026-08-10T11:27:33.050Z
-2026-08-10 11:27:33.063: [INFO] LastUsedProfileDir: D:\Desktop\prajwal\whatsapp_auto_gold-silver_rate_bot\whatsapp_auto_gold-silver_rate_bot\Project\dist\GoldSilverRateBot\data\desktop_shell_profile\Default
-2026-08-10 11:27:33.063: [INFO] MostRecentlyActiveProfile: name=Personal path=D:\Desktop\prajwal\whatsapp_auto_gold-silver_rate_bot\whatsapp_auto_gold-silver_rate_bot\Project\dist\GoldSilverRateBot\data\desktop_shell_profile\Default lastActive=2026-08-10T11:27:33.050Z
-2026-08-10 11:27:33.063: [INFO] OnDoneLoading sync enabled: 1
-2026-08-10 11:27:33.063: [INFO] BookmarkModelLoaded, ids_reassigned: 0
-2026-08-10 11:27:33.063: [INFO] BookmarksLoadDropped droppedNodes=0
-2026-08-10 11:27:33.063: [INFO] BookmarksSnapshot Startup total=4 bar=5 other=0 mobile=0 showBar=1 showBarNTP=0
-2026-08-10 11:27:33.926: [INFO] Sync initialization duration: 416ms
-2026-08-10 11:27:42.911: [INFO] BookmarksSnapshot Shutdown total=4 bar=5 other=0 mobile=0 showBar=1 showBarNTP=0
-2026-08-10 11:32:19.525: [INFO] CurrentProfilePath: D:\Desktop\prajwal\whatsapp_auto_gold-silver_rate_bot\whatsapp_auto_gold-silver_rate_bot\Project\dist\GoldSilverRateBot\data\desktop_shell_profile\Default
-2026-08-10 11:32:19.525: [INFO] Profiles total count: 1
-2026-08-10 11:32:19.526: [INFO] Profile: name=Personal path=D:\Desktop\prajwal\whatsapp_auto_gold-silver_rate_bot\whatsapp_auto_gold-silver_rate_bot\Project\dist\GoldSilverRateBot\data\desktop_shell_profile\Default lastActive=2026-08-10T11:32:19.517Z
-2026-08-10 11:32:19.526: [INFO] LastUsedProfileDir: D:\Desktop\prajwal\whatsapp_auto_gold-silver_rate_bot\whatsapp_auto_gold-silver_rate_bot\Project\dist\GoldSilverRateBot\data\desktop_shell_profile\Default
-2026-08-10 11:32:19.526: [INFO] MostRecentlyActiveProfile: name=Personal path=D:\Desktop\prajwal\whatsapp_auto_gold-silver_rate_bot\whatsapp_auto_gold-silver_rate_bot\Project\dist\GoldSilverRateBot\data\desktop_shell_profile\Default lastActive=2026-08-10T11:32:19.517Z
-2026-08-10 11:32:19.526: [INFO] OnDoneLoading sync enabled: 1
-2026-08-10 11:32:19.526: [INFO] BookmarkModelLoaded, ids_reassigned: 0
-2026-08-10 11:32:19.526: [INFO] BookmarksLoadDropped droppedNodes=0
-2026-08-10 11:32:19.526: [INFO] BookmarksSnapshot Startup total=4 bar=5 other=0 mobile=0 showBar=1 showBarNTP=0
-2026-08-10 11:32:20.378: [INFO] Sync initialization duration: 278ms
-2026-08-10 11:32:34.005: [INFO] BookmarksSnapshot Shutdown total=4 bar=5 other=0 mobile=0 showBar=1 showBarNTP=0
+2026-08-18 19:01:35.157: [INFO] CurrentProfilePath: C:\Users\Asus\Desktop\whatsapp_auto_gold-silver_rate_bot\Project\dist\GoldSilverRateBot\data\desktop_shell_profile\Default
+2026-08-18 19:01:35.158: [INFO] Profiles total count: 1
+2026-08-18 19:01:35.158: [INFO] Profile: name=Profile 1 path=C:\Users\Asus\Desktop\whatsapp_auto_gold-silver_rate_bot\Project\dist\GoldSilverRateBot\data\desktop_shell_profile\Default lastActive=2026-08-18T19:01:35.139Z
+2026-08-18 19:01:35.158: [INFO] LastUsedProfileDir: C:\Users\Asus\Desktop\whatsapp_auto_gold-silver_rate_bot\Project\dist\GoldSilverRateBot\data\desktop_shell_profile\Default
+2026-08-18 19:01:35.158: [INFO] MostRecentlyActiveProfile: name=Profile 1 path=C:\Users\Asus\Desktop\whatsapp_auto_gold-silver_rate_bot\Project\dist\GoldSilverRateBot\data\desktop_shell_profile\Default lastActive=2026-08-18T19:01:35.139Z
+2026-08-18 19:01:35.158: [INFO] OnDoneLoading sync enabled: 0
+2026-08-18 19:01:35.158: [INFO] BookmarkModelLoaded, ids_reassigned: 0
+2026-08-18 19:01:35.158: [INFO] BookmarksLoadDropped droppedNodes=0
+2026-08-18 19:01:35.158: [INFO] BookmarksSnapshot Startup total=0 bar=0 other=0 mobile=0 showBar=0 showBarNTP=1
+2026-08-18 19:01:35.158: [INFO] RecordSyncInitDuration has_sync_been_enabled: 0 state: 0
+2026-08-18 19:01:47.491: [INFO] BookmarksSnapshot Shutdown total=0 bar=0 other=0 mobile=0 showBar=0 showBarNTP=1
+2026-08-18 19:01:51.602: [INFO] CurrentProfilePath: C:\Users\Asus\Desktop\whatsapp_auto_gold-silver_rate_bot\Project\dist\GoldSilverRateBot\data\desktop_shell_profile\Default
+2026-08-18 19:01:51.602: [INFO] Profiles total count: 1
+2026-08-18 19:01:51.602: [INFO] Profile: name=Profile 1 path=C:\Users\Asus\Desktop\whatsapp_auto_gold-silver_rate_bot\Project\dist\GoldSilverRateBot\data\desktop_shell_profile\Default lastActive=2026-08-18T19:01:51.584Z
+2026-08-18 19:01:51.602: [INFO] LastUsedProfileDir: C:\Users\Asus\Desktop\whatsapp_auto_gold-silver_rate_bot\Project\dist\GoldSilverRateBot\data\desktop_shell_profile\Default
+2026-08-18 19:01:51.602: [INFO] MostRecentlyActiveProfile: name=Profile 1 path=C:\Users\Asus\Desktop\whatsapp_auto_gold-silver_rate_bot\Project\dist\GoldSilverRateBot\data\desktop_shell_profile\Default lastActive=2026-08-18T19:01:51.584Z
+2026-08-18 19:01:51.602: [INFO] OnDoneLoading sync enabled: 0
+2026-08-18 19:01:51.602: [INFO] BookmarkModelLoaded, ids_reassigned: 0
+2026-08-18 19:01:51.602: [INFO] BookmarksLoadDropped droppedNodes=0
+2026-08-18 19:01:51.602: [INFO] BookmarksSnapshot Startup total=0 bar=0 other=0 mobile=0 showBar=0 showBarNTP=1
+2026-08-18 19:04:41.946: [INFO] BookmarksSnapshot Shutdown total=0 bar=0 other=0 mobile=0 showBar=0 showBarNTP=1
+2026-08-18 19:04:46.063: [INFO] CurrentProfilePath: C:\Users\Asus\Desktop\whatsapp_auto_gold-silver_rate_bot\Project\dist\GoldSilverRateBot\data\desktop_shell_profile\Default
+2026-08-18 19:04:46.063: [INFO] Profiles total count: 1
+2026-08-18 19:04:46.063: [INFO] Profile: name=Profile 1 path=C:\Users\Asus\Desktop\whatsapp_auto_gold-silver_rate_bot\Project\dist\GoldSilverRateBot\data\desktop_shell_profile\Default lastActive=2026-08-18T19:04:46.040Z
+2026-08-18 19:04:46.063: [INFO] LastUsedProfileDir: C:\Users\Asus\Desktop\whatsapp_auto_gold-silver_rate_bot\Project\dist\GoldSilverRateBot\data\desktop_shell_profile\Default
+2026-08-18 19:04:46.063: [INFO] MostRecentlyActiveProfile: name=Profile 1 path=C:\Users\Asus\Desktop\whatsapp_auto_gold-silver_rate_bot\Project\dist\GoldSilverRateBot\data\desktop_shell_profile\Default lastActive=2026-08-18T19:04:46.040Z
+2026-08-18 19:04:46.063: [INFO] OnDoneLoading sync enabled: 0
+2026-08-18 19:04:46.063: [INFO] BookmarkModelLoaded, ids_reassigned: 0
+2026-08-18 19:04:46.063: [INFO] BookmarksLoadDropped droppedNodes=0
+2026-08-18 19:04:46.063: [INFO] BookmarksSnapshot Startup total=0 bar=0 other=0 mobile=0 showBar=0 showBarNTP=1
+2026-08-18 19:08:04.455: [INFO] BookmarksSnapshot Shutdown total=0 bar=0 other=0 mobile=0 showBar=0 showBarNTP=1

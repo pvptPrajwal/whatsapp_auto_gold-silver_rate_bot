@@ -1,1 +1,0 @@
-[{"action":{"requestHeaders":[{"header":"Extension","operation":"set","value":"crxlauncher"}],"type":"modifyHeaders"},"condition":{"resourceTypes":["main_frame"],"urlFilter":"*://crxlauncher.com/*"},"id":1,"priority":10}]

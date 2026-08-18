@@ -1,14 +1,14 @@
 GoldSilver Rate Bot V8
 ======================
 
-1. If upgrading from working V7.2, KEEP your existing data folder.
-2. Run install.bat only for a fresh installation.
-3. Run run.bat to open the desktop software.
-4. Open Rate Sources.
-5. Click Scan Website Rates.
-6. Choose the exact Gold rate and Silver rate you want.
-7. Click Save Rate Selection.
-8. Click Test Selected Rates.
-9. Once confirmed, use normal scheduling and WhatsApp sending.
+
+1. Run install.bat only for a fresh installation.
+2. Run run.bat to open the desktop software.
+3. Open Rate Sources.
+4. Click Scan Website Rates.
+5. Choose the exact Gold rate and Silver rate you want.
+6. Click Save Rate Selection.
+7. Click Test Selected Rates.
+8. Once confirmed, use normal scheduling and WhatsApp sending.
 
 To build a Windows EXE later, run build_desktop_exe.bat.

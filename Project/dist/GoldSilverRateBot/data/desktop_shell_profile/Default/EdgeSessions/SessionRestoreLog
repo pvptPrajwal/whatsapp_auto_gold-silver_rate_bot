@@ -1,8 +1,12 @@
-{"logTime": "0810/112707", "session": "START"}
-{"logTime": "0810/112721", "level": "INFO", "location": "components\\sessions\\core\\command_storage_manager.cc:618 operator()", "message": "No valid session file found: SessionRestore"}
-{"logTime": "0810/112721", "level": "INFO", "location": "components\\sessions\\core\\command_storage_manager.cc:618 operator()", "message": "Last session file not found for SessionType : SessionRestore"}
-{"logTime": "0810/112728", "session": "END"}
-{"logTime": "0810/112732", "session": "START"}
-{"logTime": "0810/112742", "session": "END"}
-{"logTime": "0810/113219", "session": "START"}
-{"logTime": "0810/113234", "session": "END"}
+{"logTime": "0818/190134", "session": "START"}
+{"logTime": "0818/190134", "level": "INFO", "location": "chrome\\browser\\sessions\\session_service_log.cc:326 EdgeLogSessionServiceMessage", "message": "SessionServiceEvent: kStart - {\r\n   \"crashed\": false,\r\n   \"type\": 0\r\n}\r\n"}
+{"logTime": "0818/190147", "level": "INFO", "location": "chrome\\browser\\sessions\\edge_exit_type_tracker.cc:192 SetExitTypeInternal", "message": "Clearing autorestore crash exit count for profile"}
+{"logTime": "0818/190147", "session": "END"}
+{"logTime": "0818/190151", "session": "START"}
+{"logTime": "0818/190151", "level": "INFO", "location": "chrome\\browser\\sessions\\session_service_log.cc:326 EdgeLogSessionServiceMessage", "message": "SessionServiceEvent: kStart - {\r\n   \"crashed\": false,\r\n   \"type\": 0\r\n}\r\n"}
+{"logTime": "0818/190441", "level": "INFO", "location": "chrome\\browser\\sessions\\edge_exit_type_tracker.cc:192 SetExitTypeInternal", "message": "Clearing autorestore crash exit count for profile"}
+{"logTime": "0818/190441", "session": "END"}
+{"logTime": "0818/190445", "session": "START"}
+{"logTime": "0818/190445", "level": "INFO", "location": "chrome\\browser\\sessions\\session_service_log.cc:326 EdgeLogSessionServiceMessage", "message": "SessionServiceEvent: kStart - {\r\n   \"crashed\": false,\r\n   \"type\": 0\r\n}\r\n"}
+{"logTime": "0818/190804", "level": "INFO", "location": "chrome\\browser\\sessions\\edge_exit_type_tracker.cc:192 SetExitTypeInternal", "message": "Clearing autorestore crash exit count for profile"}
+{"logTime": "0818/190804", "session": "END"}
