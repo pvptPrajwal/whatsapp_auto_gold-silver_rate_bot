@@ -1,6 +1,6 @@
 # 📈 WhatsApp Auto Gold & Silver Rate Bot
 
-![Banner Image](link_to_your_banner_image_here)
+
 
 An automated, Flask-based application that scrapes real-time Gold and Silver bullion rates and broadcasts formatted updates to specific WhatsApp groups on a customized daily schedule.
 
@@ -27,14 +27,20 @@ Instead of relying on expensive or restrictive official WhatsApp APIs, this bot 
 ## 📸 Screenshots
 
 ### Web Dashboard
-![Web Dashboard Screenshot](<img width="1919" height="1075" alt="image" src="https://github.com/user-attachments/assets/75950ff6-d4da-4f06-b9c0-9be9739c17ad" />
-)
+<img width="1919" height="1000" alt="image" src="https://github.com/user-attachments/assets/d7551866-061d-47b0-8e0e-bada77551f59" />
+
 
 ### Mobile Remote View
-![Mobile Dashboard Screenshot](link_to_your_mobile_view_image_here)
+<img width="1206" height="2622" alt="WhatsApp Image 2026-08-19 at 1 22 25 PM" src="https://github.com/user-attachments/assets/47330401-c487-4a3c-a5fb-a60ac5bccd1e" />
+
+
+<img width="1206" height="2622" alt="WhatsApp Image 2026-08-19 at 1 22 25 PM (1)" src="https://github.com/user-attachments/assets/f28127af-4b8a-4d3b-b715-6d85447c95cd" />
+
 
 ### Automated WhatsApp Broadcast
-![WhatsApp Message Screenshot](link_to_your_whatsapp_message_image_here)
+
+<img width="1206" height="2622" alt="WhatsApp Image 2026-08-19 at 1 22 25 PM (2)" src="https://github.com/user-attachments/assets/37d16a88-6d01-43d6-b0eb-b4f1e2fc928b" />
+
 
 ---
 
