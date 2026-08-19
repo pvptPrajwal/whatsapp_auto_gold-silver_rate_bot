@@ -21,6 +21,7 @@ from selenium.common.exceptions import StaleElementReferenceException
 
 from whatsapp_manager import WhatsAppManager
 
+
 # Resource files may live inside a PyInstaller bundle, while user data must stay
 # next to the EXE so WhatsApp/session/settings survive upgrades.
 SOURCE_DIR = Path(__file__).resolve().parent
@@ -56,7 +57,9 @@ MOBILE_PIN = _load_or_create_text(PIN_FILE, lambda: f"{secrets.randbelow(1000000
 app.permanent_session_lifetime = datetime.timedelta(days=30)
 
 DEFAULT_TEMPLATE = (
-    "*{shift}*\n\n"
+    "*{shift}*\n"
+    "📅 Date: {date}\n"
+    "⏰ Time: {time}\n\n"
     "*SILVER RATE* : ₹ {silver_rate} /kg\n"
     "*GOLD RATE (24kt)* : ₹ {gold_24k} /10 gm\n"
     "*GOLD RATE (22kt)* : ₹ {gold_22k} /10 gm\n\n"

@@ -1,0 +1,35 @@
+{
+  "groups": [
+    {
+      "name": "AUTO_GOLD_SILVER_BOT",
+      "enabled": true
+    }
+  ],
+  "group_name": "AUTO_GOLD_SILVER_BOT",
+  "s_margin": 0,
+  "g_margin": 0,
+  "gold_source": {
+    "site": "safari",
+    "tab": "",
+    "commodity": "GOLD INDIAN-BIS 995",
+    "side": "SELL"
+  },
+  "silver_source": {
+    "site": "navratna",
+    "tab": "SILVER",
+    "commodity": "SILVER",
+    "side": "SELL"
+  },
+  "time1": "15:30",
+  "time2": "15:34",
+  "time3": "15:42",
+  "auto_start": true,
+  "retry_count": 2,
+  "retry_delay": 20,
+  "templates": {
+    "morning": "🌟 Gayatri Jewellers & Vaishnavi Silver palace \n💰 Gold & Silver Live Rates 💰\n📅 Date: {date}\n🕒 Updated Time: {time}\n🔸 Gold Rates (22kt): ₹{gold_22k} /10gm\n🔸 Gold Rates (24kt):₹ {gold_24k} /10gm\n🔹 Silver Rate:₹ {silver_rate}/kg\n\n📌 Note: दर  रेट अपडेट होतात. कृपया खरेदीपूर्वी सध्याचे दर आम्हाला विचारून नक्की करा.\n📝 Rates are updated every 1 hour. Please confirm before purchase.\n\n📍 Visit us for best quality & service!\n📞 Contact: 8182839950\n📍 Address: Pundlik Nagar Rd, near Shivaji Maharaj Statue, Nyay Nagar, Chhatrapati Sambhajinagar, Maharashtra 431009",
+    "afternoon": "🌟 Gayatri Jewellers & Vaishnavi Silver palace \n💰 Gold & Silver Live Rates 💰\n📅 Date: {date}\n🕒 Updated Time: {time}\n🔸 Gold Rates (22kt): ₹{gold_22k} /10gm\n🔸 Gold Rates (24kt):₹ {gold_24k} /10gm\n🔹 Silver Rate:₹ {silver_rate}/kg\n\n📌 Note: दर  रेट अपडेट होतात. कृपया खरेदीपूर्वी सध्याचे दर आम्हाला विचारून नक्की करा.\n📝 Rates are updated every 1 hour. Please confirm before purchase.\n\n📍 Visit us for best quality & service!\n📞 Contact: 8182839950\n📍 Address: Pundlik Nagar Rd, near Shivaji Maharaj Statue, Nyay Nagar, Chhatrapati Sambhajinagar, Maharashtra 431009",
+    "evening": "🌟 Gayatri Jewellers & Vaishnavi Silver palace \n💰 Gold & Silver Live Rates 💰\n📅 Date: {date}\n🕒 Updated Time: {time}\n🔸 Gold Rates (22kt): ₹{gold_22k} /10gm\n🔸 Gold Rates (24kt):₹ {gold_24k} /10gm\n🔹 Silver Rate:₹ {silver_rate}/kg\n\n📌 Note: दर  रेट अपडेट होतात. कृपया खरेदीपूर्वी सध्याचे दर आम्हाला विचारून नक्की करा.\n📝 Rates are updated every 1 hour. Please confirm before purchase.\n\n📍 Visit us for best quality & service!\n📞 Contact: 8182839950\n📍 Address: Pundlik Nagar Rd, near Shivaji Maharaj Statue, Nyay Nagar, Chhatrapati Sambhajinagar, Maharashtra 431009",
+    "manual": "🌟 Gayatri Jewellers & Vaishnavi Silver palace \n💰 Gold & Silver Live Rates 💰\n📅 Date: {date}\n🕒 Updated Time: {time}\n🔸 Gold Rates (22kt): ₹{gold_22k} /10gm\n🔸 Gold Rates (24kt):₹ {gold_24k} /10gm\n🔹 Silver Rate:₹ {silver_rate}/kg\n\n📌 Note: दर  रेट अपडेट होतात. कृपया खरेदीपूर्वी सध्याचे दर आम्हाला विचारून नक्की करा.\n📝 Rates are updated every 1 hour. Please confirm before purchase.\n\n📍 Visit us for best quality & service!\n📞 Contact: 8182839950\n📍 Address: Pundlik Nagar Rd, near Shivaji Maharaj Statue, Nyay Nagar, Chhatrapati Sambhajinagar, Maharashtra 431009\n\n"
+  }
+}

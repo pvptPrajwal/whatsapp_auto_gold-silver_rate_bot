@@ -1,0 +1,388 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#10182b">
+  <title>Gold & Silver Rate Bot</title>
+  <link rel="manifest" href="/static/manifest.webmanifest">
+  <link rel="icon" href="/static/icon-192.png">
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-mark">GS</div>
+        <div><strong>Rate Bot</strong><small>Gold & Silver Automation</small></div>
+      </div>
+      <nav class="nav">
+        <button class="nav-item active" data-target="dashboard">Dashboard</button>
+        <button class="nav-item" data-target="ratesources">Rate Sources</button>
+        <button class="nav-item" data-target="destinations">Groups</button>
+        <button class="nav-item" data-target="templates">Templates</button>
+        <button class="nav-item" data-target="automation">Automation</button>
+        <button class="nav-item" data-target="history">History</button>
+      </nav>
+      <div class="sidebar-status">
+        <span id="waMiniDot" class="mini-dot neutral"></span>
+        <div><strong id="waMiniText">WhatsApp checking</strong><small id="botMiniText">Scheduler stopped</small></div>
+      </div>
+    </aside>
+
+    <main class="content">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">GOLD & SILVER AUTOMATION</p>
+          <h1>Rate Bot</h1>
+          <p class="sub">V8 desktop software with user-selectable website rates.</p>
+        </div>
+        <div class="top-actions">
+          <button id="notifyBtn" class="ghost" onclick="enableNotifications()">Enable notifications</button>
+          <span id="botBadge" class="badge stopped">Scheduler stopped</span>
+          <span id="waBadge" class="badge neutral">WhatsApp checking</span>
+        </div>
+      </header>
+
+      
+      <section class="panel mobile-card">
+        <div class="panel-heading">
+          <div><p class="eyebrow">PHONE ACCESS</p><h2>Control from your phone</h2></div>
+          <span class="tag">Same Wi-Fi</span>
+        </div>
+        <div class="mobile-grid">
+          <div><span class="meta">Mobile address</span><code id="mobileUrl">http://192.168.31.169:5000</code></div>
+          <div><span class="meta">Access PIN</span><code>890405</code></div>
+        </div>
+        <p class="hint">Keep this PC running. Open the address on your phone, enter the PIN, then add the page to your Home Screen for app-like access.</p>
+      </section>
+      
+
+      <section id="dashboard" class="view active">
+        <div class="metric-grid">
+          <article class="metric dark"><span>Silver</span><strong id="silverRate">—</strong><small id="silverRateSource">No source selected yet</small></article>
+          <article class="metric dark"><span>Gold 24K</span><strong id="goldRate">—</strong><small id="goldRateSource">No source selected yet</small></article>
+          <article class="metric"><span>Sent today</span><strong id="todayCountBig">0</strong><small>Successful group sends</small></article>
+          <article class="metric"><span>Next scheduled</span><strong id="nextRun">—</strong><small id="nextRunLabel">Scheduler stopped</small></article>
+        </div>
+
+        <div class="two-col">
+          <section class="panel">
+            <div class="panel-heading"><div><p class="eyebrow">WHATSAPP</p><h2>Connection</h2></div><span id="waDot" class="status-dot neutral"></span></div>
+            <p id="waStatus" class="status-title">Checking session...</p>
+            <p id="waDetail" class="muted">Please wait.</p>
+            <div class="button-row">
+              <button id="connectBtn" class="primary" onclick="connectWhatsApp()">Connect WhatsApp</button>
+              <button class="secondary" onclick="validateWhatsApp()">Check Session</button>
+              <button class="danger-ghost" onclick="forgetWhatsApp()">Forget Session</button>
+            </div>
+          </section>
+
+          <section class="panel">
+            <div class="panel-heading"><div><p class="eyebrow">QUICK ACTION</p><h2>Send rates now</h2></div><span id="activeJobs" class="tag">Idle</span></div>
+            <p class="muted">Fetch the exact Gold and Silver website rates selected under Rate Sources, apply margins, and send the manual template to every enabled group.</p>
+            <div class="button-row">
+              <button class="primary wide" onclick="sendNow()">Fetch & Send Now</button>
+              <button class="secondary" onclick="saveAll()">Save All Settings</button>
+            </div>
+          </section>
+        </div>
+
+        <section class="panel">
+          <div class="panel-heading"><div><p class="eyebrow">UPCOMING</p><h2>Next Runs</h2></div><span id="todayCount" class="tag">0 sent today</span></div>
+          <div id="nextRuns" class="next-runs"><span class="muted">Scheduler stopped.</span></div>
+        </section>
+
+        <section class="panel logs-panel">
+          <div class="panel-heading"><div><p class="eyebrow">ACTIVITY</p><h2>Live Logs</h2></div><button class="tiny secondary" onclick="clearLogView()">Clear view</button></div>
+          <pre id="logs">Loading...</pre>
+        </section>
+      </section>
+
+      <section id="ratesources" class="view">
+        <section class="panel">
+          <div class="panel-heading">
+            <div><p class="eyebrow">RATE SOURCES</p><h2>Choose the exact website rates</h2></div>
+            <span id="catalogStatus" class="tag">Not scanned</span>
+          </div>
+          <p class="muted">Click Scan Website Rates. The software reads the currently available commodity rows and BUY/SELL values from both bullion websites. Then choose the exact Gold and Silver source you want the bot to use.</p>
+          <div class="button-row">
+            <button id="scanRatesBtn" class="primary" onclick="scanWebsiteRates()">Scan Website Rates</button>
+            <button class="secondary" onclick="testSelectedRates()">Test Selected Rates</button>
+            <button class="secondary" onclick="saveAll()">Save Rate Selection</button>
+          </div>
+          <p id="catalogMessage" class="hint">No website scan has been run in this session.</p>
+        </section>
+
+        <div class="source-grid">
+          <section class="panel source-card gold-source">
+            <div class="panel-heading"><div><p class="eyebrow">GOLD OUTPUT</p><h2>Gold Rate Source</h2></div><span class="tag">Gold</span></div>
+            <label class="field"><span>Website</span><select id="goldSite" onchange="renderRateSelector('gold')"><option value="safari">Safari Bullions</option><option value="navratna">Shree Navratna Bullions</option></select></label>
+            <label class="field"><span>Rate to use</span><select id="goldRateChoice"></select></label>
+            <p id="goldSourceSummary" class="source-summary"></p>
+          </section>
+
+          <section class="panel source-card silver-source">
+            <div class="panel-heading"><div><p class="eyebrow">SILVER OUTPUT</p><h2>Silver Rate Source</h2></div><span class="tag">Silver</span></div>
+            <label class="field"><span>Website</span><select id="silverSite" onchange="renderRateSelector('silver')"><option value="navratna">Shree Navratna Bullions</option><option value="safari">Safari Bullions</option></select></label>
+            <label class="field"><span>Rate to use</span><select id="silverRateChoice"></select></label>
+            <p id="silverSourceSummary" class="source-summary"></p>
+          </section>
+        </div>
+
+        <section class="panel">
+          <div class="panel-heading"><div><p class="eyebrow">DISCOVERED LIVE RATES</p><h2>All rates found on the websites</h2></div><span id="catalogCount" class="tag">0 rates</span></div>
+          <div class="table-wrap rate-table-wrap">
+            <table class="rate-table">
+              <thead><tr><th>Website</th><th>Section</th><th>Commodity</th><th>Side</th><th>Current rate</th></tr></thead>
+              <tbody id="catalogBody"><tr><td colspan="5" class="muted">Click Scan Website Rates to load the current choices.</td></tr></tbody>
+            </table>
+          </div>
+        </section>
+      </section>
+
+      <section id="destinations" class="view">
+        <section class="panel">
+          <div class="panel-heading"><div><p class="eyebrow">DESTINATIONS</p><h2>Saved WhatsApp Groups</h2></div><span id="groupCount" class="tag">0 groups</span></div>
+          <p class="muted">Add each group exactly as its name appears in WhatsApp Web. Enabled groups receive every scheduled update.</p>
+          <div class="add-group-row">
+            <input id="newGroupName" placeholder="e.g. Autowale">
+            <button class="primary" onclick="addGroup()">Add Group</button>
+          </div>
+          <div id="groupList" class="group-list"></div>
+        </section>
+      </section>
+
+      <section id="templates" class="view">
+        <section class="panel">
+          <div class="panel-heading"><div><p class="eyebrow">MESSAGES</p><h2>Editable Templates</h2></div><button class="secondary" onclick="resetTemplates()">Reset defaults</button></div>
+          <p class="hint">Allowed placeholders: <code>{shift}</code> <code>{silver_rate}</code> <code>{gold_24k}</code> <code>{gold_22k}</code> <code>{date}</code> <code>{time}</code></p>
+          <div class="template-tabs">
+            <button class="template-tab active" data-template="morning">Morning</button>
+            <button class="template-tab" data-template="afternoon">Afternoon</button>
+            <button class="template-tab" data-template="evening">Evening</button>
+            <button class="template-tab" data-template="manual">Manual</button>
+          </div>
+          <textarea id="templateEditor" rows="12"></textarea>
+          <div class="button-row">
+            <button class="primary" onclick="saveCurrentTemplate()">Save Template</button>
+            <button class="secondary" onclick="previewTemplate()">Preview</button>
+          </div>
+          <div id="templatePreview" class="message-preview hidden"></div>
+        </section>
+      </section>
+
+      <section id="automation" class="view">
+        <section class="panel">
+          <div class="panel-heading"><div><p class="eyebrow">AUTOMATION</p><h2>Margins, Schedule & Retry</h2></div><span id="automationState" class="tag">Stopped</span></div>
+          <div class="settings-grid">
+            <label><span>Silver margin (₹)</span><input id="s_margin" type="number" value="0"></label>
+            <label><span>Gold margin (₹)</span><input id="g_margin" type="number" value="0"></label>
+            <label><span>Morning</span><input id="time1" type="time" value="10:00"></label>
+            <label><span>Afternoon</span><input id="time2" type="time" value="14:00"></label>
+            <label><span>Evening</span><input id="time3" type="time" value="18:00"></label>
+            <label><span>Retries after failure</span><input id="retry_count" type="number" min="0" max="5" value="2"></label>
+            <label><span>Retry delay (seconds)</span><input id="retry_delay" type="number" min="5" max="300" value="20"></label>
+          </div>
+          <label class="switch-row">
+            <input id="auto_start" type="checkbox" >
+            <span><strong>Auto-start saved schedule with the app</strong><small>Use together with Windows startup for unattended operation.</small></span>
+          </label>
+          <div class="button-row actions">
+            <button class="primary" onclick="startBot()">Start Daily Scheduler</button>
+            <button class="secondary" onclick="saveAll()">Save Settings</button>
+            <button class="danger" onclick="stopBot()">Stop Scheduler</button>
+          </div>
+        </section>
+      </section>
+
+      <section id="history" class="view">
+        <section class="panel">
+          <div class="panel-heading"><div><p class="eyebrow">HISTORY</p><h2>Recent Messages</h2></div><button class="tiny secondary" onclick="refreshHistory()">Refresh</button></div>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Date & time</th><th>Update</th><th>Status</th><th>Attempts</th><th>Silver</th><th>Gold</th><th>Group</th><th>Detail</th></tr></thead>
+              <tbody id="historyBody"><tr><td colspan="8" class="muted">No history yet.</td></tr></tbody>
+            </table>
+          </div>
+        </section>
+      </section>
+    </main>
+  </div>
+
+<script>
+const INITIAL_SETTINGS = {"auto_start": false, "g_margin": 0, "gold_source": {"commodity": "GOLD INDIAN-BIS 995", "side": "SELL", "site": "safari", "tab": ""}, "group_name": "", "groups": [], "retry_count": 2, "retry_delay": 20, "s_margin": 0, "silver_source": {"commodity": "SILVER", "side": "SELL", "site": "navratna", "tab": "SILVER"}, "templates": {"afternoon": "*{shift}*\n\n*SILVER RATE* : \u20b9 {silver_rate} /kg\n*GOLD RATE (24kt)* : \u20b9 {gold_24k} /10 gm\n*GOLD RATE (22kt)* : \u20b9 {gold_22k} /10 gm\n\n_Generated by Bot_", "evening": "*{shift}*\n\n*SILVER RATE* : \u20b9 {silver_rate} /kg\n*GOLD RATE (24kt)* : \u20b9 {gold_24k} /10 gm\n*GOLD RATE (22kt)* : \u20b9 {gold_22k} /10 gm\n\n_Generated by Bot_", "manual": "*{shift}*\n\n*SILVER RATE* : \u20b9 {silver_rate} /kg\n*GOLD RATE (24kt)* : \u20b9 {gold_24k} /10 gm\n*GOLD RATE (22kt)* : \u20b9 {gold_22k} /10 gm\n\n_Generated by Bot_", "morning": "*{shift}*\n\n*SILVER RATE* : \u20b9 {silver_rate} /kg\n*GOLD RATE (24kt)* : \u20b9 {gold_24k} /10 gm\n*GOLD RATE (22kt)* : \u20b9 {gold_22k} /10 gm\n\n_Generated by Bot_"}, "time1": "10:00", "time2": "14:00", "time3": "18:00"};
+const DEFAULT_TEMPLATE = `*{shift}*\n\n*SILVER RATE* : ₹ {silver_rate} /kg\n*GOLD RATE (24kt)* : ₹ {gold_24k} /10 gm\n*GOLD RATE (22kt)* : ₹ {gold_22k} /10 gm\n\n_Generated by Bot_`;
+let groups = Array.isArray(INITIAL_SETTINGS.groups) ? JSON.parse(JSON.stringify(INITIAL_SETTINGS.groups)) : [];
+let templates = Object.assign({morning:DEFAULT_TEMPLATE, afternoon:DEFAULT_TEMPLATE, evening:DEFAULT_TEMPLATE, manual:DEFAULT_TEMPLATE}, INITIAL_SETTINGS.templates || {});
+let currentTemplate = 'morning';
+let lastEventId = 0;
+let rateCatalog = [];
+let goldSource = Object.assign({}, INITIAL_SETTINGS.gold_source || {site:'safari',tab:'',commodity:'GOLD INDIAN-BIS 995 1KG T+0',side:'SELL'});
+let silverSource = Object.assign({}, INITIAL_SETTINGS.silver_source || {site:'navratna',tab:'SILVER',commodity:'SILVER 999 (PETI CUT) + GST',side:'SELL'});
+
+function escapeHtml(value) {
+  return String(value ?? '').replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;').replaceAll('"','&quot;').replaceAll("'",'&#039;');
+}
+function toast(message, level='info') {
+  const el = document.createElement('div'); el.className = `toast ${level}`; el.textContent = message; document.body.appendChild(el);
+  setTimeout(()=>el.classList.add('show'),20); setTimeout(()=>{el.classList.remove('show'); setTimeout(()=>el.remove(),250)},3500);
+}
+async function postJson(url, body={}) {
+  const r = await fetch(url,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});
+  let d={}; try{d=await r.json()}catch(e){} if(!r.ok) throw new Error(d.message||d.status||'Request failed'); return d;
+}
+function payload() {
+  templates[currentTemplate] = document.getElementById('templateEditor').value;
+  return {
+    groups,
+    s_margin: document.getElementById('s_margin').value || 0,
+    g_margin: document.getElementById('g_margin').value || 0,
+    time1: document.getElementById('time1').value,
+    time2: document.getElementById('time2').value,
+    time3: document.getElementById('time3').value,
+    auto_start: document.getElementById('auto_start').checked,
+    retry_count: document.getElementById('retry_count').value || 0,
+    retry_delay: document.getElementById('retry_delay').value || 20,
+    gold_source: readSelectedSource('gold'),
+    silver_source: readSelectedSource('silver'),
+    templates
+  };
+}
+
+// Navigation
+for (const btn of document.querySelectorAll('.nav-item')) btn.addEventListener('click',()=>{
+  document.querySelectorAll('.nav-item').forEach(x=>x.classList.remove('active')); btn.classList.add('active');
+  document.querySelectorAll('.view').forEach(x=>x.classList.remove('active')); document.getElementById(btn.dataset.target).classList.add('active');
+  if (window.innerWidth < 760) window.scrollTo({top:0,behavior:'smooth'});
+});
+
+// Rate Sources
+function sourceId(s){return [s.site||'',s.tab||'',String(s.commodity||'').trim().toLowerCase(),String(s.side||'').toUpperCase()].join('|');}
+function sourceText(item){const section=item.tab?` · ${item.tab}`:'';const rate=item.rate!=null?` — ₹ ${Number(item.rate).toLocaleString('en-IN')}`:'';return `${item.commodity} · ${item.side}${section}${rate}`;}
+function sourceFor(kind){return kind==='gold'?goldSource:silverSource;}
+function setSource(kind,value){if(kind==='gold')goldSource=value;else silverSource=value;}
+function compatibleItems(kind, site){
+  const token=kind==='gold'?'GOLD':'SILVER';
+  const sameSite=rateCatalog.filter(x=>x.site===site);
+  const preferred=sameSite.filter(x=>String(x.commodity||'').toUpperCase().includes(token));
+  return preferred.length?preferred:sameSite;
+}
+function renderRateSelector(kind){
+  const siteEl=document.getElementById(kind+'Site'); const choice=document.getElementById(kind+'RateChoice'); const summary=document.getElementById(kind+'SourceSummary');
+  const current=sourceFor(kind); const site=siteEl.value||current.site; siteEl.value=site;
+  const items=compatibleItems(kind,site); const currentId=sourceId(current);
+  let options=items.map(x=>`<option value="${escapeHtml(sourceId(x))}" ${sourceId(x)===currentId?'selected':''}>${escapeHtml(sourceText(x))}</option>`);
+  if(!items.some(x=>sourceId(x)===currentId) && current.site===site){options.unshift(`<option value="${escapeHtml(currentId)}" selected>Saved: ${escapeHtml(current.commodity)} · ${escapeHtml(current.side)}</option>`);}
+  if(!options.length) options=['<option value="">Scan website rates first</option>'];
+  choice.innerHTML=options.join('');
+  choice.onchange=()=>{const match=rateCatalog.find(x=>sourceId(x)===choice.value); if(match){setSource(kind,{site:match.site,tab:match.tab||'',commodity:match.commodity,side:match.side}); updateSourceSummary(kind);}};
+  const selected=rateCatalog.find(x=>sourceId(x)===choice.value); if(selected)setSource(kind,{site:selected.site,tab:selected.tab||'',commodity:selected.commodity,side:selected.side});
+  updateSourceSummary(kind);
+}
+function readSelectedSource(kind){
+  const choice=document.getElementById(kind+'RateChoice');
+  const match=rateCatalog.find(x=>sourceId(x)===choice.value);
+  if(match){const source={site:match.site,tab:match.tab||'',commodity:match.commodity,side:match.side};setSource(kind,source);return source;}
+  return sourceFor(kind);
+}
+function updateSourceSummary(kind){const s=sourceFor(kind);const siteName=s.site==='safari'?'Safari Bullions':'Shree Navratna Bullions';document.getElementById(kind+'SourceSummary').textContent=`Saved source: ${siteName}${s.tab?' · '+s.tab:''} · ${s.commodity} · ${s.side}`;}
+function renderCatalog(){
+  document.getElementById('catalogCount').textContent=`${rateCatalog.length} rate${rateCatalog.length===1?'':'s'}`;
+  const body=document.getElementById('catalogBody');
+  if(!rateCatalog.length){body.innerHTML='<tr><td colspan="5" class="muted">No live rates loaded yet.</td></tr>';return;}
+  body.innerHTML=rateCatalog.map(x=>`<tr><td>${escapeHtml(x.site_name||x.site)}</td><td>${escapeHtml(x.tab||'Live Rates')}</td><td>${escapeHtml(x.commodity)}</td><td><span class="side-pill ${x.side==='SELL'?'sell':'buy'}">${escapeHtml(x.side)}</span></td><td class="rate-number">₹ ${Number(x.rate).toLocaleString('en-IN')}</td></tr>`).join('');
+}
+async function scanWebsiteRates(){
+  const btn=document.getElementById('scanRatesBtn');btn.disabled=true;btn.textContent='Scanning websites...';document.getElementById('catalogStatus').textContent='Scanning';document.getElementById('catalogMessage').textContent='Opening the bullion websites in background. This normally takes several seconds.';
+  try{const d=await postJson('/api/rates/scan');rateCatalog=d.items||[];document.getElementById('catalogStatus').textContent='Ready';document.getElementById('catalogMessage').textContent=`${d.message} Last scan: ${d.checked_at||''}`;renderCatalog();renderRateSelector('gold');renderRateSelector('silver');toast(d.message,'success');}
+  catch(e){document.getElementById('catalogStatus').textContent='Error';document.getElementById('catalogMessage').textContent=e.message;toast(e.message,'error');}
+  finally{btn.disabled=false;btn.textContent='Scan Website Rates';}
+}
+async function loadRateCatalog(){
+  try{const d=await(await fetch('/api/rates/catalog')).json();rateCatalog=d.items||[];if(d.settings){goldSource=d.settings.gold_source||goldSource;silverSource=d.settings.silver_source||silverSource;}document.getElementById('catalogStatus').textContent=d.status==='ready'?'Ready':d.status==='error'?'Error':'Not scanned';document.getElementById('catalogMessage').textContent=d.message||'Scan the websites to load available rates.';renderCatalog();document.getElementById('goldSite').value=goldSource.site||'safari';document.getElementById('silverSite').value=silverSource.site||'navratna';renderRateSelector('gold');renderRateSelector('silver');}catch(e){}
+}
+async function testSelectedRates(){
+  try{const d=await postJson('/api/rates/test',payload());toast(`Selected rates: Silver ₹${d.silver} · Gold ₹${d.gold}`,'success');await refreshLogs();}
+  catch(e){toast(e.message,'error');await refreshLogs();}
+}
+
+// Groups
+function renderGroups(){
+  const list=document.getElementById('groupList'); document.getElementById('groupCount').textContent=`${groups.length} group${groups.length===1?'':'s'}`;
+  if(!groups.length){list.innerHTML='<div class="empty-state">No groups saved yet. Add the first WhatsApp group above.</div>';return;}
+  list.innerHTML=groups.map((g,i)=>`<div class="group-row"><label class="group-toggle"><input type="checkbox" ${g.enabled!==false?'checked':''} onchange="toggleGroup(${i},this.checked)"><span></span></label><div class="group-name"><strong>${escapeHtml(g.name)}</strong><small>${g.enabled!==false?'Enabled':'Disabled'}</small></div><button class="icon-btn" onclick="removeGroup(${i})" title="Remove">×</button></div>`).join('');
+}
+function addGroup(){
+  const input=document.getElementById('newGroupName'); const name=input.value.trim(); if(!name)return;
+  if(groups.some(g=>g.name.toLowerCase()===name.toLowerCase())){toast('That group is already saved.','warning');return;}
+  groups.push({name,enabled:true}); input.value=''; renderGroups(); toast('Group added. Save settings when ready.');
+}
+function removeGroup(i){groups.splice(i,1);renderGroups();}
+function toggleGroup(i,v){groups[i].enabled=v;renderGroups();}
+document.getElementById('newGroupName').addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();addGroup();}});
+renderGroups();
+
+// Templates
+function loadTemplateEditor(){document.getElementById('templateEditor').value=templates[currentTemplate]||DEFAULT_TEMPLATE; document.getElementById('templatePreview').classList.add('hidden');}
+for(const btn of document.querySelectorAll('.template-tab')) btn.addEventListener('click',()=>{
+  templates[currentTemplate]=document.getElementById('templateEditor').value;
+  document.querySelectorAll('.template-tab').forEach(x=>x.classList.remove('active'));btn.classList.add('active');currentTemplate=btn.dataset.template;loadTemplateEditor();
+});
+loadTemplateEditor();
+function saveCurrentTemplate(){templates[currentTemplate]=document.getElementById('templateEditor').value;saveAll();}
+async function previewTemplate(){
+  templates[currentTemplate]=document.getElementById('templateEditor').value;
+  try{const d=await postJson('/api/template-preview',{template:templates[currentTemplate]}); const p=document.getElementById('templatePreview');p.textContent=d.preview;p.classList.remove('hidden');}
+  catch(e){toast(e.message,'error');}
+}
+function resetTemplates(){if(!confirm('Reset all four message templates to the default format?'))return;templates={morning:DEFAULT_TEMPLATE,afternoon:DEFAULT_TEMPLATE,evening:DEFAULT_TEMPLATE,manual:DEFAULT_TEMPLATE};loadTemplateEditor();toast('Templates reset. Click Save Settings to persist.');}
+
+// WhatsApp
+async function connectWhatsApp(){try{const d=await postJson('/whatsapp/connect');toast(d.message);await refreshWhatsApp();}catch(e){toast(e.message,'error')}}
+async function validateWhatsApp(){try{const d=await postJson('/whatsapp/validate');toast(d.message);await refreshWhatsApp();}catch(e){toast(e.message,'error')}}
+async function forgetWhatsApp(){if(!confirm('Remove the saved WhatsApp login from this bot?'))return;try{const d=await postJson('/whatsapp/forget');toast(d.message);await refreshWhatsApp();}catch(e){toast(e.message,'error')}}
+async function refreshWhatsApp(){
+  try{const s=await(await fetch('/whatsapp/status')).json();const busy=['connecting','checking','sending'].includes(s.status);const good=s.status==='connected';
+    document.getElementById('waDot').className='status-dot '+(good?'good':busy?'busy':'bad');document.getElementById('waMiniDot').className='mini-dot '+(good?'good':busy?'busy':'bad');
+    document.getElementById('waStatus').textContent=(s.status||'unknown').replaceAll('_',' ').toUpperCase();document.getElementById('waDetail').textContent=(s.message||'')+(s.last_checked?' · Last checked '+s.last_checked:'');
+    document.getElementById('connectBtn').textContent=good?'Reconnect WhatsApp':'Connect WhatsApp';document.getElementById('connectBtn').disabled=busy;
+    document.getElementById('waBadge').textContent=good?'WhatsApp connected':busy?'WhatsApp busy':'WhatsApp disconnected';document.getElementById('waBadge').className='badge '+(good?'running':busy?'warning':'stopped');
+    document.getElementById('waMiniText').textContent=good?'WhatsApp connected':busy?'WhatsApp busy':'WhatsApp disconnected';
+  }catch(e){}
+}
+
+async function saveAll(){try{const d=await postJson('/settings/save',payload());groups=d.settings.groups||groups;templates=d.settings.templates||templates;goldSource=d.settings.gold_source||goldSource;silverSource=d.settings.silver_source||silverSource;renderGroups();renderRateSelector('gold');renderRateSelector('silver');toast(d.message||'Settings saved.','success');}catch(e){toast(e.message,'error')}}
+async function startBot(){try{const d=await postJson('/start',payload());toast(d.message,'success');await refreshLogs();}catch(e){toast(e.message,'error')}}
+async function stopBot(){try{const d=await postJson('/stop');toast(d.message);await refreshLogs();}catch(e){toast(e.message,'error')}}
+async function sendNow(){try{const d=await postJson('/send-now',payload());toast(d.message,'success');}catch(e){toast(e.message,'error')}}
+
+async function refreshLogs(){
+  try{const d=await(await fetch('/logs')).json();document.getElementById('logs').textContent=d.logs.join('\n');document.getElementById('todayCount').textContent=`${d.jobs_completed} sent today`;document.getElementById('todayCountBig').textContent=d.jobs_completed;
+    document.getElementById('botBadge').textContent=d.is_running?'Scheduler running':'Scheduler stopped';document.getElementById('botBadge').className='badge '+(d.is_running?'running':'stopped');document.getElementById('automationState').textContent=d.is_running?'Running':'Stopped';document.getElementById('botMiniText').textContent=d.is_running?'Scheduler running':'Scheduler stopped';
+    document.getElementById('activeJobs').textContent=d.active_jobs?`${d.active_jobs} job${d.active_jobs===1?'':'s'} active`:'Idle';
+    if(d.latest_rates){document.getElementById('silverRate').textContent=d.latest_rates.silver==='Not Found'?'Not Found':`₹ ${d.latest_rates.silver}`;document.getElementById('goldRate').textContent=d.latest_rates.gold==='Not Found'?'Not Found':`₹ ${d.latest_rates.gold}`;document.getElementById('silverRateSource').textContent=(d.latest_rates.silver_source||'Selected Silver source')+` · ${d.latest_rates.checked_at}`;document.getElementById('goldRateSource').textContent=(d.latest_rates.gold_source||'Selected Gold source')+` · ${d.latest_rates.checked_at}`;}
+    const next=d.next_runs||[];const list=document.getElementById('nextRuns');if(next.length){document.getElementById('nextRun').textContent=next[0].at.split(' ')[1];document.getElementById('nextRunLabel').textContent=`${next[0].label} · ${next[0].at.split(' ')[0]}`;list.innerHTML=next.map(n=>`<div class="next-run-row"><span>${escapeHtml(n.label)}</span><strong>${escapeHtml(n.at)}</strong></div>`).join('');}else{document.getElementById('nextRun').textContent='—';document.getElementById('nextRunLabel').textContent='Scheduler stopped';list.innerHTML='<span class="muted">Scheduler stopped.</span>';}
+  }catch(e){}
+}
+function clearLogView(){document.getElementById('logs').textContent='Log view cleared. New activity will appear on the next refresh.';}
+async function refreshHistory(){
+  try{const d=await(await fetch('/history?limit=60')).json();const b=document.getElementById('historyBody');if(!d.items||!d.items.length){b.innerHTML='<tr><td colspan="8" class="muted">No history yet.</td></tr>';return;}
+    b.innerHTML=d.items.map(x=>`<tr><td>${escapeHtml(x.created_at)}</td><td>${escapeHtml(x.shift_name)}</td><td><span class="history-status ${x.status==='success'?'success':'failed'}">${escapeHtml(x.status)}</span></td><td>${escapeHtml(x.attempts||1)}</td><td>${escapeHtml(x.silver_rate||'—')}</td><td>${escapeHtml(x.gold_rate||'—')}</td><td>${escapeHtml(x.group_name)}</td><td title="${escapeHtml(x.detail||'')}">${escapeHtml((x.detail||'').slice(0,80))}</td></tr>`).join('');
+  }catch(e){}
+}
+
+async function enableNotifications(){
+  if(!('Notification' in window)){toast('This browser does not support notifications.','warning');return;}
+  const p=await Notification.requestPermission(); localStorage.setItem('ratebot_notifications',p==='granted'?'1':'0'); updateNotifyButton(); toast(p==='granted'?'Browser notifications enabled.':'Notifications were not enabled.',p==='granted'?'success':'warning');
+}
+function updateNotifyButton(){const enabled=localStorage.getItem('ratebot_notifications')==='1'&&('Notification'in window)&&Notification.permission==='granted';document.getElementById('notifyBtn').textContent=enabled?'Notifications on':'Enable notifications';}
+async function pollEvents(){
+  try{const d=await(await fetch(`/api/events?after=${lastEventId}`)).json();for(const ev of d.items||[]){lastEventId=Math.max(lastEventId,ev.id);toast(`${ev.title}: ${ev.message}`,ev.level);if(localStorage.getItem('ratebot_notifications')==='1'&&'Notification'in window&&Notification.permission==='granted'){new Notification(ev.title,{body:ev.message,icon:'/static/icon-192.png'});}}lastEventId=Math.max(lastEventId,d.latest||0);}catch(e){}
+}
+
+updateNotifyButton();loadRateCatalog();refreshWhatsApp();refreshLogs();refreshHistory();pollEvents();
+setInterval(refreshWhatsApp,2500);setInterval(refreshLogs,1500);setInterval(refreshHistory,10000);setInterval(pollEvents,1800);
+</script>
+</body>
+</html>

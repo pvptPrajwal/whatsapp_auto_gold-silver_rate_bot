@@ -512,7 +512,14 @@ class WhatsAppManager:
         lines = message.splitlines() or [message]
         for index, line in enumerate(lines):
             if line:
-                target.send_keys(line)
+                try:
+                    # Naya JS Logic jo emojis (Non-BMP characters) ko support karta hai
+                    driver.execute_script("document.execCommand('insertText', false, arguments[0]);", line)
+                except Exception:
+                    # Agar JS fail ho jaye toh emojis hata kar send karega
+                    safe_line = "".join(c for c in line if ord(c) <= 0xFFFF)
+                    target.send_keys(safe_line)
+                    
             if index < len(lines) - 1:
                 target.send_keys(Keys.SHIFT, Keys.ENTER)
         target.send_keys(Keys.ENTER)
